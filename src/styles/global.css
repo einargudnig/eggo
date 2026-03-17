@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand: #34d399;
+  --color-brand-dark: #059669;
+  --color-surface: #0a0a0a;
+  --color-surface-elevated: #141414;
+  --color-surface-subtle: #1a1a1a;
+  --color-text-primary: #fafafa;
+  --color-text-secondary: #a3a3a3;
+  --color-text-muted: #525252;
+  --color-border: #262626;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background-color: var(--color-brand);
+  color: var(--color-surface);
+}
+
+/* Light mode overrides */
+html.light {
+  --color-surface: #fafafa;
+  --color-surface-elevated: #ffffff;
+  --color-surface-subtle: #f5f5f5;
+  --color-text-primary: #0a0a0a;
+  --color-text-secondary: #525252;
+  --color-text-muted: #a3a3a3;
+  --color-border: #e5e5e5;
+  --color-brand: #059669;
+  --color-brand-dark: #047857;
+}
+
+/* Theme transition overlay */
+.theme-transition-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  pointer-events: none;
+  clip-path: circle(0% at var(--tx, 50%) var(--ty, 50%));
+}
+
+.theme-transition-overlay.expanding {
+  animation: theme-reveal 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes theme-reveal {
+  to {
+    clip-path: circle(150% at var(--tx, 50%) var(--ty, 50%));
+  }
+}
