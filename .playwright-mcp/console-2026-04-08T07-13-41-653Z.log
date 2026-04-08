@@ -1,0 +1,7 @@
+[     425ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ https://va.vercel-scripts.com/v1/script.debug.js:0
+[     426ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /, path: /} @ https://va.vercel-scripts.com/v1/script.debug.js:0
+[     426ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:4323/ color: rgb(120, 120, 120) color: inherit {o: http://localhost:4323/, sv: 0.1.3, sdkn: @vercel/analytics/astro, sdkv: 2.0.1, ts: 1775632422078} /_vercel/insights/view @ https://va.vercel-scripts.com/v1/script.debug.js:0
+[     523ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ https://va.vercel-scripts.com/v1/script.debug.js:0
+[     523ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /, path: /} @ https://va.vercel-scripts.com/v1/script.debug.js:0
+[     523ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:4323/ color: rgb(120, 120, 120) color: inherit {o: http://localhost:4323/, sv: 0.1.3, sdkn: @vercel/analytics/astro, sdkv: 2.0.1, ts: 1775632422175} /_vercel/insights/view @ https://va.vercel-scripts.com/v1/script.debug.js:0
+[   58531ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:4323/@vite/client:1596

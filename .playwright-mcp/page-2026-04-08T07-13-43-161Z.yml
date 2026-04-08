@@ -1,0 +1,109 @@
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - generic [ref=e3]:
+      - link "eggo." [ref=e4] [cursor=pointer]:
+        - /url: /
+      - generic [ref=e5]:
+        - link "Þjónusta" [ref=e6] [cursor=pointer]:
+          - /url: "#services"
+        - link "Um okkur" [ref=e7] [cursor=pointer]:
+          - /url: "#about"
+        - link "Hafa samband" [ref=e8] [cursor=pointer]:
+          - /url: "#contact"
+      - generic [ref=e9]:
+        - button "Toggle theme" [ref=e10]:
+          - img [ref=e11]
+        - link "Hafa samband" [ref=e13] [cursor=pointer]:
+          - /url: "#contact"
+  - generic [ref=e15]:
+    - paragraph [ref=e16]: Laus fyrir ný verkefni
+    - heading "Við smíðum hugbúnað sem virkar." [level=1] [ref=e17]:
+      - text: Við smíðum hugbúnað
+      - emphasis [ref=e18]: sem virkar.
+    - paragraph [ref=e19]: Frá vefsíðum til gervigreindar — við hjálpum fyrirtækjum að skila frábærum hugbúnaði. Ekkert bull, ekkert óþarfi — bara hreinn kóði og raunverulegur árangur.
+    - generic [ref=e20]:
+      - link "Byrja verkefni" [ref=e21] [cursor=pointer]:
+        - /url: "#contact"
+      - link "Sjá þjónustu okkar" [ref=e22] [cursor=pointer]:
+        - /url: "#services"
+  - generic [ref=e24]:
+    - generic [ref=e25]:
+      - paragraph [ref=e26]: Þjónusta
+      - heading "Allt sem þú þarft til að skila góðum hugbúnaði." [level=2] [ref=e27]:
+        - text: Allt sem þú þarft
+        - text: til að skila góðum hugbúnaði.
+      - paragraph [ref=e28]: Við erum lítið teymi sem hreyfist hratt. Hvort sem þú þarft heila vöru byggða eða bara aðstoð við ákveðna áskorun — við sjáum um það.
+    - generic [ref=e29]:
+      - generic [ref=e30]:
+        - heading "Vefþróun" [level=3] [ref=e31]
+        - paragraph [ref=e32]: Sérsniðnar vefsíður og vefforrit byggð á nútíma tækni. Hröð, skallanleg og hönnuð til að skila árangri.
+      - generic [ref=e33]:
+        - heading "Hugbúnaðarþróun" [level=3] [ref=e34]
+        - paragraph [ref=e35]: Sérsniðnar hugbúnaðarlausnir sem leysa raunveruleg vandamál. Frá innri verkfærum til viðskiptavinamegin lausna.
+      - generic [ref=e36]:
+        - heading "Gervigreindarsamþætting" [level=3] [ref=e37]
+        - paragraph [ref=e38]: Nýttu gervigreind til að sjálfvirknivæða verkferla, bæta vörur og opna nýja möguleika í rekstrinum.
+    - generic [ref=e39]:
+      - generic [ref=e42]:
+        - heading "Sjálfvirknivæðing" [level=3] [ref=e43]
+        - paragraph [ref=e44]: Tengum kerfin þín saman og látum þau vinna sem eitt.
+      - generic [ref=e47]:
+        - heading "Tækniráðgjöf" [level=3] [ref=e48]
+        - paragraph [ref=e49]: Arkitektúr, tæknistaflsval og stefnumiðuð ráðgjöf.
+      - generic [ref=e52]:
+        - heading "DevOps og ský" [level=3] [ref=e53]
+        - paragraph [ref=e54]: Innviðir, leiðslur og skýjaarkitektúr sem stækka með þér.
+  - generic [ref=e57]:
+    - generic [ref=e58]:
+      - paragraph [ref=e59]: Um okkur
+      - heading "Þú átt vöruna. Við byggjum hana." [level=2] [ref=e60]:
+        - text: Þú átt vöruna.
+        - text: Við byggjum hana.
+      - generic [ref=e61]:
+        - paragraph [ref=e62]: "Eggo er hugbúnaðar- og tækniráðgjöf byggð á einni meginreglu: tæknin á að leysa vandamál, ekki skapa þau."
+        - paragraph [ref=e63]: Við trúum á fullt eignarhald — þú átt kóðann, hönnunina og innviðina. Engin læsing við ákveðna framleiðendur, engin óþörf flækja. Bara hrein vinna sem þú getur tekið með þér og byggt áfram á.
+        - paragraph [ref=e64]: Hvort sem þú þarft heila vöru byggða frá grunni, gervigreindarsamþættingu sem raunverulega virkar, eða bara annað par af augum á arkitektúrinn — við erum hér til að hjálpa.
+    - generic [ref=e65]:
+      - generic [ref=e66]:
+        - heading "Fullt eignarhald" [level=3] [ref=e67]
+        - paragraph [ref=e68]: Þú átt allan kóða og hönnun — ekkert er læst inni.
+      - generic [ref=e69]:
+        - heading "Hröð framkvæmd" [level=3] [ref=e70]
+        - paragraph [ref=e71]: Lítið teymi, engin skrifræði — frá hugmynd í raunveruleika á skömmum tíma.
+      - generic [ref=e72]:
+        - heading "Nútíma tækni" [level=3] [ref=e73]
+        - paragraph [ref=e74]: Við notum bestu verkfærin og nýjustu tæknina til að skila árangri.
+      - generic [ref=e75]:
+        - heading "Opin samskipti" [level=3] [ref=e76]
+        - paragraph [ref=e77]: Gegnsæi í öllu — þú veist alltaf hvar verkefnið stendur.
+  - generic [ref=e79]:
+    - paragraph [ref=e80]: Hafa samband
+    - heading "Við skulum byggja eitthvað frábært saman." [level=2] [ref=e81]:
+      - text: Við skulum byggja
+      - text: eitthvað frábært saman.
+    - paragraph [ref=e82]: Ertu með verkefni í huga? Við viljum endilega heyra frá þér. Sendu okkur línu og við svörum innan 24 klukkustunda.
+    - generic [ref=e83]:
+      - textbox "Nafnið þitt" [ref=e85]
+      - textbox "netfangið@þitt.is" [ref=e87]
+      - textbox "Segðu okkur frá verkefninu þínu..." [ref=e89]
+      - button "Senda skilaboð" [ref=e90]
+    - link "eggo@eggo.is" [ref=e92] [cursor=pointer]:
+      - /url: mailto:eggo@eggo.is
+  - contentinfo [ref=e93]:
+    - generic [ref=e94]:
+      - generic [ref=e95]: © 2026 Eggo. Allur réttur áskilinn.
+      - link "eggo." [ref=e96] [cursor=pointer]:
+        - /url: /
+  - generic [ref=e99]:
+    - button "Menu" [ref=e100]:
+      - img [ref=e102]
+      - generic: Menu
+    - button "Inspect" [ref=e106]:
+      - img [ref=e108]
+      - generic: Inspect
+    - button "Audit" [ref=e110]:
+      - img [ref=e112]
+      - generic: Audit
+    - button "Settings" [ref=e115]:
+      - img [ref=e117]
+      - generic: Settings

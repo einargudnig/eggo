@@ -17,6 +17,7 @@
     "@vercel/analytics": "^2.0.1",
     "astro": "^6.0.2",
     "resend": "^6.9.4",
-    "tailwindcss": "^4.2.1"
+    "tailwindcss": "^4.2.1",
+    "vercel": "^50.40.0"
   }
 }

@@ -1,36 +1,33 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const services = [
+const primaryServices = [
   {
     title: "Vefþróun",
     description: "Sérsniðnar vefsíður og vefforrit byggð á nútíma tækni. Hröð, skallanleg og hönnuð til að skila árangri.",
-    icon: "globe",
   },
   {
     title: "Hugbúnaðarþróun",
     description: "Sérsniðnar hugbúnaðarlausnir sem leysa raunveruleg vandamál. Frá innri verkfærum til viðskiptavinamegin lausna.",
-    icon: "code",
   },
   {
     title: "Gervigreindarsamþætting",
     description: "Nýttu gervigreind til að sjálfvirknivæða verkferla, bæta vörur og opna nýja möguleika í rekstrinum.",
-    icon: "sparkles",
   },
+];
+
+const secondaryServices = [
   {
     title: "Sjálfvirknivæðing",
-    description: "Fjarlægðu endurtekin verkefni og straumlínulagaðu reksturinn. Við tengum kerfin þín saman og látum þau vinna sem eitt.",
-    icon: "zap",
+    description: "Tengum kerfin þín saman og látum þau vinna sem eitt.",
   },
   {
     title: "Tækniráðgjöf",
-    description: "Stefnumiðuð tækniráðgjöf sem hjálpar þér að taka réttar ákvarðanir. Arkitektúr, tæknistaflsval og fleira.",
-    icon: "compass",
+    description: "Arkitektúr, tæknistaflsval og stefnumiðuð ráðgjöf.",
   },
   {
     title: "DevOps og ský",
-    description: "Innviðir sem stækka með þínum rekstri. CI/CD leiðslur, skýjaarkitektúr og sjálfvirk uppsetning.",
-    icon: "cloud",
+    description: "Innviðir, leiðslur og skýjaarkitektúr sem stækka með þér.",
   },
 ];
 ---
@@ -40,7 +37,7 @@ const services = [
   <nav class="fixed top-0 left-0 right-0 z-50 border-b border-border/50 bg-surface/80 backdrop-blur-xl">
     <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
       <a href="/" class="text-xl font-bold tracking-tight">
-        eggo<span class="text-brand">.</span>
+        eggo<span class="logo-dot text-brand">.</span>
       </a>
       <div class="hidden items-center gap-8 sm:flex">
         <a href="#services" class="nav-link text-sm text-text-secondary">Þjónusta</a>
@@ -54,48 +51,60 @@ const services = [
           aria-label="Toggle theme"
           class="theme-toggle relative flex h-9 w-9 items-center justify-center rounded-full border border-border/50 text-text-secondary"
         >
-          <!-- Sun icon (visible in dark mode) -->
           <svg class="h-4 w-4 block dark-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
           </svg>
-          <!-- Moon icon (visible in light mode) -->
           <svg class="h-4 w-4 hidden light-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
           </svg>
         </button>
+        <!-- Mobile menu toggle -->
+        <button
+          id="mobile-menu-toggle"
+          type="button"
+          aria-label="Open menu"
+          class="flex h-9 w-9 items-center justify-center rounded-full border border-border/50 text-text-secondary sm:hidden"
+        >
+          <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 9h16.5m-16.5 6.75h16.5" />
+          </svg>
+        </button>
         <a
           href="#contact"
-          class="btn-primary rounded-full bg-brand px-5 py-2 text-sm font-medium text-surface"
+          class="btn-primary hidden rounded-full bg-brand px-5 py-2 text-sm font-medium text-surface sm:inline-flex"
         >
           Hafa samband
         </a>
       </div>
     </div>
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden border-t border-border/50 bg-surface/95 backdrop-blur-xl sm:hidden">
+      <div class="flex flex-col gap-1 px-6 py-4">
+        <a href="#services" class="mobile-nav-link rounded-lg px-3 py-2.5 text-sm text-text-secondary">Þjónusta</a>
+        <a href="#about" class="mobile-nav-link rounded-lg px-3 py-2.5 text-sm text-text-secondary">Um okkur</a>
+        <a href="#contact" class="mobile-nav-link rounded-lg px-3 py-2.5 text-sm font-medium text-brand">Hafa samband</a>
+      </div>
+    </div>
   </nav>
 
   <!-- Hero -->
-  <section class="relative flex min-h-screen items-center justify-center overflow-hidden px-6">
-    <!-- Gradient orb background -->
-    <div class="pointer-events-none absolute top-1/4 left-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand/5 blur-[120px]"></div>
-    <div class="pointer-events-none absolute bottom-1/4 right-1/4 h-[400px] w-[400px] rounded-full bg-brand/3 blur-[100px]"></div>
-
-    <div class="relative z-10 mx-auto max-w-4xl text-center">
-      <div class="hero-reveal mb-6 inline-flex items-center gap-2 rounded-full border border-border px-4 py-1.5 text-sm text-text-secondary" style="--delay: 0ms">
-        <span class="h-1.5 w-1.5 rounded-full bg-brand animate-pulse"></span>
+  <section class="flex min-h-screen items-center px-6">
+    <div class="mx-auto max-w-4xl">
+      <p class="hero-reveal mb-5 text-sm font-medium text-brand" style="--delay: 0ms">
         Laus fyrir ný verkefni
-      </div>
+      </p>
 
-      <h1 class="hero-reveal mb-6 text-5xl leading-tight font-bold tracking-tight sm:text-7xl sm:leading-[1.1]" style="--delay: 80ms">
+      <h1 class="hero-reveal mb-8 font-serif text-[clamp(2.5rem,6vw,4.5rem)] leading-[1.1] tracking-tight" style="--delay: 80ms">
         Við smíðum hugbúnað<br />
-        <span class="text-brand">sem virkar.</span>
+        <em class="text-brand">sem virkar.</em>
       </h1>
 
-      <p class="hero-reveal mx-auto mb-10 max-w-2xl text-lg text-text-secondary sm:text-xl" style="--delay: 160ms">
+      <p class="hero-reveal mb-10 max-w-xl text-lg leading-relaxed text-text-secondary" style="--delay: 160ms">
         Frá vefsíðum til gervigreindar — við hjálpum fyrirtækjum að skila frábærum hugbúnaði.
         Ekkert bull, ekkert óþarfi — bara hreinn kóði og raunverulegur árangur.
       </p>
 
-      <div class="hero-reveal flex flex-col items-center justify-center gap-4 sm:flex-row" style="--delay: 240ms">
+      <div class="hero-reveal flex flex-col gap-4 sm:flex-row" style="--delay: 240ms">
         <a
           href="#contact"
           class="btn-primary rounded-full bg-brand px-8 py-3.5 text-base font-medium text-surface"
@@ -110,66 +119,41 @@ const services = [
         </a>
       </div>
     </div>
-
-    <!-- Scroll indicator -->
-    <div class="absolute bottom-10 left-1/2 -translate-x-1/2">
-      <div class="h-10 w-6 rounded-full border-2 border-text-muted p-1">
-        <div class="h-2 w-1.5 mx-auto rounded-full bg-text-muted animate-float"></div>
-      </div>
-    </div>
   </section>
 
   <!-- Services -->
   <section id="services" class="px-6 py-32">
-    <div class="mx-auto max-w-6xl">
+    <div class="mx-auto max-w-5xl">
       <div class="reveal mb-16 max-w-2xl">
         <p class="mb-3 text-sm font-medium tracking-widest text-brand uppercase">Þjónusta</p>
-        <h2 class="mb-4 text-4xl font-bold tracking-tight sm:text-5xl">
+        <h2 class="mb-4 font-serif text-[clamp(2rem,4vw,3.25rem)] leading-[1.15] tracking-tight">
           Allt sem þú þarft<br />til að skila góðum hugbúnaði.
         </h2>
-        <p class="text-lg text-text-secondary">
+        <p class="text-lg leading-relaxed text-text-secondary">
           Við erum lítið teymi sem hreyfist hratt. Hvort sem þú þarft heila vöru byggða
           eða bara aðstoð við ákveðna áskorun — við sjáum um það.
         </p>
       </div>
 
-      <div class="grid gap-1 sm:grid-cols-2 lg:grid-cols-3">
-        {services.map((service, i) => (
+      <!-- Primary services — larger, more detail -->
+      <div class="mb-6 grid gap-1.5 sm:grid-cols-3">
+        {primaryServices.map((service, i) => (
           <div class={`service-card reveal stagger-${i + 1} group rounded-2xl border border-border/50 bg-surface-elevated p-8`}>
-            <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-brand/10 text-brand">
-              {service.icon === "globe" && (
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5a17.92 17.92 0 01-8.716-2.247m0 0A9 9 0 013 12c0-1.605.42-3.113 1.157-4.418" />
-                </svg>
-              )}
-              {service.icon === "code" && (
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
-                </svg>
-              )}
-              {service.icon === "sparkles" && (
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" />
-                </svg>
-              )}
-              {service.icon === "zap" && (
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
-                </svg>
-              )}
-              {service.icon === "compass" && (
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
-                </svg>
-              )}
-              {service.icon === "cloud" && (
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15a4.5 4.5 0 004.5 4.5H18a3.75 3.75 0 001.332-7.257 3 3 0 00-3.758-3.848 5.25 5.25 0 00-10.233 2.33A4.502 4.502 0 002.25 15z" />
-                </svg>
-              )}
-            </div>
-            <h3 class="mb-2 text-lg font-semibold">{service.title}</h3>
+            <h3 class="mb-3 text-lg font-semibold">{service.title}</h3>
             <p class="text-sm leading-relaxed text-text-secondary">{service.description}</p>
+          </div>
+        ))}
+      </div>
+
+      <!-- Secondary services — compact row -->
+      <div class="grid gap-1.5 sm:grid-cols-3">
+        {secondaryServices.map((service, i) => (
+          <div class={`service-card reveal stagger-${i + 4} group flex items-start gap-3 rounded-xl border border-border/30 px-5 py-4`}>
+            <span class="mt-0.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand/60"></span>
+            <div>
+              <h3 class="text-sm font-semibold">{service.title}</h3>
+              <p class="mt-1 text-sm leading-relaxed text-text-secondary">{service.description}</p>
+            </div>
           </div>
         ))}
       </div>
@@ -178,14 +162,14 @@ const services = [
 
   <!-- About -->
   <section id="about" class="px-6 py-32">
-    <div class="mx-auto max-w-6xl">
-      <div class="grid items-center gap-16 lg:grid-cols-2">
+    <div class="mx-auto max-w-5xl">
+      <div class="grid items-start gap-16 lg:grid-cols-[1fr,1fr]">
         <div class="reveal">
           <p class="mb-3 text-sm font-medium tracking-widest text-brand uppercase">Um okkur</p>
-          <h2 class="mb-6 text-4xl font-bold tracking-tight sm:text-5xl">
+          <h2 class="mb-6 font-serif text-[clamp(2rem,4vw,3.25rem)] leading-[1.15] tracking-tight">
             Þú átt vöruna.<br />Við byggjum hana.
           </h2>
-          <div class="space-y-4 text-text-secondary">
+          <div class="space-y-4 text-text-secondary leading-relaxed">
             <p>
               Eggo er hugbúnaðar- og tækniráðgjöf byggð á einni meginreglu:
               tæknin á að leysa vandamál, ekki skapa þau.
@@ -203,42 +187,22 @@ const services = [
           </div>
         </div>
 
-        <div class="grid grid-cols-2 gap-1">
-          <div class="about-card reveal stagger-1 rounded-2xl border border-border/50 bg-surface-elevated p-8">
-            <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-brand/10 text-brand">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z" />
-              </svg>
-            </div>
+        <div class="reveal mt-2 space-y-6 lg:mt-14">
+          <div class="border-l-2 border-brand/40 pl-5">
             <h3 class="mb-1 font-semibold">Fullt eignarhald</h3>
-            <p class="text-sm text-text-secondary">Þú átt allan kóða og hönnun — ekkert er læst inni.</p>
+            <p class="text-sm leading-relaxed text-text-secondary">Þú átt allan kóða og hönnun — ekkert er læst inni.</p>
           </div>
-          <div class="about-card reveal stagger-2 rounded-2xl border border-border/50 bg-surface-elevated p-8">
-            <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-brand/10 text-brand">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
-              </svg>
-            </div>
+          <div class="border-l-2 border-border pl-5">
             <h3 class="mb-1 font-semibold">Hröð framkvæmd</h3>
-            <p class="text-sm text-text-secondary">Lítið teymi, engin skrifræði — frá hugmynd í raunveruleika á skömmum tíma.</p>
+            <p class="text-sm leading-relaxed text-text-secondary">Lítið teymi, engin skrifræði — frá hugmynd í raunveruleika á skömmum tíma.</p>
           </div>
-          <div class="about-card reveal stagger-3 rounded-2xl border border-border/50 bg-surface-elevated p-8">
-            <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-brand/10 text-brand">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
-              </svg>
-            </div>
+          <div class="border-l-2 border-border pl-5">
             <h3 class="mb-1 font-semibold">Nútíma tækni</h3>
-            <p class="text-sm text-text-secondary">Við notum bestu verkfærin og nýjustu tæknina til að skila árangri.</p>
+            <p class="text-sm leading-relaxed text-text-secondary">Við notum bestu verkfærin og nýjustu tæknina til að skila árangri.</p>
           </div>
-          <div class="about-card reveal stagger-4 rounded-2xl border border-border/50 bg-surface-elevated p-8">
-            <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-brand/10 text-brand">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 01-.825-.242m9.345-8.334a2.126 2.126 0 00-.476-.095 48.64 48.64 0 00-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0011.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" />
-              </svg>
-            </div>
+          <div class="border-l-2 border-border pl-5">
             <h3 class="mb-1 font-semibold">Opin samskipti</h3>
-            <p class="text-sm text-text-secondary">Gegnsæi í öllu — þú veist alltaf hvar verkefnið stendur.</p>
+            <p class="text-sm leading-relaxed text-text-secondary">Gegnsæi í öllu — þú veist alltaf hvar verkefnið stendur.</p>
           </div>
         </div>
       </div>
@@ -249,7 +213,7 @@ const services = [
   <section id="contact" class="px-6 py-32">
     <div class="reveal mx-auto max-w-2xl text-center">
       <p class="mb-3 text-sm font-medium tracking-widest text-brand uppercase">Hafa samband</p>
-      <h2 class="mb-4 text-4xl font-bold tracking-tight sm:text-5xl">
+      <h2 class="mb-4 font-serif text-[clamp(2rem,4vw,3.25rem)] leading-[1.15] tracking-tight">
         Við skulum byggja<br />eitthvað frábært saman.
       </h2>
       <p class="mb-12 text-lg text-text-secondary">
@@ -257,82 +221,176 @@ const services = [
         Sendu okkur línu og við svörum innan 24 klukkustunda.
       </p>
 
-      <form id="contact-form" class="mx-auto max-w-md space-y-4 text-left">
-        <div>
-          <input
-            type="text"
-            name="name"
-            placeholder="Nafnið þitt"
-            required
-            class="w-full rounded-xl border border-border bg-surface-elevated px-5 py-3.5 text-sm text-text-primary placeholder:text-text-muted outline-none transition-colors focus:border-brand/50"
-          />
+      <!-- Form wrapper with success state -->
+      <div id="form-wrapper" class="relative mx-auto max-w-md">
+        <form id="contact-form" class="space-y-4 text-left" novalidate>
+          <div class="field-group">
+            <input
+              type="text"
+              name="name"
+              placeholder="Nafnið þitt"
+              required
+              autocomplete="name"
+              class="field-input w-full rounded-xl border border-border bg-surface-elevated px-5 py-3.5 text-sm text-text-primary placeholder:text-text-muted outline-none focus:border-brand/50"
+            />
+            <p class="field-error mt-1.5 hidden text-xs text-red-400"></p>
+          </div>
+          <div class="field-group">
+            <input
+              type="email"
+              name="email"
+              placeholder="netfangið@þitt.is"
+              required
+              autocomplete="email"
+              class="field-input w-full rounded-xl border border-border bg-surface-elevated px-5 py-3.5 text-sm text-text-primary placeholder:text-text-muted outline-none focus:border-brand/50"
+            />
+            <p class="field-error mt-1.5 hidden text-xs text-red-400"></p>
+          </div>
+          <div class="field-group">
+            <textarea
+              name="message"
+              placeholder="Segðu okkur frá verkefninu þínu..."
+              rows="4"
+              required
+              maxlength="2000"
+              class="field-input w-full rounded-xl border border-border bg-surface-elevated px-5 py-3.5 text-sm text-text-primary placeholder:text-text-muted outline-none focus:border-brand/50 resize-none"
+            ></textarea>
+            <p class="field-error mt-1.5 hidden text-xs text-red-400"></p>
+          </div>
+          <p id="form-status" class="text-sm hidden"></p>
+          <button
+            type="submit"
+            class="btn-primary w-full rounded-xl bg-brand py-3.5 text-sm font-medium text-surface disabled:opacity-60"
+          >
+            Senda skilaboð
+          </button>
+        </form>
+
+        <!-- Success state — replaces form after send -->
+        <div id="form-success" class="hidden absolute inset-0 flex flex-col items-center justify-center text-center">
+          <svg class="success-check mb-5 h-12 w-12 text-brand" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" class="success-circle" />
+            <path d="M8 12.5l2.5 2.5 5.5-5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="success-tick" />
+          </svg>
+          <p class="mb-2 text-lg font-semibold">Skilaboð send!</p>
+          <p class="text-sm text-text-secondary">Við svörum þér innan 24 klukkustunda.</p>
+          <button id="send-another" class="mt-6 text-sm text-brand underline underline-offset-4 decoration-brand/40">
+            Senda önnur skilaboð
+          </button>
         </div>
-        <div>
-          <input
-            type="email"
-            name="email"
-            placeholder="netfangið@þitt.is"
-            required
-            class="w-full rounded-xl border border-border bg-surface-elevated px-5 py-3.5 text-sm text-text-primary placeholder:text-text-muted outline-none transition-colors focus:border-brand/50"
-          />
-        </div>
-        <div>
-          <textarea
-            name="message"
-            placeholder="Segðu okkur frá verkefninu þínu..."
-            rows="4"
-            required
-            class="w-full rounded-xl border border-border bg-surface-elevated px-5 py-3.5 text-sm text-text-primary placeholder:text-text-muted outline-none transition-colors focus:border-brand/50 resize-none"
-          ></textarea>
-        </div>
-        <p id="form-status" class="text-sm hidden"></p>
-        <button
-          type="submit"
-          class="btn-primary w-full rounded-xl bg-brand py-3.5 text-sm font-medium text-surface"
-        >
-          Senda skilaboð
-        </button>
-      </form>
+      </div>
 
       <script>
         const form = document.getElementById('contact-form') as HTMLFormElement;
         const status = document.getElementById('form-status')!;
         const button = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+        const formSuccess = document.getElementById('form-success')!;
+        const sendAnother = document.getElementById('send-another')!;
 
+        const messages: Record<string, string> = {
+          name: 'Vinsamlegast sláðu inn nafnið þitt.',
+          email: 'Vinsamlegast sláðu inn gilt netfang.',
+          message: 'Vinsamlegast skrifaðu skilaboð.',
+        };
+
+        function validateField(input: HTMLInputElement | HTMLTextAreaElement) {
+          const group = input.closest('.field-group')!;
+          const error = group.querySelector('.field-error') as HTMLElement;
+          const isValid = input.validity.valid;
+
+          if (!isValid && input.value.length > 0) {
+            error.textContent = messages[input.name] || 'Ógilt gildi.';
+            error.classList.remove('hidden');
+            input.classList.add('!border-red-400/60');
+          } else {
+            error.classList.add('hidden');
+            input.classList.remove('!border-red-400/60');
+          }
+          return isValid;
+        }
+
+        // Validate on blur
+        form.querySelectorAll('.field-input').forEach(input => {
+          input.addEventListener('blur', () => validateField(input as HTMLInputElement));
+          input.addEventListener('input', () => {
+            if (!(input as HTMLInputElement).classList.contains('!border-red-400/60')) return;
+            validateField(input as HTMLInputElement);
+          });
+        });
+
+        function showSuccess() {
+          form.style.opacity = '0';
+          form.style.transform = 'translateY(-8px)';
+          setTimeout(() => {
+            form.classList.add('hidden');
+            formSuccess.classList.remove('hidden');
+            formSuccess.style.opacity = '0';
+            formSuccess.style.transform = 'translateY(8px)';
+            requestAnimationFrame(() => {
+              formSuccess.style.transition = 'opacity 400ms ease, transform 400ms cubic-bezier(0.23, 1, 0.32, 1)';
+              formSuccess.style.opacity = '1';
+              formSuccess.style.transform = 'translateY(0)';
+            });
+          }, 300);
+        }
+
+        sendAnother.addEventListener('click', () => {
+          formSuccess.classList.add('hidden');
+          form.classList.remove('hidden');
+          form.reset();
+          form.style.transition = 'opacity 300ms ease, transform 300ms cubic-bezier(0.23, 1, 0.32, 1)';
+          form.style.opacity = '1';
+          form.style.transform = 'translateY(0)';
+        });
+
+        let submitting = false;
         form.addEventListener('submit', async (e) => {
           e.preventDefault();
+          if (submitting) return;
+
+          const inputs = form.querySelectorAll('.field-input') as NodeListOf<HTMLInputElement>;
+          let allValid = true;
+          inputs.forEach(input => {
+            if (!validateField(input)) allValid = false;
+          });
+          if (!allValid) return;
+
+          submitting = true;
           button.disabled = true;
           button.textContent = 'Sendi...';
           status.classList.add('hidden');
 
           const data = Object.fromEntries(new FormData(form));
-          const res = await fetch('/api/send', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data),
-          });
+          try {
+            const res = await fetch('/api/send', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(data),
+            });
 
-          if (res.ok) {
-            status.textContent = 'Skilaboð send! Við svörum þér fljótlega.';
-            status.className = 'text-sm text-brand';
-            form.reset();
-          } else {
-            const data = await res.json();
-            status.textContent = data.error || 'Villa kom upp. Reyndu aftur.';
+            if (res.ok) {
+              form.style.transition = 'opacity 300ms ease, transform 300ms cubic-bezier(0.23, 1, 0.32, 1)';
+              showSuccess();
+            } else {
+              const body = await res.json();
+              status.textContent = body.error || 'Villa kom upp. Reyndu aftur.';
+              status.className = 'text-sm text-red-400';
+              button.disabled = false;
+              button.textContent = 'Senda skilaboð';
+            }
+          } catch {
+            status.textContent = 'Tenging mistókst. Athugaðu netið og reyndu aftur.';
             status.className = 'text-sm text-red-400';
+            button.disabled = false;
+            button.textContent = 'Senda skilaboð';
           }
 
-          button.disabled = false;
-          button.textContent = 'Senda skilaboð';
+          submitting = false;
         });
       </script>
 
       <div class="mt-12 flex items-center justify-center gap-8 text-sm text-text-secondary">
         <a href="mailto:eggo@eggo.is" class="nav-link">eggo@eggo.is</a>
-        <span class="h-1 w-1 rounded-full bg-text-muted"></span>
-        <a href="#" class="nav-link">LinkedIn</a>
-        <span class="h-1 w-1 rounded-full bg-text-muted"></span>
-        <a href="#" class="nav-link">GitHub</a>
       </div>
     </div>
   </section>
@@ -342,7 +400,7 @@ const services = [
     <div class="mx-auto flex max-w-6xl items-center justify-between text-sm text-text-muted">
       <span>&copy; {new Date().getFullYear()} Eggo. Allur réttur áskilinn.</span>
       <a href="/" class="nav-link font-medium text-text-secondary">
-        eggo<span class="text-brand">.</span>
+        eggo<span class="logo-dot text-brand">.</span>
       </a>
     </div>
   </footer>
@@ -377,7 +435,7 @@ const services = [
       const y = rect.top + rect.height / 2;
 
       const isCurrentlyLight = html.classList.contains('light');
-      const nextBg = isCurrentlyLight ? '#0a0a0a' : '#fafafa';
+      const nextBg = isCurrentlyLight ? '#0a0a0a' : '#fafaf9';
 
       // Position the overlay origin at the toggle button
       overlay.style.setProperty('--tx', `${x}px`);
@@ -408,6 +466,29 @@ const services = [
   // Run on initial load and on Astro page transitions
   initTheme();
   document.addEventListener('astro:after-swap', initTheme);
+</script>
+
+<script>
+  // Mobile menu
+  function initMobileMenu() {
+    const toggle = document.getElementById('mobile-menu-toggle');
+    const menu = document.getElementById('mobile-menu');
+    if (!toggle || !menu) return;
+
+    toggle.addEventListener('click', () => {
+      const isOpen = !menu.classList.contains('hidden');
+      menu.classList.toggle('hidden');
+      toggle.setAttribute('aria-label', isOpen ? 'Open menu' : 'Close menu');
+    });
+
+    // Close on link click
+    menu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => menu.classList.add('hidden'));
+    });
+  }
+
+  initMobileMenu();
+  document.addEventListener('astro:after-swap', initMobileMenu);
 </script>
 
 <script>
