@@ -267,14 +267,14 @@ const secondaryServices = [
         </form>
 
         <!-- Success state — replaces form after send -->
-        <div id="form-success" class="hidden absolute inset-0 flex flex-col items-center justify-center text-center">
-          <svg class="success-check mb-5 h-12 w-12 text-brand" viewBox="0 0 24 24" fill="none">
+        <div id="form-success" class="hidden flex flex-col items-center justify-center text-center py-12">
+          <svg class="success-check mb-5 h-14 w-14 text-brand" viewBox="0 0 24 24" fill="none">
             <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" class="success-circle" />
             <path d="M8 12.5l2.5 2.5 5.5-5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="success-tick" />
           </svg>
-          <p class="mb-2 text-lg font-semibold">Skilaboð send!</p>
-          <p class="text-sm text-text-secondary">Við svörum þér innan 24 klukkustunda.</p>
-          <button id="send-another" class="mt-6 text-sm text-brand underline underline-offset-4 decoration-brand/40">
+          <p class="mb-3 text-2xl font-semibold">Skilaboð send!</p>
+          <p class="text-base text-text-secondary">Við svörum þér innan 24 klukkustunda.</p>
+          <button id="send-another" class="mt-8 text-sm text-brand underline underline-offset-4 decoration-brand/40 hover:decoration-brand transition-colors">
             Senda önnur skilaboð
           </button>
         </div>
