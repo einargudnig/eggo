@@ -1,0 +1,13 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - img [ref=e3]
+    - text: 1080x1080 square
+  - generic [ref=e4]:
+    - img [ref=e5]
+    - text: Circle crop (IG/TikTok)
+  - generic [ref=e6]:
+    - img [ref=e7]
+    - text: Actual IG size
+  - generic [ref=e8]:
+    - img [ref=e9]
+    - text: Tiny (comments)

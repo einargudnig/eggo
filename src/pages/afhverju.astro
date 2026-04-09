@@ -1,0 +1,247 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Af hverju Eggó — Þetta reddast"
+  description="Stefnuyfirlýsing Eggó. Við trúum á hreina vinnu, heiðarleg samskipti og hugbúnað sem virkar."
+>
+  <!-- Nav (minimal, just logo + back) -->
+  <nav class="fixed top-0 left-0 right-0 z-50 border-b border-border/50 bg-surface/80 backdrop-blur-xl">
+    <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+      <a href="/" class="text-xl font-bold tracking-tight">
+        eggó<span class="logo-dot text-brand">.</span>
+      </a>
+      <div class="flex items-center gap-3">
+        <button
+          id="theme-toggle"
+          type="button"
+          aria-label="Toggle theme"
+          class="theme-toggle relative flex h-9 w-9 items-center justify-center rounded-full border border-border/50 text-text-secondary"
+        >
+          <svg class="h-4 w-4 block dark-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
+          </svg>
+          <svg class="h-4 w-4 hidden light-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
+          </svg>
+        </button>
+        <a
+          href="/"
+          class="btn-secondary rounded-full border border-border px-5 py-2 text-sm font-medium text-text-secondary"
+        >
+          Til baka
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="flex min-h-[70vh] items-center px-6 pt-24">
+    <div class="mx-auto max-w-3xl">
+      <h1 class="hero-reveal font-serif text-[clamp(3rem,7vw,5.5rem)] leading-[1.05] tracking-tight" style="--delay: 80ms">
+        <em class="text-brand">"Þetta reddast!?"</em>
+      </h1>
+    </div>
+  </section>
+
+  <!-- Manifesto body -->
+  <section class="px-6 pb-32">
+    <div class="mx-auto max-w-3xl">
+
+      <!-- Intro -->
+      <div class="reveal mb-20">
+        <p class="text-xl leading-relaxed text-text-secondary">
+          Það gerir það eiginlega alltaf!
+          En það eru sumir hlutir sem við ættum kannski bara að gera almennilega,
+          áður en það þarf að redda þeim.
+        </p>
+      </div>
+
+      <!-- Manifesto sections -->
+      <div class="space-y-24">
+
+        <div class="reveal">
+          <h2 class="mb-6 font-serif text-[clamp(1.5rem,3vw,2.25rem)] leading-[1.2] tracking-tight">
+            Ekki bíða of lengi.
+          </h2>
+          <div class="space-y-4 text-text-secondary leading-relaxed">
+            <p>
+              Ég kann þetta ekki, ég nenni þessu ekki, ég þarf ekkert að gera þetta, eða ég ætla að gera þetta seinna.
+              Það eru aðrir sem kunna, nenna, og geta gert hluti sem munu hjálpa.
+            </p>
+            <p>
+              Ef þú bíður of lengi gætir þú misst af tækifærum.
+              Tækifærin geta verið stór eða lítil, hjálpað til núna eða eftir lengri tíma.
+            </p>
+            <p>
+              Við mælum með að bíða ekki lengur.
+            </p>
+          </div>
+        </div>
+
+        <div class="reveal">
+          <h2 class="mb-6 font-serif text-[clamp(1.5rem,3vw,2.25rem)] leading-[1.2] tracking-tight">
+            Ekki missa af.
+          </h2>
+          <div class="space-y-4 text-text-secondary leading-relaxed">
+            <p>
+              Að missa af tækifærum getur verið pirrandi.
+              Að vera ekki tilbúinn að stökkva á tækifæri þegar þau gefast er enn meira pirrandi.
+              Að taka þátt, vera sýnileg/ur eykur tækifæri og líkur á að detta ekki aftur úr.
+            </p>
+          </div>
+        </div>
+
+        <div class="reveal">
+          <h2 class="mb-6 font-serif text-[clamp(1.5rem,3vw,2.25rem)] leading-[1.2] tracking-tight">
+            Lítið er betra en ekki neitt.
+          </h2>
+          <div class="space-y-4 text-text-secondary leading-relaxed">
+            <p>
+              Það hefur aldrei verið jafn einfalt og fljótlegt að búa til hluti á netinu.
+              Lítið fótspor á netinu er betra en ekki neitt.
+            </p>
+            <p>
+              Fleiri og fleiri eyða meiri tíma við skjáinn á hverjum degi.
+              Að vera með, vera sýnileg/ur á þessum vettvangi opnar á fleiri tækifæri.
+              Það þarf ekki að hafa markmið að sigra heiminn, það má vera með litla krúttlega heimasíðu.
+              Sjálfvirknivæðing á ferlum sem taka langa tíma gefur meiri tíma til að gera það sem er skemmtilegra.
+            </p>
+          </div>
+        </div>
+
+        <div class="reveal">
+          <h2 class="mb-6 font-serif text-[clamp(1.5rem,3vw,2.25rem)] leading-[1.2] tracking-tight">
+            Tæknin á að þjóna fólki.
+          </h2>
+          <div class="space-y-4 text-text-secondary leading-relaxed">
+            <p>
+              Ekki öfugt. Gervigreind, sjálfvirknivæðing, heimasíður —
+              ekkert af þessu skiptir máli ef það leysir ekki raunverulegt vandamál
+              fyrir raunverulegt fólk.
+            </p>
+            <p>
+              Við elskum tækni. En við elskum hana vegna þess sem hún gerir
+              fyrir fólk og fyrirtæki — ekki vegna þess hversu glæsileg hún er.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Closing -->
+      <div class="reveal mt-32 border-t border-border/50 pt-16 text-center">
+        <p class="mb-8 font-serif text-[clamp(1.5rem,3vw,2.25rem)] leading-[1.2] tracking-tight">
+          Við reddum þessu.<br />
+        </p>
+        <a
+          href="/#contact"
+          class="btn-primary inline-flex rounded-full bg-brand px-8 py-3.5 text-base font-medium text-surface"
+        >
+          Hafa samband
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-border/50 px-6 py-8">
+    <div class="mx-auto flex max-w-6xl items-center justify-between text-sm text-text-muted">
+      <span>&copy; {new Date().getFullYear()} Eggó. Allur réttur áskilinn.</span>
+      <a href="/" class="nav-link font-medium text-text-secondary">
+        eggó<span class="logo-dot text-brand">.</span>
+      </a>
+    </div>
+  </footer>
+
+  <!-- Theme transition overlay -->
+  <div id="theme-overlay" class="theme-transition-overlay"></div>
+</Layout>
+
+<script>
+  function initTheme() {
+    const html = document.documentElement;
+    const toggle = document.getElementById('theme-toggle')!;
+    const overlay = document.getElementById('theme-overlay')!;
+    const darkIcon = toggle.querySelector('.dark-icon') as HTMLElement;
+    const lightIcon = toggle.querySelector('.light-icon') as HTMLElement;
+
+    const saved = localStorage.getItem('theme');
+    if (saved === 'light') {
+      html.classList.add('light');
+    }
+    updateIcons();
+
+    function updateIcons() {
+      const isLight = html.classList.contains('light');
+      darkIcon.style.display = isLight ? 'none' : 'block';
+      lightIcon.style.display = isLight ? 'block' : 'none';
+    }
+
+    toggle.addEventListener('click', () => {
+      const rect = toggle.getBoundingClientRect();
+      const x = rect.left + rect.width / 2;
+      const y = rect.top + rect.height / 2;
+
+      const isCurrentlyLight = html.classList.contains('light');
+      const nextBg = isCurrentlyLight ? '#0a0a0a' : '#fafaf9';
+
+      overlay.style.setProperty('--tx', `${x}px`);
+      overlay.style.setProperty('--ty', `${y}px`);
+      overlay.style.backgroundColor = nextBg;
+
+      overlay.classList.remove('expanding');
+      void overlay.offsetWidth;
+      overlay.classList.add('expanding');
+
+      requestAnimationFrame(() => {
+        setTimeout(() => {
+          html.classList.toggle('light');
+          localStorage.setItem('theme', html.classList.contains('light') ? 'light' : 'dark');
+          updateIcons();
+        }, 250);
+      });
+
+      overlay.addEventListener('animationend', () => {
+        overlay.classList.remove('expanding');
+      }, { once: true });
+    });
+  }
+
+  initTheme();
+  document.addEventListener('astro:after-swap', initTheme);
+</script>
+
+<script>
+  function initReveal() {
+    const elements = document.querySelectorAll('.reveal');
+    if (!elements.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '-40px' }
+    );
+
+    elements.forEach((el) => observer.observe(el));
+  }
+
+  initReveal();
+  document.addEventListener('astro:after-swap', initReveal);
+</script>
+
+<script is:inline>
+  (function() {
+    if (localStorage.getItem('theme') === 'light') {
+      document.documentElement.classList.add('light');
+    }
+  })();
+</script>
