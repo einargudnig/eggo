@@ -1,4 +1,15 @@
 {
   "buildCommand": "astro build",
-  "framework": "astro"
+  "framework": "astro",
+  "headers": [
+    {
+      "source": "/",
+      "headers": [
+        {
+          "key": "Link",
+          "value": "</robots.txt>; rel=\"robots\", </sitemap-index.xml>; rel=\"sitemap\""
+        }
+      ]
+    }
+  ]
 }
