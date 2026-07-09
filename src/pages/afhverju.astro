@@ -17,7 +17,7 @@ import Layout from '../layouts/Layout.astro';
           id="theme-toggle"
           type="button"
           aria-label="Toggle theme"
-          class="theme-toggle relative flex h-9 w-9 items-center justify-center rounded-full border border-border/50 text-text-secondary"
+          class="theme-toggle relative flex h-11 w-11 items-center justify-center rounded-full border border-border/50 text-text-secondary"
         >
           <svg class="h-4 w-4 block dark-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
@@ -28,7 +28,7 @@ import Layout from '../layouts/Layout.astro';
         </button>
         <a
           href="/"
-          class="btn-secondary rounded-full border border-border px-5 py-2 text-sm font-medium text-text-secondary"
+          class="btn-secondary rounded-full border border-border px-5 py-2.5 text-sm font-medium text-text-secondary"
         >
           Til baka
         </a>
@@ -135,12 +135,27 @@ import Layout from '../layouts/Layout.astro';
         <p class="mb-8 font-serif text-[clamp(1.5rem,3vw,2.25rem)] leading-[1.2] tracking-tight">
           Við reddum þessu.<br />
         </p>
-        <a
-          href="/#contact"
-          class="btn-primary inline-flex rounded-full bg-brand px-8 py-3.5 text-base font-medium text-surface"
-        >
-          Hafa samband
-        </a>
+        <div class="flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <button
+            type="button"
+            data-cal-link={import.meta.env.PUBLIC_CAL_LINK}
+            data-cal-namespace="discovery"
+            data-cal-config='{"layout":"month_view"}'
+            data-track-cta="booking"
+            data-track-location="manifesto_closer"
+            class="btn-primary inline-flex rounded-full bg-brand px-8 py-3.5 text-base font-medium text-on-brand"
+          >
+            Bóka kynningarsímtal
+          </button>
+          <a
+            href="/#contact"
+            data-track-cta="contact"
+            data-track-location="manifesto_closer"
+            class="btn-secondary inline-flex rounded-full border border-border px-8 py-3.5 text-base font-medium text-text-secondary"
+          >
+            Senda fyrirspurn
+          </a>
+        </div>
       </div>
 
     </div>
@@ -236,6 +251,37 @@ import Layout from '../layouts/Layout.astro';
 
   initReveal();
   document.addEventListener('astro:after-swap', initReveal);
+</script>
+
+<script>
+  // Manifesto scroll-depth tracking — fires at 25/50/75/100% read milestones
+  function initScrollDepth() {
+    const milestones = [25, 50, 75, 100];
+    const fired = new Set<number>();
+
+    const onScroll = () => {
+      const scrolled = window.scrollY + window.innerHeight;
+      const docHeight = document.documentElement.scrollHeight;
+      if (docHeight <= window.innerHeight) return;
+      const pct = Math.min(100, Math.round((scrolled / docHeight) * 100));
+
+      for (const m of milestones) {
+        if (pct >= m && !fired.has(m)) {
+          fired.add(m);
+          (window as any).posthog?.capture('manifesto_scrolled', { depth: m });
+        }
+      }
+
+      if (fired.size === milestones.length) {
+        window.removeEventListener('scroll', onScroll);
+      }
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
+  initScrollDepth();
+  document.addEventListener('astro:after-swap', initScrollDepth);
 </script>
 
 <script is:inline>
