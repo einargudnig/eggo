@@ -8,6 +8,7 @@ import * as Alchemy from "alchemy";
 import * as Cloudflare from "alchemy/Cloudflare";
 import * as Config from "effect/Config";
 import * as Effect from "effect/Effect";
+import { bridgeRecords, mailRecords } from "./infra/dns.ts";
 
 export default Alchemy.Stack(
   "eggo",
@@ -28,6 +29,14 @@ export default Alchemy.Stack(
       },
     });
 
-    return { url: site.url };
+    if (stage !== "prod") return { url: site.url };
+
+    // The zone only does anything once eggo.is's nameservers (set at ISNIC) point at Cloudflare.
+    const zone = yield* Cloudflare.Zone.Zone("Zone", { name: "eggo.is" });
+    for (const { id, ...record } of [...mailRecords, ...bridgeRecords]) {
+      yield* Cloudflare.DNS.Record(id, { zoneId: zone.zoneId, ttl: 1, proxied: false, ...record });
+    }
+
+    return { url: site.url, zoneStatus: zone.status, nameServers: zone.nameServers };
   }),
 );
