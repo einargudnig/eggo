@@ -1,6 +1,7 @@
 import * as stylex from "@stylexjs/stylex";
 import { HeadContent, Outlet, Scripts, createRootRoute, useParams } from "@tanstack/react-router";
 import type { ReactNode } from "react";
+import { media } from "../design/media.stylex";
 import { colors, fonts, motion, type } from "../design/tokens.stylex";
 import { langFromParam } from "../i18n";
 import appCss from "../styles/global.css?url";
@@ -34,6 +35,8 @@ const styles = stylex.create({
     fontFamily: fonts.display,
     fontSize: type.body,
     lineHeight: 1.5,
+    // room for the phone thumb bar, so the back cover isn't hidden under it
+    paddingBottom: { default: 0, [media.phone]: "calc(76px + env(safe-area-inset-bottom, 0px))" },
     transitionProperty: "background-color, color",
     transitionDuration: motion.base,
     transitionTimingFunction: motion.step,

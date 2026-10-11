@@ -13,7 +13,7 @@ type Props = { highlighted: PartId | null; onSelect: (id: PartId) => void };
 export function Hero({ highlighted, onSelect }: Props) {
   const { t } = useLang();
   return (
-    <section aria-labelledby="h1" {...stylex.props(styles.hero)}>
+    <section id="hero" aria-labelledby="h1" {...stylex.props(styles.hero)}>
       <div {...stylex.props(ui.wrap)}>
         <div {...stylex.props(styles.meta)}>
           <span {...stylex.props(ui.label)}>
