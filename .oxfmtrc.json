@@ -1,0 +1,18 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "printWidth": 110,
+  "semi": true,
+  "singleQuote": false,
+  "trailingComma": "all",
+  "ignorePatterns": [
+    "src/routeTree.gen.ts",
+    "worker-configuration.d.ts",
+    "**/*.md",
+    ".agents/**",
+    ".claude/**",
+    ".pi/**",
+    ".playwright-mcp/**",
+    "marketing/**",
+    "skills-lock.json"
+  ]
+}
