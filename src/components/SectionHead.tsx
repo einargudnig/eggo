@@ -3,9 +3,9 @@ import { media } from "../design/media.stylex";
 import { ui } from "../design/primitives";
 import { space, type } from "../design/tokens.stylex";
 
-type Props = { id: string; index: string; label: string; title: string };
+type Props = { id: string; index: string; label: string; title: string; aside?: string };
 
-export function SectionHead({ id, index, label, title }: Props) {
+export function SectionHead({ id, index, label, title, aside }: Props) {
   return (
     <div {...stylex.props(ui.wrap, styles.head)}>
       <span {...stylex.props(ui.label, styles.label)}>
@@ -14,6 +14,7 @@ export function SectionHead({ id, index, label, title }: Props) {
       <h2 id={id} {...stylex.props(styles.title)}>
         {title}
       </h2>
+      {aside ? <span {...stylex.props(ui.label, styles.aside)}>{aside}</span> : null}
     </div>
   );
 }
@@ -37,5 +38,10 @@ const styles = stylex.create({
     lineHeight: 1,
     letterSpacing: type.trackHead,
     textWrap: "balance",
+  },
+  aside: {
+    gridColumn: { default: "11 / 13", [media.tablet]: "1 / -1" },
+    justifySelf: { default: "end", [media.tablet]: "start" },
+    textAlign: { default: "right", [media.tablet]: "left" },
   },
 });

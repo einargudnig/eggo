@@ -1,6 +1,7 @@
 import * as stylex from "@stylexjs/stylex";
 import { useServerFn } from "@tanstack/react-start";
 import { useRef, useState, type FormEvent } from "react";
+import { brand } from "../content/brand";
 import { partIds, parts, type PartId } from "../content/parts";
 import { media } from "../design/media.stylex";
 import { ui } from "../design/primitives";
@@ -70,12 +71,18 @@ export function WorkOrder() {
   });
 
   return (
-    <section id="samband" aria-labelledby="h-contact" {...stylex.props(styles.contact)}>
+    <section
+      id="samband"
+      aria-labelledby="h-contact"
+      tabIndex={-1}
+      {...stylex.props(ui.anchor, styles.contact)}
+    >
       <div {...stylex.props(ui.wrap, styles.grid)}>
         <h2 id="h-contact" {...stylex.props(styles.title)}>
           {t.order.title}
         </h2>
-        <div {...stylex.props(styles.order)}>
+        <CopyEmail />
+        <div id="order" {...stylex.props(ui.anchor, styles.order)}>
           <div {...stylex.props(styles.head)}>
             <span id="order-title" {...stylex.props(ui.label, styles.muted)}>
               {t.order.form}
@@ -172,6 +179,37 @@ export function WorkOrder() {
   );
 }
 
+function CopyEmail() {
+  const { t } = useLang();
+  const [copied, setCopied] = useState(false);
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(brand.email);
+      setCopied(true);
+    } catch {
+      // clipboard blocked: the address is still a mailto link and selectable
+    }
+  };
+  return (
+    <div {...stylex.props(styles.alt)}>
+      <span {...stylex.props(ui.label, styles.muted)}>{t.order.orEmail}</span>
+      <div {...stylex.props(styles.mailRow)}>
+        <a href={`mailto:${brand.email}`} {...stylex.props(styles.mail, ui.focusRing)}>
+          {brand.email}
+        </a>
+        <button
+          type="button"
+          onClick={() => void copy()}
+          {...stylex.props(styles.copy, ui.focusRing, ui.press)}
+        >
+          {t.order.copy}
+        </button>
+        <output {...stylex.props(ui.srOnly)}>{copied ? t.order.copied : ""}</output>
+      </div>
+    </div>
+  );
+}
+
 function PartChip({ id, label, srLabel }: { id: PartId; label: string; srLabel: string }) {
   const unknown = !parts[id].defined;
   return (
@@ -203,8 +241,34 @@ const styles = stylex.create({
     textWrap: "balance",
   },
   muted: { color: colors.contactMuted },
+  alt: {
+    gridColumn: { default: "1 / 7", [media.tablet]: "1 / -1" },
+    display: "grid",
+    gap: space.s3,
+    alignContent: "start",
+    justifyItems: "start",
+  },
+  mailRow: { position: "relative", display: "flex", alignItems: "center", flexWrap: "wrap", gap: space.s3 },
+  mail: { fontFamily: fonts.mono, fontSize: "15px", fontWeight: 500, color: colors.contactFg },
+  copy: {
+    fontFamily: fonts.mono,
+    fontSize: "10px",
+    fontWeight: 700,
+    letterSpacing: type.trackLabel,
+    textTransform: "uppercase",
+    minHeight: { default: "36px", [media.phone]: "44px" },
+    paddingBlock: 0,
+    paddingInline: space.s3,
+    backgroundColor: { default: "transparent", [media.hover]: { default: null, ":hover": colors.contactFg } },
+    color: { default: colors.contactFg, [media.hover]: { default: null, ":hover": colors.contactBg } },
+    borderWidth: layout.rule,
+    borderStyle: "solid",
+    borderColor: colors.contactRule,
+    cursor: "pointer",
+  },
   order: {
     gridColumn: { default: "7 / 13", [media.tablet]: "1 / -1" },
+    gridRow: { default: "1 / span 2", [media.tablet]: "auto" },
     borderWidth: layout.rule,
     borderStyle: "solid",
     borderColor: colors.contactRule,

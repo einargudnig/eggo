@@ -1,9 +1,15 @@
 import * as stylex from "@stylexjs/stylex";
 import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { BackCover } from "../../components/BackCover";
 import { Bar } from "../../components/Bar";
 import { Hero } from "../../components/Hero";
 import { Parts } from "../../components/Parts";
+import { Steps } from "../../components/Steps";
+import { ThumbBar } from "../../components/ThumbBar";
+import { Troubleshooting } from "../../components/Troubleshooting";
+import { Who } from "../../components/Who";
+import { WorkIndex } from "../../components/WorkIndex";
 import { WorkOrder } from "../../components/WorkOrder";
 import { partDomId, type PartId } from "../../content/parts";
 import { colors, fonts, space } from "../../design/tokens.stylex";
@@ -48,8 +54,14 @@ function HomePage() {
       <main id="top" tabIndex={-1}>
         <Hero highlighted={highlighted} onSelect={jump} />
         <Parts highlighted={highlighted} onShow={jump} />
+        <WorkIndex />
+        <Troubleshooting onShow={jump} />
+        <Steps />
+        <Who />
         <WorkOrder />
       </main>
+      <BackCover />
+      <ThumbBar />
     </>
   );
 }

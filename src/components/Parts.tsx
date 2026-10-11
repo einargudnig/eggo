@@ -6,6 +6,7 @@ import { media } from "../design/media.stylex";
 import { ui } from "../design/primitives";
 import { colors, fonts, layout, motion, space, type } from "../design/tokens.stylex";
 import { useLang } from "../i18n/useLang";
+import { MapFlow } from "./MapFlow";
 import { PartDrawing } from "./PartDrawing";
 import { SectionHead } from "./SectionHead";
 
@@ -44,7 +45,7 @@ export function Parts({ highlighted, onShow }: Props) {
   }, [isPhone]);
 
   return (
-    <section id="smidi" aria-labelledby="h-smidi" {...stylex.props(styles.section)}>
+    <section id="smidi" aria-labelledby="h-smidi" tabIndex={-1} {...stylex.props(ui.anchor, styles.section)}>
       <SectionHead id="h-smidi" index="§1" label={t.partsSection.label} title={t.partsSection.title} />
 
       <nav aria-label={t.a11y.partsNav} {...stylex.props(styles.nav)}>
@@ -100,32 +101,35 @@ function SpecCard({ id, on }: { id: PartId; on: boolean }) {
       tabIndex={-1}
       {...stylex.props(styles.card, unknown && styles.cardUnknown, on && styles.cardOn)}
     >
-      <div {...stylex.props(styles.top)}>
-        <h3 {...stylex.props(styles.name)}>{copy.name}</h3>
-        <div {...stylex.props(styles.id)}>
-          <span {...stylex.props(styles.code, unknown && styles.codeUnknown, on && styles.codeOn)}>
-            <span aria-hidden="true">{`${id} · ${parts[id].code}`}</span>
-            <span {...stylex.props(ui.srOnly)}>{`${t.a11y.partWord} ${id}, ${copy.short}`}</span>
-          </span>
-          <PartDrawing id={id} on={on} />
-        </div>
-      </div>
-      <p {...stylex.props(styles.lead)}>{copy.lead}</p>
-      <dl {...stylex.props(styles.dl)}>
-        {copy.specs.map((row) => (
-          <div key={row.term} {...stylex.props(styles.row)}>
-            <dt {...stylex.props(styles.dt)}>{row.term}</dt>
-            <dd {...stylex.props(styles.dd, row.own && styles.own)}>
-              {row.own ? (
-                <span aria-hidden="true" {...stylex.props(styles.ownMark)}>
-                  ■{" "}
-                </span>
-              ) : null}
-              {row.detail}
-            </dd>
+      <div {...stylex.props(styles.body)}>
+        <div {...stylex.props(styles.top)}>
+          <h3 {...stylex.props(styles.name)}>{copy.name}</h3>
+          <div {...stylex.props(styles.id)}>
+            <span {...stylex.props(styles.code, unknown && styles.codeUnknown, on && styles.codeOn)}>
+              <span aria-hidden="true">{`${id} · ${parts[id].code}`}</span>
+              <span {...stylex.props(ui.srOnly)}>{`${t.a11y.partWord} ${id}, ${copy.short}`}</span>
+            </span>
+            <PartDrawing id={id} on={on} />
           </div>
-        ))}
-      </dl>
+        </div>
+        <p {...stylex.props(styles.lead)}>{copy.lead}</p>
+        <dl {...stylex.props(styles.dl)}>
+          {copy.specs.map((row) => (
+            <div key={row.term} {...stylex.props(styles.row)}>
+              <dt {...stylex.props(styles.dt)}>{row.term}</dt>
+              <dd {...stylex.props(styles.dd, row.own && styles.own)}>
+                {row.own ? (
+                  <span aria-hidden="true" {...stylex.props(styles.ownMark)}>
+                    ■{" "}
+                  </span>
+                ) : null}
+                {row.detail}
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+      {unknown ? <MapFlow /> : null}
     </article>
   );
 }
@@ -221,8 +225,12 @@ const styles = stylex.create({
     flexBasis: { default: null, [media.phone]: `calc(100% - 20px)` },
     scrollSnapAlign: "start",
   },
+  body: { display: "grid", gap: space.s5, alignContent: "start" },
   cardUnknown: {
     gridColumn: "1 / -1",
+    gridTemplateColumns: { default: "minmax(0, 5fr) minmax(0, 7fr)", [media.tablet]: "1fr" },
+    columnGap: space.s7,
+    rowGap: space.s6,
     borderStyle: "dashed",
     borderWidth: layout.rule,
     backgroundImage: hatch,

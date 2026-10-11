@@ -35,6 +35,8 @@ export const ui = stylex.create({
     whiteSpace: "nowrap",
     borderWidth: 0,
   },
+  /** Section targets: clear the sticky bar when jumped to, no ring when focused by script. */
+  anchor: { scrollMarginTop: layout.barHeight, outline: "none" },
   press: {
     transitionProperty: "transform, background-color, color",
     transitionDuration: motion.fast,
