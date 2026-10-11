@@ -33,6 +33,7 @@ test("phone part nav marks the current part and focuses its card", async ({ page
 });
 
 test("work order: errors are tied to fields, receipt takes focus", async ({ page }) => {
+  test.skip(Boolean(process.env["PLAYWRIGHT_BASE_URL"]), "a deployed copy would send a real email");
   await page.goto("/");
   const name = page.getByLabel("Nafn");
   const email = page.getByLabel("Netfang");
