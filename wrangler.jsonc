@@ -1,0 +1,10 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "eggo",
+  "compatibility_date": "2026-10-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "main": "@tanstack/react-start/server-entry",
+  "observability": { "enabled": true },
+  // RESEND_API_KEY is a secret: `wrangler secret put RESEND_API_KEY`. Local dev uses .dev.vars.
+  "vars": { "CONTACT_TRANSPORT": "resend" },
+}

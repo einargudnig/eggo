@@ -1,270 +1,50 @@
-@import "tailwindcss";
-
-@theme {
-  --color-brand: #d4a054;
-  --color-brand-dark: #b8863a;
-  --color-on-brand: #0a0a0a;
-  --color-surface: #0a0a0a;
-  --color-surface-elevated: #141414;
-  --color-surface-subtle: #1a1a1a;
-  --color-text-primary: #f5f5f4;
-  --color-text-secondary: #a8a29e;
-  --color-text-muted: #8b8480;
-  --color-border: #292524;
-  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "Instrument Serif", Georgia, "Times New Roman", serif;
-}
-
-/* Custom easing curves — stronger than CSS defaults */
-:root {
-  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
-  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  background-color: var(--color-surface);
-  color: var(--color-text-primary);
-  font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-::selection {
-  background-color: var(--color-brand);
-  color: var(--color-surface);
-}
-
-/* Visible focus ring for keyboard users only */
-:focus-visible {
-  outline: 2px solid var(--color-brand);
-  outline-offset: 2px;
-}
-
-input:focus-visible,
-textarea:focus-visible {
-  outline: none;
-  border-color: var(--color-brand);
-}
-
-/* Light mode overrides */
-html.light {
-  --color-surface: #fafaf9;
-  --color-surface-elevated: #ffffff;
-  --color-surface-subtle: #f5f5f4;
-  --color-text-primary: #1c1917;
-  --color-text-secondary: #44403c;
-  --color-text-muted: #78716c;
-  --color-border: #e7e5e4;
-  --color-brand: #b8863a;
-  --color-brand-dark: #9a6f2c;
-  --color-on-brand: #1c1917;
-}
-
-
-/* Button interactions — specific properties, custom easing, responsive press */
-.btn-primary {
-  transition: background-color 200ms ease, transform 160ms var(--ease-out);
-}
-
-.btn-secondary {
-  transition: border-color 200ms ease, color 200ms ease, transform 160ms var(--ease-out);
-}
-
-.btn-primary:active,
-.btn-secondary:active {
-  transform: scale(0.97);
-}
-
-/* Gate hover effects behind pointer capability */
-@media (hover: hover) and (pointer: fine) {
-  .btn-primary:hover {
-    background-color: var(--color-brand-dark);
-    transform: scale(1.02);
+/* Only what StyleX can't express: document-level resets and the colour-scheme switch.
+   Everything is inside @layer reset, declared first, so StyleX's layers always win.
+   (Unlayered CSS beats every layer, which would let `font: inherit` override component fonts.) */
+@layer reset {
+  :root {
+    color-scheme: light dark;
+    -webkit-text-size-adjust: 100%;
   }
-
-  .btn-secondary:hover {
-    border-color: var(--color-text-muted);
-    color: var(--color-text-primary);
+  :root[data-theme="light"] {
+    color-scheme: light;
   }
-
-  .nav-link {
-    transition: color 150ms ease;
-    position: relative;
+  :root[data-theme="dark"] {
+    color-scheme: dark;
   }
-
-  .nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 0;
-    height: 1px;
-    background-color: var(--color-text-primary);
-    transition: width 250ms var(--ease-out);
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
   }
-
-  .nav-link:hover {
-    color: var(--color-text-primary);
+  body {
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
   }
-
-  .nav-link:hover::after {
-    width: 100%;
+  button,
+  input,
+  textarea {
+    font: inherit;
   }
-
-  .theme-toggle {
-    transition: color 150ms ease, border-color 150ms ease;
+  button {
+    touch-action: manipulation;
   }
-
-  .theme-toggle:hover {
-    color: var(--color-text-primary);
-    border-color: var(--color-border);
-  }
-
-  .service-card.visible {
-    transition: opacity 500ms var(--ease-out), transform 500ms var(--ease-out),
-                border-color 200ms ease, background-color 200ms ease;
-  }
-
-  .service-card:hover {
-    border-color: color-mix(in srgb, var(--color-brand) 30%, transparent);
-    background-color: var(--color-surface-subtle);
-    transform: translateY(-2px);
-  }
-
-  /* Form inputs */
-  input, textarea {
-    transition: border-color 200ms ease, box-shadow 200ms ease;
-  }
-
-  input:focus, textarea:focus {
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-brand) 12%, transparent);
-  }
-
-  /* Logo dot */
-  .logo-dot {
-    display: inline-block;
-    transition: transform 300ms var(--ease-out);
-  }
-
-  a:hover .logo-dot {
-    transform: scale(1.3);
+  [tabindex="-1"]:focus {
+    outline: none;
   }
 }
 
-/* Hero staggered entrance */
-.hero-reveal {
-  opacity: 0;
-  transform: translateY(16px);
-  animation: heroIn 600ms var(--ease-out) forwards;
-  animation-delay: var(--delay, 0ms);
+/* Kept unlayered on purpose: these must beat component styles. */
+[hidden] {
+  display: none !important;
 }
-
-@keyframes heroIn {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Scroll-triggered entrance animations */
-.reveal {
-  opacity: 0;
-  transform: translateY(12px);
-  transition: opacity 500ms var(--ease-out), transform 500ms var(--ease-out);
-}
-
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Stagger delays for card grids */
-.stagger-1 { transition-delay: 0ms; }
-.stagger-2 { transition-delay: 50ms; }
-.stagger-3 { transition-delay: 100ms; }
-.stagger-4 { transition-delay: 150ms; }
-.stagger-5 { transition-delay: 200ms; }
-.stagger-6 { transition-delay: 250ms; }
-
-/* Success checkmark animation */
-.success-circle {
-  stroke-dasharray: 63;
-  stroke-dashoffset: 63;
-  animation: drawCircle 600ms var(--ease-out) 100ms forwards;
-}
-
-.success-tick {
-  stroke-dasharray: 14;
-  stroke-dashoffset: 14;
-  animation: drawTick 400ms var(--ease-out) 500ms forwards;
-}
-
-@keyframes drawCircle {
-  to { stroke-dashoffset: 0; }
-}
-
-@keyframes drawTick {
-  to { stroke-dashoffset: 0; }
-}
-
-/* Theme transition overlay */
-.theme-transition-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 9999;
-  pointer-events: none;
-  clip-path: circle(0% at var(--tx, 50%) var(--ty, 50%));
-}
-
-.theme-transition-overlay.expanding {
-  animation: theme-reveal 0.5s var(--ease-out) forwards;
-}
-
-@keyframes theme-reveal {
-  to {
-    clip-path: circle(150% at var(--tx, 50%) var(--ty, 50%));
-  }
-}
-
-/* Reduced motion: keep opacity, remove movement */
 @media (prefers-reduced-motion: reduce) {
-  .hero-reveal {
-    transform: none;
-    animation: fadeOnly 300ms ease forwards;
-    animation-delay: var(--delay, 0ms);
-  }
-
-  @keyframes fadeOnly {
-    to { opacity: 1; }
-  }
-
-  .reveal {
-    transform: none;
-    transition: opacity 300ms ease;
-  }
-
-  .theme-transition-overlay.expanding {
-    animation-duration: 0.01ms;
-  }
-
-  .success-circle,
-  .success-tick {
-    stroke-dashoffset: 0;
-    animation: none;
-  }
-
-  .service-card:hover {
-    transform: none !important;
-  }
-
-  html {
-    scroll-behavior: auto;
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
   }
 }
