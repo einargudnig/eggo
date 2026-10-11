@@ -1,7 +1,11 @@
 import { createServerFn } from "@tanstack/react-start";
 import { env } from "cloudflare:workers";
 import { Resend } from "resend";
+import { brand } from "../content/brand";
 import { workOrderSchema, type WorkOrder } from "./workOrder";
+
+/** Any address on eggo.is works: the domain is verified in Resend (DKIM on resend._domainkey, bounces via send.eggo.is). */
+const FROM = `${brand.name} <vefur@eggo.is>`;
 
 const ticketNumber = () => {
   const [random = 0] = crypto.getRandomValues(new Uint16Array(1));
@@ -30,8 +34,8 @@ export const sendWorkOrder = createServerFn({ method: "POST" })
     }
     const resend = new Resend(env.RESEND_API_KEY);
     const { error } = await resend.emails.send({
-      from: "Eggó <onboarding@resend.dev>",
-      to: "eggo@eggo.is",
+      from: FROM,
+      to: brand.email,
       replyTo: data.email,
       subject: `Verkbeiðni ${ticket} frá ${data.name}`,
       text: formatBody(data, ticket),
