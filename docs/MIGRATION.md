@@ -1,6 +1,27 @@
 # Eggó: framework & hosting migration
 
-Status: **open, not decided**. The design is locked (`DESIGN-SYSTEM.md`, `ACCESSIBILITY.md`), so this is the next decision. The phone patterns (contents sheet, carousel, thumb bar), the diagram and the work-order form are the interactive parts the stack has to carry.
+Status: **decided 2026-10-11.** Bun + Vite + TanStack Router (with the TanStack Start plugin for prerendering and server functions), StyleX, TypeScript 7, Oxlint/Oxfmt, on Cloudflare Workers. The proof is on `redesign`; see §0. The rest of this file is the reasoning and the inventory that the full port still has to cover.
+
+## 0. Decision and proof results
+
+**Why this stack:** agents are the main authors, so everything is `.tsx` and machine-checked. Routes, links, URL params and server calls are typed by TanStack; design tokens by StyleX; copy by the dictionaries; and house rules by an Oxlint plugin. Astro was the better fit for a static site but its `.astro` templates sit outside TS 7 and Oxlint's JSX rules.
+
+**What the proof covers:** bar (IS/EN link, theme switch), hero with both diagrams, the parts section with phone part nav and carousel, and the work order as a server function. `/` and `/en` are prerendered.
+
+**Verified:**
+- `bun run check` in ~1.2s: TS 7 (`tsc`, 0.2s for the app), type-aware Oxlint + 3 house rules (16 rule tests), Oxfmt, WCAG contrast read from the token file.
+- `bun run test:e2e`: 29 Playwright tests. axe has 0 violations on `/` and `/en` × light/dark × desktop/phone, plus keyboard paths, form errors and focus, theme persistence, `/de` → 404, no hydration errors, no horizontal overflow.
+- Type safety probes: removing an English string, or adding part `06`, fails `tsc` at every place that needs updating.
+
+**Found by the new checks (all fixed):**
+- Prerender reported 200 for a page whose component threw (uncompiled StyleX call). `scripts/verify-prerender.ts` now fails the build on that.
+- Form cell and chip borders on the contact section were 2.1:1 (WCAG 1.4.11 needs 3:1). The mockup had the same gap; `contactRule` is now 3.8/3.5.
+- Visually-hidden labels in off-screen carousel cards widened the page to 1838px, so phones zoomed out. Cards are now positioned; a layout test guards it.
+- Unlayered reset CSS overrode StyleX fonts on buttons. The reset now lives in `@layer reset`.
+
+**Cost to accept:** client JS is ~128 KB gzipped (React + TanStack Router/Start ≈ 112 KB, page code 16 KB). That breaks the 50 KB budget in `DESIGN.md` §6; the new budget is **≤ 150 KB gz** for the homepage, checked in CI before launch. Astro would have been near 10 KB.
+
+**Still to port:** contents sheet, thumb bar, RVK clock, work index, troubleshooting table, steps, who, back cover, `/afhverju` (content is in `master` history), 05's mapflow, PostHog events, Cal.com, self-hosted fonts, OG/favicon wiring, sitemap. Resend still sends from `onboarding@resend.dev`; HTML injection is fixed (plain-text email).
 
 ---
 
@@ -49,7 +70,7 @@ Status: **open, not decided**. The design is locked (`DESIGN-SYSTEM.md`, `ACCESS
 1. **Static-first:** every marketing page is prerendered HTML. Only the contact endpoint (and maybe a demo agent later) runs on the server.
 2. **i18n routing:** `/` (is) and `/en` (en), translated slugs, `hreflang`, and typed dictionaries.
 3. **Content:** case studies in MD/MDX per locale, with frontmatter (title, year, type, stack, cover).
-4. **Minimal JS:** under 50KB on the homepage, with islands or partial hydration for the toggles and any demo.
+4. **Minimal JS:** originally under 50KB on the homepage. Revised to ≤ 150 KB gz with the chosen stack (see §0).
 5. **View Transitions:** cross-page plus the theme toggle.
 6. **Room for live AI demos:** a streaming endpoint (e.g. a small agent that answers questions about Eggó). Optional, but the stack shouldn't fight it.
 7. **Familiarity:** low context-switch cost relative to daily work at Maul (React Router v7).
@@ -89,7 +110,7 @@ Status: **open, not decided**. The design is locked (`DESIGN-SYSTEM.md`, `ACCESS
 3. **Port the funnel:** PostHog events (same names, so dashboards continue), Cal.com popup, and the contact endpoint with the fixes from §1.
 4. **Build pages** from the chosen design direction: homepage, `/verk`, case study template, `/afhverju`, 404, all in both locales.
 5. **SEO parity:** titles and descriptions per locale, `hreflang`, sitemap, robots, OG images, and redirects for any changed URLs (`/afhverju` stays; `/en/why` is new).
-6. **Verify:** Lighthouse perf ≥ 95 and a11y = 100, axe in CI with zero violations (`ACCESSIBILITY.md` §6), `node docs/brand/contrast.mjs` clean, 320px Icelandic headings, no-JS render, form end to end, PostHog events firing.
+6. **Verify:** Lighthouse perf ≥ 95 and a11y = 100, axe in CI with zero violations (`ACCESSIBILITY.md` §6), `bun run check` and `bun run test:e2e` green, 320px Icelandic headings, no-JS render, form end to end, PostHog events firing.
 7. **Cut over:** deploy the preview Worker, then point the domain. Do the DNS/MX move separately, with a rollback ready.
 8. **Clean up:** remove Vercel config and project, and `.alchemy/` / `.wrangler/` leftovers if unused.
 

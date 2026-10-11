@@ -1,6 +1,6 @@
 # Eggó design system: A1 "Verkstæði / Pappír"
 
-Status: **locked (2026-10-11)**, including the type, dark mode, drawings, brand assets and accessibility pass. Next step is the build (see `MIGRATION.md`).
+Status: **locked (2026-10-11)**, including the type, dark mode, drawings, brand assets and accessibility pass. The tokens now live in code: `src/design/tokens.stylex.ts` is the source of truth, and this file explains them.
 Live mockup: https://claude.ai/artifact/PKLNUy7Xx82Y8a97m2oQbY
 Background and alternatives: `DESIGN.md`.
 
@@ -71,10 +71,11 @@ Use `tabular-nums` only where digits must line up. In Schibsted it also widens t
 | `--accent-ink` | `#B83A0C` | `#F47A4A` | Accent *text*, darker so it passes AA on paper and surface-2 |
 | `--signal` | `#E8D600` | `#CDBE12` | Used only for the "example data" banner, a warning tape |
 | `--contact-bg` / `--contact-fg` | `#111110` / `#F2F1EC` | `#1C1B18` / `#E6E4DC` | Contact section |
+| `contactRule` / `contactMuted` | fg @ 42% / 66% | fg @ 42% / 62% | Contact hairlines (3:1 for form boundaries) and labels |
 
 **Rules:**
 - **Accent split:** accent as a fill takes ink text (`--on-accent`). Accent as text uses `--accent-ink`. Never put orange text on an orange-adjacent fill.
-- **Contrast:** checked 2026-10-11 with a script (`node docs/brand/contrast.mjs`). Everything passes AA in both themes:
+- **Contrast:** checked 2026-10-11 with `bun run contrast`, which reads `src/design/tokens.stylex.ts` directly. Everything passes AA in both themes:
 
   | Pair | Light | Dark |
   |---|---|---|

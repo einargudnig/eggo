@@ -228,7 +228,7 @@ Use **A + C**: the spec-sheet structure and honesty of *Verkstæði*, with *Birt
 
 ### Performance budget
 
-- LCP < 1.5s on 4G. JS < 50KB gzipped on the homepage (excluding analytics).
+- LCP < 1.5s on 4G. JS < 50KB gzipped on the homepage (excluding analytics). Revised to ≤ 150 KB with the chosen stack; see `MIGRATION.md` §0.
 - Fonts: at most 3 files, self-hosted and subset to Latin + Latin Extended (Icelandic), with `font-display: swap` and a preloaded display face.
 
 ---

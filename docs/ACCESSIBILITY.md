@@ -11,13 +11,13 @@ Audit: 2026-10-11, mockup v7.
 | Check | Tool | Result |
 |---|---|---|
 | Automated rules (wcag2a/aa, 2.1, 2.2, best-practice) | axe-core 4.10 in headless Chromium, 1280 + 390px × light/dark × IS/EN (8 runs) | **0 violations** (before: 3 rules, 13 hits; see §2) |
-| Colour contrast, every token pair | `node docs/brand/contrast.mjs` | all pass AA (see DESIGN-SYSTEM §3) |
+| Colour contrast, every token pair | `bun run contrast` | all pass AA (see DESIGN-SYSTEM §3) |
 | Keyboard | scripted Playwright pass: tab order, sheet, part nav, diagram, form | as described in §3 |
 | Forced colours / reduced motion | manual CSS review | §4 |
 
 What axe leaves "incomplete" and why that's fine:
 
-- **SVG text contrast:** axe can't compute a background behind `<text>`. Those labels use `--muted` on `--surface`, which `contrast.mjs` already passes in both themes.
+- **SVG text contrast:** axe can't compute a background behind `<text>`. Those labels use `--muted` on `--surface`, which `bun run contrast` already passes in both themes.
 - **The arrow span in buttons:** it's glyph-only, and the button text carries the name.
 
 Not yet tested: real VoiceOver (macOS + iOS) and TalkBack runs. They're needed before launch (§6).
