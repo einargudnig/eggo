@@ -1,25 +1,25 @@
 # build output
 dist/
-# generated types
-.astro/
+.output/
+.tanstack/
 
 # dependencies
 node_modules/
 
+# cloudflare / local secrets
+.wrangler/
+.alchemy/
+.dev.vars
+
+# tests
+test-results/
+playwright-report/
+
 # logs
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
+*.log
 
-
-# environment variables
 .env
-.env.production
-
-# macOS-specific files
+.env.*
 .DS_Store
-
-# jetbrains setting folder
 .idea/
 .vercel

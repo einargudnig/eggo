@@ -1,0 +1,4 @@
+# Native light-dark() support: tokens rely on it (see src/design/tokens.stylex.ts)
+last 2 Chrome versions
+last 2 Firefox versions
+last 2 Safari versions

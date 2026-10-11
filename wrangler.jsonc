@@ -1,0 +1,13 @@
+// Local dev and `vite preview` only. Deploys go through alchemy.run.ts; keep the two in step.
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "eggo",
+  "compatibility_date": "2026-10-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "main": "@tanstack/react-start/server-entry",
+  "observability": { "enabled": true },
+  // Prerendered pages are en/index.html; serve them at /en (the URL the app links to), not /en/.
+  "assets": { "html_handling": "drop-trailing-slash" },
+  // RESEND_API_KEY is a secret: `wrangler secret put RESEND_API_KEY`. Local dev uses .dev.vars.
+  "vars": { "CONTACT_TRANSPORT": "resend" },
+}
