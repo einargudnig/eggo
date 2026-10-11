@@ -8,7 +8,7 @@ import * as Alchemy from "alchemy";
 import * as Cloudflare from "alchemy/Cloudflare";
 import * as Config from "effect/Config";
 import * as Effect from "effect/Effect";
-import { bridgeRecords, mailRecords } from "./infra/dns.ts";
+import { mailRecords } from "./infra/dns.ts";
 
 export default Alchemy.Stack(
   "eggo",
@@ -16,27 +16,35 @@ export default Alchemy.Stack(
   Effect.gen(function* () {
     const { stage } = yield* Alchemy.Stack;
 
-    const site = yield* Cloudflare.Website.Vite("Website", {
-      // Production keeps the plain name; other stages get Alchemy's stage-suffixed default.
-      ...(stage === "prod" ? { name: "eggo" } : {}),
+    const props = {
       compatibility: { date: "2026-10-01", flags: ["nodejs_compat"] },
       observability: { enabled: true },
       // Prerendered pages are en/index.html; serve them at /en (the URL the app links to), not /en/.
-      assets: { htmlHandling: "drop-trailing-slash" },
+      assets: { htmlHandling: "drop-trailing-slash" as const },
       env: {
         CONTACT_TRANSPORT: "resend",
         RESEND_API_KEY: Config.Redacted("RESEND_API_KEY"),
       },
-    });
+    };
 
-    if (stage !== "prod") return { url: site.url };
+    // Other stages are throwaway copies on workers.dev with Alchemy's stage-suffixed name.
+    if (stage !== "prod") {
+      const site = yield* Cloudflare.Website.Vite("Website", props);
+      return { url: site.url };
+    }
 
-    // The zone only does anything once eggo.is's nameservers (set at ISNIC) point at Cloudflare.
     const zone = yield* Cloudflare.Zone.Zone("Zone", { name: "eggo.is" });
-    for (const { id, ...record } of [...mailRecords, ...bridgeRecords]) {
+    for (const { id, ...record } of mailRecords) {
       yield* Cloudflare.DNS.Record(id, { zoneId: zone.zoneId, ttl: 1, proxied: false, ...record });
     }
 
-    return { url: site.url, zoneStatus: zone.status, nameServers: zone.nameServers };
+    const site = yield* Cloudflare.Website.Vite("Website", {
+      ...props,
+      name: "eggo",
+      // Apex is canonical; www 301s to it. Alchemy manages the DNS records and certificates for both.
+      domain: { name: "eggo.is", redirects: ["www.eggo.is"], zoneId: zone.zoneId },
+    });
+
+    return { url: site.url };
   }),
 );

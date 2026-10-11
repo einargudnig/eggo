@@ -21,7 +21,7 @@ Status: **decided 2026-10-11.** Bun + Vite + TanStack Router (with the TanStack 
 
 **Cost to accept:** client JS is ~128 KB gzipped (React + TanStack Router/Start ≈ 112 KB, page code 16 KB). That breaks the 50 KB budget in `DESIGN.md` §6; the new budget is **≤ 150 KB gz** for the homepage, checked in CI before launch. Astro would have been near 10 KB.
 
-**Still to port:** `/afhverju` (content is in `master` history), PostHog events, Cal.com (the booking CTAs point at `#samband` until then), self-hosted fonts, OG/favicon wiring, sitemap. Resend still sends from `onboarding@resend.dev`; HTML injection is fixed (plain-text email).
+**Still to port:** `/afhverju` (content is in `master` history), PostHog events, Cal.com (the booking CTAs point at `#samband` until then), self-hosted fonts, OG/favicon wiring, sitemap. Live on Cloudflare since 2026-10-11: eggo.is DNS is on Cloudflare (`infra/dns.ts`), the Worker serves the apex and www 301s to it, mail stays on Spacemail, and the form sends from `vefur@eggo.is` via Resend.
 
 ---
 

@@ -21,7 +21,7 @@ bun run test:e2e   # builds, prerenders, then axe + keyboard + layout tests on d
 Deploys are run by hand with Alchemy. There is deliberately no CI deploy (no GitHub Action); don't add one.
 
 ```
-bun run deploy                                      # stage prod → eggo.einargudni.workers.dev
+bun run deploy                                      # stage prod → https://eggo.is (www 301s to it)
 bun alchemy deploy --stage <name> -y                # throwaway copy
 PLAYWRIGHT_BASE_URL=<url> bun x playwright test     # run the suite against a deployed copy
 ```
