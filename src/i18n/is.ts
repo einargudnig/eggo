@@ -1,4 +1,16 @@
 import type { PartId } from "../content/parts";
+import type { SectionId } from "../content/sections";
+import type { CaseId, TroubleId } from "../content/work";
+
+type CaseCopy = {
+  name: string;
+  stack: string;
+  problem: string;
+  built: string;
+  /** Big number in the result column. */
+  metric: string;
+  metricNote: string;
+};
 
 type SpecRow = { term: string; detail: string; own?: true };
 type PartCopy = {
@@ -106,6 +118,156 @@ export const is = {
       diagramDetail: "Óljóst",
     },
   } satisfies Record<PartId, PartCopy>,
+  mapflow: {
+    label: "Frá óljósu vandamáli að korti að lausn",
+    before: "Fyrir",
+    map: "Kort",
+    after: "Svo",
+    notes: ["excel??", "3 tölvupóstar", "Gunna veit", "á föstudögum"],
+    outcomes: [
+      { mark: "01", text: "vefsíða" },
+      { mark: "02", text: "kerfi" },
+      { mark: "03", text: "agent" },
+      { mark: "04", text: "tenging" },
+      { mark: "06", text: "eitthvað nýtt", isNew: true },
+      { mark: "—", text: "eða ekki neitt" },
+    ] as readonly { mark: string; text: string; isNew?: true }[],
+  },
+  work: {
+    title: "Nýleg smíði",
+    hint: "Smelltu á línu",
+    note: "Dæmi. Raunveruleg verkefni koma hér.",
+    cols: { project: "Verkefni", part: "Hluti", year: "Ár", stack: "Tækni" },
+    problem: "Vandi",
+    built: "Smíðað",
+    result: "Niðurstaða",
+    cases: {
+      "dk-invoices": {
+        name: "Agent sem færir reikninga í DK",
+        stack: "Claude · DK API",
+        problem: "Einn dagur í mánuði fór í að lesa reikninga frá birgjum og slá þá inn í DK.",
+        built: "Agent les hvert PDF, velur bókhaldslykil og spyr í Slack þegar hann er óviss.",
+        metric: "8 klst → 25 mín",
+        metricNote: "á mánuði, dæmitala",
+      },
+      "order-map": {
+        name: "Kortlagning á pantanaferli hjá heildsölu",
+        stack: "Tafla → 04",
+        problem: "„Pantanir týnast einhvers staðar.“ Enginn gat sagt hvar.",
+        built:
+          "Vikulöng kortlagning á flæðinu milli tölvupósts, síma og tveggja kerfa. Þrjár handsendingar fundust.",
+        metric: "1 kort, 2 lagfæringar",
+        metricNote: "varð að hluta 04, dæmi",
+      },
+      "restaurant-orders": {
+        name: "Pantanakerfi fyrir veitingahús",
+        stack: "React Router · Postgres",
+        problem: "Pantanir voru í sameiginlegu Excel-skjali sem bara ein manneskja skildi.",
+        built: "Innra kerfi með innskráningu, hlutverkum og daglegri skýrslu í tölvupósti.",
+        metric: "0 Excel-skjöl",
+        metricNote: "dæmitala",
+      },
+      "architect-site": {
+        name: "Vefur fyrir arkitektastofu",
+        stack: "Astro · Cloudflare",
+        problem: "Vefur frá 2014 sem enginn þorði að snerta.",
+        built: "Tvítyngdur vefur þar sem þau bæta sjálf við verkefnum.",
+        metric: "0,8 s",
+        metricNote: "hleðslutími, dæmitala",
+      },
+      "slack-asana": {
+        name: "Slack ↔ Asana samstilling",
+        stack: "Workers · webhooks",
+        problem: "Beiðnir komu í Slack og gleymdust áður en þær rötuðu í Asana.",
+        built: "Viðbragð með emoji býr til verkefni og þráðurinn uppfærist þegar því er lokið.",
+        metric: "1 vika",
+        metricNote: "frá símtali í keyrslu, dæmi",
+      },
+    } satisfies Record<CaseId, CaseCopy>,
+  },
+  trouble: {
+    title: "Kannastu við eitthvað af þessu?",
+    cols: { item: "Liður", symptom: "Einkenni", fix: "Líkleg lausn", part: "Hluti" },
+    see: "Sjá hluta",
+    quote: { open: "„", close: "“" },
+    rows: {
+      a: {
+        symptom: "Við eyðum degi í hverjum mánuði í að slá inn reikninga.",
+        fix: "Agent les þá og spyr þegar hann er óviss.",
+      },
+      b: {
+        symptom: "Vefsíðan er gömul og enginn þorir að snerta hana.",
+        fix: "Ný síða sem þú getur breytt sjálf/ur.",
+      },
+      c: {
+        symptom: "Allt er í Excel-skjali sem bara ein manneskja skilur.",
+        fix: "Lítið innra kerfi með almennilegum réttindum.",
+      },
+      d: {
+        symptom: "Við afritum sömu gögnin á milli þriggja kerfa.",
+        fix: "Tengja þau einu sinni og hætta að afrita.",
+      },
+      e: {
+        symptom: "Eitthvað er að, en ég veit ekki alveg hvað.",
+        fix: "Byrja á vikulangri kortlagningu.",
+      },
+    } satisfies Record<TroubleId, { symptom: string; fix: string }>,
+  },
+  steps: {
+    title: "Frá fyrsta símtali að afhendingu",
+    items: [
+      {
+        when: "20 mín · frítt",
+        title: "Símtal",
+        body: "Þú lýsir vandanum. Ég segi þér hreinskilnislega hvort ég sé rétti maðurinn í það.",
+      },
+      {
+        when: "1 vika",
+        title: "Umfang og fast verð",
+        body: "Stutt skriflegt umfang með föstu verði. Óljós vandamál eru kortlögð fyrst (hluti 05).",
+      },
+      {
+        when: "Vikulega",
+        title: "Smíði",
+        body: "Eitthvað sem virkar í hverri viku, sem þú getur prófað og gert athugasemdir við.",
+      },
+      {
+        when: "Þitt",
+        title: "Afhending",
+        body: "Kóði, aðgangar og skjölun á þínu nafni. Ekkert læst inni hjá mér.",
+      },
+    ],
+  },
+  who: {
+    intro: "Ég heiti Einar. Eggó er bara ég. Sá sem þú talar við í fyrsta símtali er sá sem skrifar kóðann.",
+    aside: "Engir verkefnastjórar, engin framsending, engir lærlingar að læra á verkefninu þínu.",
+    facts: [
+      { term: "Staður", detail: "Reykjavík" },
+      { term: "Mál", detail: "Íslenska, enska" },
+      { term: "Rými", detail: "1–2 verkefni í einu" },
+      { term: "Svar", detail: "Innan eins virks dags" },
+    ],
+  },
+  sections: {
+    smidi: "Smíði",
+    verk: "Verk",
+    bilanaleit: "Bilanaleit",
+    ferli: "Ferli",
+    hver: "Hver",
+    samband: "Samband",
+  } satisfies Record<SectionId, string>,
+  contents: {
+    open: "Efni",
+    title: "Efnisyfirlit",
+    close: "Loka",
+    workOrderShort: "VB",
+  },
+  thumb: { book: "Bóka símtal" },
+  back: {
+    edition: "Útgáfa",
+    builtIn: "Smíðað í Reykjavík",
+    setIn: "Sett í Schibsted Grotesk og JetBrains Mono",
+  },
   order: {
     title: "Ertu með eitthvað sem ætti að ganga sjálft?",
     form: "Verkbeiðni",
@@ -125,6 +287,9 @@ export const is = {
     received: "Verkbeiðni móttekin",
     receivedBody: "Ég svara innan eins virks dags.",
     again: "Ný beiðni",
+    orEmail: "Eða tölvupóstur",
+    copy: "Afrita",
+    copied: "Netfang afritað",
   },
 };
 
