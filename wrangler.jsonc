@@ -1,3 +1,4 @@
+// Local dev and `vite preview` only. Deploys go through alchemy.run.ts; keep the two in step.
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "eggo",

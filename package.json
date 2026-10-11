@@ -6,7 +6,7 @@
     "dev": "vite dev",
     "build": "vite build && bun scripts/verify-prerender.ts",
     "preview": "vite preview",
-    "deploy": "bun run build && wrangler deploy",
+    "deploy": "alchemy deploy --stage prod",
     "typecheck": "tsc -p tsconfig.json && tsc -p tsconfig.tools.json",
     "lint": "oxlint --type-aware --deny-warnings",
     "format": "oxfmt",
@@ -15,7 +15,8 @@
     "test": "node --test \"lint/*.test.ts\"",
     "test:e2e": "playwright test",
     "check": "bun run typecheck && bun run lint && bun run format:check && bun run test && bun run contrast",
-    "cf-typegen": "wrangler types"
+    "cf-typegen": "wrangler types",
+    "alchemy": "alchemy"
   },
   "dependencies": {
     "@stylexjs/stylex": "0.19.1",
@@ -29,12 +30,16 @@
   "devDependencies": {
     "@axe-core/playwright": "4.13.0",
     "@cloudflare/vite-plugin": "1.63.1",
+    "@effect/platform-bun": "4.0.3",
+    "@effect/platform-node": "4.0.3",
     "@playwright/test": "1.64.0",
     "@stylexjs/unplugin": "0.19.1",
     "@types/node": "22",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
     "@vitejs/plugin-react": "6.1.2",
+    "alchemy": "2.0.0-beta.81",
+    "effect": "4.0.3",
     "oxfmt": "0.72.0",
     "oxlint": "1.87.0",
     "oxlint-tsgolint": "7.0.2004",

@@ -15,6 +15,18 @@ bun run check      # types (tsc, ~0.3s) · oxlint (type-aware + house rules) · 
 bun run test:e2e   # builds, prerenders, then axe + keyboard + layout tests on desktop and phone
 ```
 
+## Deploying
+
+`alchemy.run.ts` (Alchemy v2, Effect-based beta; versions pinned) owns the Worker, its env and secrets. Secrets come from `.env` at deploy time.
+
+```
+bun run deploy                                      # stage prod → eggo.einargudni.workers.dev
+bun alchemy deploy --stage <name> -y                # throwaway copy
+PLAYWRIGHT_BASE_URL=<url> bun x playwright test     # run the suite against a deployed copy
+```
+
+`wrangler.jsonc` only serves local dev and `vite preview`: keep its compatibility date, flags and asset handling in step with `alchemy.run.ts`.
+
 ## Where things live
 
 | Need | Go to | Rule |

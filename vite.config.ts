@@ -6,7 +6,10 @@ import { defineConfig } from "vite";
 
 export default defineConfig({
   plugins: [
-    cloudflare({ viteEnvironment: { name: "ssr" } }),
+    // Alchemy injects its own Cloudflare plugin when it deploys (alchemy.run.ts); this one is for dev and preview.
+    process.env.ALCHEMY_CLOUDFLARE_VITE_INJECTED === "1"
+      ? null
+      : cloudflare({ viteEnvironment: { name: "ssr" } }),
     tanstackStart({
       prerender: { enabled: true, crawlLinks: true, failOnError: true },
     }),
