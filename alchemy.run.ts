@@ -8,6 +8,7 @@ import * as Alchemy from "alchemy";
 import * as Cloudflare from "alchemy/Cloudflare";
 import * as Config from "effect/Config";
 import * as Effect from "effect/Effect";
+import * as Option from "effect/Option";
 import { mailRecords } from "./infra/dns.ts";
 
 export default Alchemy.Stack(
@@ -15,6 +16,8 @@ export default Alchemy.Stack(
   { providers: Cloudflare.providers(), state: Cloudflare.state() },
   Effect.gen(function* () {
     const { stage } = yield* Alchemy.Stack;
+    // Optional: without it the Worker skips life-os hub logging (src/server/hubLog.ts).
+    const hubToken = yield* Config.option(Config.Redacted("LIFEOS_INGEST_TOKEN"));
 
     const props = {
       compatibility: { date: "2026-10-01", flags: ["nodejs_compat"] },
@@ -24,6 +27,7 @@ export default Alchemy.Stack(
       env: {
         CONTACT_TRANSPORT: "resend",
         RESEND_API_KEY: Config.Redacted("RESEND_API_KEY"),
+        ...(Option.isSome(hubToken) ? { LIFEOS_INGEST_TOKEN: hubToken.value } : {}),
       },
     };
 
