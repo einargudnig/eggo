@@ -18,6 +18,7 @@ bun run test:e2e   # builds, prerenders, then axe + keyboard + layout tests on d
 ## Deploying
 
 `alchemy.run.ts` (Alchemy v2, Effect-based beta; versions pinned) owns the Worker, its env and secrets. Secrets come from `.env` at deploy time.
+Deploys are run by hand with Alchemy. There is deliberately no CI deploy (no GitHub Action); don't add one.
 
 ```
 bun run deploy                                      # stage prod → eggo.einargudni.workers.dev
