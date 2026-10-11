@@ -21,7 +21,7 @@ Status: **decided 2026-10-11.** Bun + Vite + TanStack Router (with the TanStack 
 
 **Cost to accept:** client JS is ~128 KB gzipped (React + TanStack Router/Start ≈ 112 KB, page code 16 KB). That breaks the 50 KB budget in `DESIGN.md` §6; the new budget is **≤ 150 KB gz** for the homepage, checked in CI before launch. Astro would have been near 10 KB.
 
-**Still to port:** contents sheet, thumb bar, RVK clock, work index, troubleshooting table, steps, who, back cover, `/afhverju` (content is in `master` history), 05's mapflow, PostHog events, Cal.com, self-hosted fonts, OG/favicon wiring, sitemap. Resend still sends from `onboarding@resend.dev`; HTML injection is fixed (plain-text email).
+**Still to port:** `/afhverju` (content is in `master` history), PostHog events, Cal.com (the booking CTAs point at `#samband` until then), self-hosted fonts, OG/favicon wiring, sitemap. Resend still sends from `onboarding@resend.dev`; HTML injection is fixed (plain-text email).
 
 ---
 
