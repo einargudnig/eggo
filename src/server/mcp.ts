@@ -92,7 +92,7 @@ const initializeResult = (params: unknown) => {
     capabilities: { tools: {} },
     serverInfo: { name: "eggo", title: brand.name, version: brand.edition, websiteUrl: brand.url },
     instructions:
-      "Eggó is a one-person software studio in Reykjavík. Call get_studio_info to answer questions about it. Call send_work_order only when the person wants to contact Eggó.",
+      "Eggó builds software solutions in Reykjavík: websites, internal systems, AI agents and integrations. Call get_studio_info to answer questions about it. Call send_work_order only when the person wants to contact Eggó.",
   };
 };
 

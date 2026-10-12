@@ -107,7 +107,7 @@ export const llmsTxt = () => {
   return [
     `# ${brand.name}`,
     "",
-    `> ${t.meta.description} Run by ${brand.ownerFullName}: the person you talk to is the person who writes the code.`,
+    `> ${t.meta.description} Run by ${brand.ownerFullName}.`,
     "",
     t.hero.lead,
     "",

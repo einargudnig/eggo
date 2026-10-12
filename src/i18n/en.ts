@@ -3,7 +3,8 @@ import type { Dict } from "./is";
 export const en: Dict = {
   meta: {
     title: "Eggó — software that does the work",
-    description: "A one-person software studio in Reykjavík. Websites, systems, AI agents and integrations.",
+    description:
+      "Software solutions from Reykjavík: websites, internal systems, AI agents and integrations that save time.",
   },
   a11y: {
     skip: "Skip to content",
@@ -17,19 +18,19 @@ export const en: Dict = {
   },
   bar: { light: "Light", dark: "Dark", otherLang: "Íslenska", otherLangShort: "IS" },
   hero: {
-    eyebrow: "One-person software studio",
+    eyebrow: "Software solutions",
     status: "Taking new projects",
     titleStart: "I build software that ",
     titleEm: "does the work.",
-    lead: "Websites, internal systems, AI agents, integrations, and the problems that don't fit any of those yet. Fixed price, weekly drops, and you own everything I build.",
-    cta: "Book a 20-min call",
+    lead: "Solutions that save you time: websites, internal systems, AI agents and integrations, and the problems that don't fit any of those yet. Fixed price, weekly drops, and you own the solution.",
+    cta: "Get in touch",
     figure: "Fig. 1 — a typical build",
     figureCount: "05 parts",
     duration: "≈ 1–8 weeks",
     wires: { post: "POST", webhook: "webhook", api: "API" },
   },
   partsSection: {
-    label: "Output",
+    label: "Solutions",
     title: "Five parts. Four are well defined. The fifth is whatever you need.",
     swipe: "Swipe for more parts",
   },
@@ -197,12 +198,12 @@ export const en: Dict = {
     },
   },
   steps: {
-    title: "From the first call to handover",
+    title: "From the first conversation to handover",
     items: [
       {
-        when: "20 min · free",
-        title: "Call",
-        body: "You describe the problem. I tell you honestly whether I'm the right person for it.",
+        when: "Free",
+        title: "Conversation",
+        body: "You describe the problem. I tell you honestly whether and how I can solve it.",
       },
       {
         when: "1 week",
@@ -222,22 +223,22 @@ export const en: Dict = {
     ],
   },
   who: {
-    intro:
-      "I'm Einar. Eggó is just me. The person you talk to on the first call is the person who writes the code.",
-    aside: "No account managers, no handoffs, no juniors learning on your project.",
+    intro: "I'm Einar. I start with the problem, not the technology, and build the solution that fixes it.",
+    aside:
+      "The solution should fit how you work, not the other way round. So I start by understanding how the work gets done today.",
     facts: [
       { term: "Based", detail: "Reykjavík" },
       { term: "Languages", detail: "Icelandic, English" },
-      { term: "Capacity", detail: "1–2 projects at a time" },
+      { term: "Price", detail: "Fixed, agreed up front" },
       { term: "Reply", detail: "Within one working day" },
     ],
   },
   sections: {
-    smidi: "What I build",
+    smidi: "Solutions",
     verk: "Work",
     bilanaleit: "Troubleshooting",
     ferli: "Process",
-    hver: "Who",
+    hver: "About",
     samband: "Contact",
   },
   contents: {
@@ -246,7 +247,7 @@ export const en: Dict = {
     close: "Close",
     workOrderShort: "WO",
   },
-  thumb: { book: "Book a call" },
+  thumb: { book: "Get in touch" },
   back: {
     edition: "Edition",
     builtIn: "Built in Reykjavík",

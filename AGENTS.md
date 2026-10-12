@@ -1,6 +1,6 @@
 # Eggó: agent guide
 
-Eggó's site: a one-person software studio. Icelandic first (`/`), English mirror (`/en`).
+Eggó's site: a software studio that builds solutions. Icelandic first (`/`), English mirror (`/en`).
 Design and accessibility decisions live in `docs/`; the code enforces them. When a check fails, fix the cause, don't silence the rule.
 
 ## Stack

@@ -26,7 +26,8 @@ type PartCopy = {
 export const is = {
   meta: {
     title: "Eggó — hugbúnaður sem vinnur vinnuna",
-    description: "Einmanna hugbúnaðarstofa í Reykjavík. Vefsíður, kerfi, AI agents og tengingar.",
+    description:
+      "Hugbúnaðarlausnir frá Reykjavík: vefsíður, innri kerfi, AI agents og tengingar sem spara tíma.",
   },
   a11y: {
     skip: "Fara í efni",
@@ -40,19 +41,19 @@ export const is = {
   },
   bar: { light: "Ljós", dark: "Myrkur", otherLang: "English", otherLangShort: "EN" },
   hero: {
-    eyebrow: "Einmanna hugbúnaðarstofa",
+    eyebrow: "Hugbúnaðarlausnir",
     status: "Laus fyrir ný verkefni",
     titleStart: "Ég smíða hugbúnað sem ",
     titleEm: "vinnur vinnuna.",
-    lead: "Vefsíður, innri kerfi, AI agents, tengingar, og vandamál sem passa ekki enn í neinn flokk. Fast verð, vikulegar afhendingar, og þú átt allt sem ég smíða.",
-    cta: "Bóka 20 mín. símtal",
+    lead: "Lausnir sem spara þér tíma: vefsíður, innri kerfi, AI agents og tengingar, og líka vandamál sem passa ekki enn í neinn flokk. Fast verð, vikulegar afhendingar, og þú átt lausnina.",
+    cta: "Hafa samband",
     figure: "Mynd 1 — dæmigerð smíði",
     figureCount: "05 hlutar",
     duration: "≈ 1–8 vikur",
     wires: { post: "POST", webhook: "webhook", api: "API" },
   },
   partsSection: {
-    label: "Afurðir",
+    label: "Lausnir",
     title: "Fimm hlutar. Fjórir eru vel skilgreindir. Sá fimmti er það sem þú þarft.",
     swipe: "Strjúktu fyrir fleiri hluta",
   },
@@ -227,12 +228,12 @@ export const is = {
     } satisfies Record<TroubleId, { symptom: string; fix: string }>,
   },
   steps: {
-    title: "Frá fyrsta símtali að afhendingu",
+    title: "Frá fyrsta samtali að afhendingu",
     items: [
       {
-        when: "20 mín · frítt",
-        title: "Símtal",
-        body: "Þú lýsir vandanum. Ég segi þér hreinskilnislega hvort ég sé rétti maðurinn í það.",
+        when: "Frítt",
+        title: "Samtal",
+        body: "Þú lýsir vandanum. Ég segi þér hreinskilnislega hvort og hvernig ég get leyst hann.",
       },
       {
         when: "1 vika",
@@ -252,21 +253,22 @@ export const is = {
     ],
   },
   who: {
-    intro: "Ég heiti Einar. Eggó er bara ég. Sá sem þú talar við í fyrsta símtali er sá sem skrifar kóðann.",
-    aside: "Engir verkefnastjórar, engin framsending, engir lærlingar að læra á verkefninu þínu.",
+    intro: "Ég heiti Einar. Ég byrja á vandanum, ekki tækninni, og smíða lausnina sem leysir hann.",
+    aside:
+      "Lausnin á að passa við reksturinn, ekki öfugt. Þess vegna byrja ég á að skilja hvernig vinnan er unnin í dag.",
     facts: [
       { term: "Staður", detail: "Reykjavík" },
       { term: "Mál", detail: "Íslenska, enska" },
-      { term: "Rými", detail: "1–2 verkefni í einu" },
+      { term: "Verð", detail: "Fast, samið fyrirfram" },
       { term: "Svar", detail: "Innan eins virks dags" },
     ],
   },
   sections: {
-    smidi: "Smíði",
+    smidi: "Lausnir",
     verk: "Verk",
     bilanaleit: "Bilanaleit",
     ferli: "Ferli",
-    hver: "Hver",
+    hver: "Um",
     samband: "Samband",
   } satisfies Record<SectionId, string>,
   contents: {
@@ -275,7 +277,7 @@ export const is = {
     close: "Loka",
     workOrderShort: "VB",
   },
-  thumb: { book: "Bóka símtal" },
+  thumb: { book: "Hafa samband" },
   back: {
     edition: "Útgáfa",
     builtIn: "Smíðað í Reykjavík",

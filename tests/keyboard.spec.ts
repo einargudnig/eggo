@@ -129,7 +129,7 @@ test("thumb bar is inert over the hero and usable below it", async ({ page, isMo
   await expect(bar).toHaveAttribute("inert");
   await page.locator("#ferli").scrollIntoViewIfNeeded();
   await expect(bar).not.toHaveAttribute("inert");
-  await expect(bar.getByRole("link", { name: /Bóka símtal/ })).toBeInViewport();
+  await expect(bar.getByRole("link", { name: /Hafa samband/ })).toBeInViewport();
 });
 
 test("no console errors or hydration warnings", async ({ page }) => {
