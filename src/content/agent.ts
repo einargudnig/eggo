@@ -56,7 +56,7 @@ export const siteMarkdown = (lang: Lang) => {
     "",
     `> ${t.meta.description}`,
     "",
-    t.hero.lead,
+    `${t.hero.sub} ${t.hero.lead}`,
     "",
     list([
       `${t.agent.statusLabel}: ${t.hero.status}`,
@@ -109,7 +109,7 @@ export const llmsTxt = () => {
     "",
     `> ${t.meta.description} Run by ${brand.ownerFullName}.`,
     "",
-    t.hero.lead,
+    `${t.hero.sub} ${t.hero.lead}`,
     "",
     list([
       `${t.agent.statusLabel}: ${t.hero.status}`,

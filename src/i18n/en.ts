@@ -2,7 +2,7 @@ import type { Dict } from "./is";
 
 export const en: Dict = {
   meta: {
-    title: "Eggó — software that does the work",
+    title: "Eggó — from problem to a solution that works",
     description:
       "Software solutions from Reykjavík: websites, internal systems, AI agents and integrations that save time.",
   },
@@ -20,9 +20,10 @@ export const en: Dict = {
   hero: {
     eyebrow: "Software solutions",
     status: "Taking new projects",
-    titleStart: "I build software that ",
-    titleEm: "does the work.",
-    lead: "Solutions that save you time: websites, internal systems, AI agents and integrations, and the problems that don't fit any of those yet. Fixed price, weekly drops, and you own the solution.",
+    titleStart: "From problem to ",
+    titleEm: "a solution that works.",
+    sub: "What takes time today runs itself tomorrow.",
+    lead: "Websites, internal systems, AI agents and integrations, and the problems that don't fit any of those yet. Fixed price, weekly drops, and you own the solution.",
     cta: "Get in touch",
     figure: "Fig. 1 — a typical build",
     figureCount: "05 parts",
@@ -45,7 +46,7 @@ export const en: Dict = {
         { term: "Stack", detail: "React · Cloudflare" },
         { term: "You own", detail: "Code, design, domain", own: true },
       ],
-      diagramDetail: "eggo.is/book",
+      diagramDetail: "eggo.is/contact",
     },
     "02": {
       name: "Systems",

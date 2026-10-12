@@ -30,7 +30,10 @@ export function Hero({ highlighted, onSelect }: Props) {
             <em {...stylex.props(styles.em)}>{t.hero.titleEm}</em>
           </h1>
           <div {...stylex.props(styles.foot)}>
-            <p {...stylex.props(styles.lead)}>{t.hero.lead}</p>
+            <div {...stylex.props(styles.copy)}>
+              <p {...stylex.props(styles.sub)}>{t.hero.sub}</p>
+              <p {...stylex.props(styles.lead)}>{t.hero.lead}</p>
+            </div>
             <ButtonLink href="#samband" variant="primary" stretchOnPhone>
               {t.hero.cta}
             </ButtonLink>
@@ -99,7 +102,9 @@ const styles = stylex.create({
     alignItems: "flex-end",
     marginTop: { default: space.s7, [media.phone]: space.s5 },
   },
-  lead: { margin: 0, maxWidth: "46ch", fontSize: type.lead, color: colors.muted, textWrap: "pretty" },
+  copy: { maxWidth: "46ch" },
+  sub: { marginTop: 0, marginBottom: space.s2, fontSize: type.lead, fontWeight: 700, textWrap: "balance" },
+  lead: { margin: 0, fontSize: type.lead, color: colors.muted, textWrap: "pretty" },
   figure: {
     gridColumn: { default: "8 / 13", [media.tablet]: "1 / -1" },
     gridRow: { default: "1 / span 2", [media.tablet]: "auto" },

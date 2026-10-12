@@ -10,7 +10,7 @@ const ROW_GAP = 10;
 export const launchScenes = (lang: Lang): Scene[] => {
   const t = getDict(lang);
   const tag = <Label>{t.hero.eyebrow}</Label>;
-  const hero = `${t.hero.titleStart}${t.hero.titleEm}`;
+  const hero = `${t.hero.titleStart}${t.hero.titleEm} ${t.hero.sub}`;
   return [
     {
       name: "hero",
@@ -22,6 +22,9 @@ export const launchScenes = (lang: Lang): Scene[] => {
               {t.hero.titleStart}
               <span style={{ color: colors.accent }}>{t.hero.titleEm}</span>
             </Title>
+          </Reveal>
+          <Reveal at={FPS}>
+            <Body>{t.hero.sub}</Body>
           </Reveal>
         </Page>
       ),

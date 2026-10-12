@@ -16,8 +16,8 @@ test("llms.txt points at the Markdown pages, the API and the MCP server", async 
 });
 
 for (const [path, heading] of [
-  ["/index.md", "# Eggó — hugbúnaður"],
-  ["/en.md", "# Eggó — software"],
+  ["/index.md", "# Eggó — frá vandamáli"],
+  ["/en.md", "# Eggó — from problem"],
 ] as const) {
   test(`markdown mirror: ${path}`, async ({ request }) => {
     const res = await request.get(path);
@@ -85,6 +85,6 @@ test("MCP server initializes and lists its tools", async ({ request }) => {
     await rpc({ id: 3, method: "tools/call", params: { name: "get_studio_info", arguments: {} } })
   ).json();
   expect(info).toMatchObject({
-    result: { content: [{ type: "text", text: expect.stringContaining("# Eggó — software") }] },
+    result: { content: [{ type: "text", text: expect.stringContaining("# Eggó — from problem") }] },
   });
 });

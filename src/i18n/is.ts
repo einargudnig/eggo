@@ -25,7 +25,7 @@ type PartCopy = {
 /** Icelandic is the source language. `en.ts` must match this shape exactly (see `Dict`). */
 export const is = {
   meta: {
-    title: "Eggó — hugbúnaður sem vinnur vinnuna",
+    title: "Eggó — frá vandamáli að lausn sem virkar",
     description:
       "Hugbúnaðarlausnir frá Reykjavík: vefsíður, innri kerfi, AI agents og tengingar sem spara tíma.",
   },
@@ -43,9 +43,10 @@ export const is = {
   hero: {
     eyebrow: "Hugbúnaðarlausnir",
     status: "Laus fyrir ný verkefni",
-    titleStart: "Ég smíða hugbúnað sem ",
-    titleEm: "vinnur vinnuna.",
-    lead: "Lausnir sem spara þér tíma: vefsíður, innri kerfi, AI agents og tengingar, og líka vandamál sem passa ekki enn í neinn flokk. Fast verð, vikulegar afhendingar, og þú átt lausnina.",
+    titleStart: "Frá vandamáli að ",
+    titleEm: "lausn sem virkar.",
+    sub: "Það sem tekur tíma í dag gengur sjálft á morgun.",
+    lead: "Vefsíður, innri kerfi, AI agents og tengingar, og líka vandamál sem passa ekki enn í neinn flokk. Fast verð, vikulegar afhendingar, og þú átt lausnina.",
     cta: "Hafa samband",
     figure: "Mynd 1 — dæmigerð smíði",
     figureCount: "05 hlutar",
@@ -68,7 +69,7 @@ export const is = {
         { term: "Tækni", detail: "React · Cloudflare" },
         { term: "Þú átt", detail: "Kóða, hönnun, lén", own: true },
       ],
-      diagramDetail: "eggo.is/bóka",
+      diagramDetail: "eggo.is/samband",
     },
     "02": {
       name: "Kerfi",
