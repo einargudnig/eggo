@@ -10,7 +10,7 @@ Anything published under Eggó (site, LinkedIn, email, proposals, ads) should so
 
 **Eggó builds software solutions that do the work for small and mid-size companies.**
 
-_"Ég smíða hugbúnað sem vinnur vinnuna."_ / _"I build software that does the work."_
+_"Frá vandamáli að lausn sem virkar."_ / _"From problem to a solution that works."_
 
 ---
 
@@ -66,7 +66,7 @@ Confidence comes from specifics, never from adjectives.
 - Short sentences. Over 20 words, cut.
 - One idea per paragraph. Posts are 3–5 short paragraphs.
 - The site's beat is a plain statement, then a turn: _"Fimm hlutar. Fjórir eru vel skilgreindir. Sá fimmti er það sem þú þarft."_
-- One emphasised phrase per piece at most (the hero's _vinnur vinnuna_ is the model).
+- One emphasised phrase per piece at most (the hero's _lausn sem virkar_ is the model).
 - Commas and full stops over em-dashes in running text.
 
 ### Words
@@ -91,7 +91,7 @@ Voice is constant. Tone shifts.
 
 | Surface | Tone | Example |
 |---|---|---|
-| **Site** | Plain, declarative, first person | _"Ég smíða hugbúnað sem vinnur vinnuna."_ |
+| **Site** | Plain, declarative, solution-first | _"Frá vandamáli að lausn sem virkar."_ |
 | **LinkedIn** (primary channel) | One real story, one lesson, short paragraphs | _"Byrjaðu á verkinu, ekki verkfærinu."_ |
 | **X / Bluesky** (English, personal account) | Shorter, more technical, for developers and agent people | _"A small studio site should be the easiest thing on the internet for an agent to recommend."_ |
 | **Outreach email** | 4–6 sentences, one ask, open with why you noticed them | _"Sá að þið eruð að ráða í bókhald. Ef reikningarnir eru stór hluti af því, gæti agent tekið þá."_ |
@@ -103,7 +103,8 @@ Voice is constant. Tone shifts.
 
 ## 7. Signature lines (from the live site)
 
-- _"Ég smíða hugbúnað sem vinnur vinnuna."_
+- _"Frá vandamáli að lausn sem virkar."_
+- _"Það sem tekur tíma í dag gengur sjálft á morgun."_
 - _"Ég byrja á vandanum, ekki tækninni, og smíða lausnina sem leysir hann."_
 - _"Lausnin á að passa við reksturinn, ekki öfugt."_
 - _"Fast verð, vikulegar afhendingar, og þú átt allt sem ég smíða."_

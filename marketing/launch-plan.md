@@ -47,7 +47,7 @@ Watch: the API and MCP endpoint send email with no rate limit, the same exposure
 
 | Channel | Why | Setup |
 |---|---|---|
-| **LinkedIn, personal (primary)** | Icelandic B2B decisions happen here, and people trust a person over a page | Headline: "Eggó: ég smíða hugbúnað sem vinnur vinnuna". Featured: eggo.is. Add Eggó as your current role |
+| **LinkedIn, personal (primary)** | Icelandic B2B decisions happen here, and people trust a person over a page | Headline: "Eggó: frá vandamáli að lausn sem virkar". Featured: eggo.is. Add Eggó as your current role |
 | **LinkedIn, Eggó company page** | Makes the role clickable and adds credibility. Don't post there first; reshare your own posts | Logo `public/logo-social.png`, banner from `docs/brand/og-is.png` |
 | **Facebook page** | Many Icelandic small businesses only exist on Facebook. It's where they'll check you're real | Same assets. Post less often, mostly reshares |
 | X / Bluesky (optional) | The developer and agent crowd, for English posts like #6 below | Use your existing personal account. Don't create an Eggó one |
