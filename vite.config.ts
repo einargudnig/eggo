@@ -12,6 +12,11 @@ export default defineConfig({
       : cloudflare({ viteEnvironment: { name: "ssr" } }),
     tanstackStart({
       prerender: { enabled: true, crawlLinks: true, failOnError: true },
+      // Agent-facing files are generated from the dictionaries and served as static assets.
+      pages: ["/llms.txt", "/llms-full.txt", "/index.md", "/en.md", "/sitemap.xml"].map((path) => ({
+        path,
+        prerender: { enabled: true, crawlLinks: false },
+      })),
     }),
     stylex({ useCSSLayers: true, devPersistToDisk: true }),
     viteReact(),

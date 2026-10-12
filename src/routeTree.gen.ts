@@ -9,12 +9,54 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as EnDotmdRouteImport } from './routes/en[.]md'
+import { Route as IndexDotmdRouteImport } from './routes/index[.]md'
+import { Route as LlmsFullDottxtRouteImport } from './routes/llms-full[.]txt'
+import { Route as LlmsDottxtRouteImport } from './routes/llms[.]txt'
+import { Route as McpRouteImport } from './routes/mcp'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as Char123LangChar125RouteImport } from './routes/{-$lang}'
+import { Route as ApiWorkOrderRouteImport } from './routes/api/work-order'
 import { Route as Char123LangChar125IndexRouteImport } from './routes/{-$lang}/index'
 
+const EnDotmdRoute = EnDotmdRouteImport.update({
+  id: '/en.md',
+  path: '/en.md',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndexDotmdRoute = IndexDotmdRouteImport.update({
+  id: '/index.md',
+  path: '/index.md',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LlmsFullDottxtRoute = LlmsFullDottxtRouteImport.update({
+  id: '/llms-full.txt',
+  path: '/llms-full.txt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LlmsDottxtRoute = LlmsDottxtRouteImport.update({
+  id: '/llms.txt',
+  path: '/llms.txt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const McpRoute = McpRouteImport.update({
+  id: '/mcp',
+  path: '/mcp',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const Char123LangChar125Route = Char123LangChar125RouteImport.update({
   id: '/{-$lang}',
   path: '/{-$lang}',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiWorkOrderRoute = ApiWorkOrderRouteImport.update({
+  id: '/api/work-order',
+  path: '/api/work-order',
   getParentRoute: () => rootRouteImport,
 } as any)
 const Char123LangChar125IndexRoute = Char123LangChar125IndexRouteImport.update({
@@ -24,36 +66,140 @@ const Char123LangChar125IndexRoute = Char123LangChar125IndexRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
+  '/en.md': typeof EnDotmdRoute
+  '/index.md': typeof IndexDotmdRoute
+  '/llms-full.txt': typeof LlmsFullDottxtRoute
+  '/llms.txt': typeof LlmsDottxtRoute
+  '/mcp': typeof McpRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/{-$lang}': typeof Char123LangChar125RouteWithChildren
+  '/api/work-order': typeof ApiWorkOrderRoute
   '/{-$lang}/': typeof Char123LangChar125IndexRoute
 }
 export interface FileRoutesByTo {
+  '/en.md': typeof EnDotmdRoute
+  '/index.md': typeof IndexDotmdRoute
+  '/llms-full.txt': typeof LlmsFullDottxtRoute
+  '/llms.txt': typeof LlmsDottxtRoute
+  '/mcp': typeof McpRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/api/work-order': typeof ApiWorkOrderRoute
   '/{-$lang}': typeof Char123LangChar125IndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
+  '/en.md': typeof EnDotmdRoute
+  '/index.md': typeof IndexDotmdRoute
+  '/llms-full.txt': typeof LlmsFullDottxtRoute
+  '/llms.txt': typeof LlmsDottxtRoute
+  '/mcp': typeof McpRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/{-$lang}': typeof Char123LangChar125RouteWithChildren
+  '/api/work-order': typeof ApiWorkOrderRoute
   '/{-$lang}/': typeof Char123LangChar125IndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/{-$lang}' | '/{-$lang}/'
+  fullPaths:
+    | '/en.md'
+    | '/index.md'
+    | '/llms-full.txt'
+    | '/llms.txt'
+    | '/mcp'
+    | '/sitemap.xml'
+    | '/{-$lang}'
+    | '/api/work-order'
+    | '/{-$lang}/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/{-$lang}'
-  id: '__root__' | '/{-$lang}' | '/{-$lang}/'
+  to:
+    | '/en.md'
+    | '/index.md'
+    | '/llms-full.txt'
+    | '/llms.txt'
+    | '/mcp'
+    | '/sitemap.xml'
+    | '/api/work-order'
+    | '/{-$lang}'
+  id:
+    | '__root__'
+    | '/en.md'
+    | '/index.md'
+    | '/llms-full.txt'
+    | '/llms.txt'
+    | '/mcp'
+    | '/sitemap.xml'
+    | '/{-$lang}'
+    | '/api/work-order'
+    | '/{-$lang}/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
+  EnDotmdRoute: typeof EnDotmdRoute
+  IndexDotmdRoute: typeof IndexDotmdRoute
+  LlmsFullDottxtRoute: typeof LlmsFullDottxtRoute
+  LlmsDottxtRoute: typeof LlmsDottxtRoute
+  McpRoute: typeof McpRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   Char123LangChar125Route: typeof Char123LangChar125RouteWithChildren
+  ApiWorkOrderRoute: typeof ApiWorkOrderRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/en.md': {
+      id: '/en.md'
+      path: '/en.md'
+      fullPath: '/en.md'
+      preLoaderRoute: typeof EnDotmdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/index.md': {
+      id: '/index.md'
+      path: '/index.md'
+      fullPath: '/index.md'
+      preLoaderRoute: typeof IndexDotmdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/llms-full.txt': {
+      id: '/llms-full.txt'
+      path: '/llms-full.txt'
+      fullPath: '/llms-full.txt'
+      preLoaderRoute: typeof LlmsFullDottxtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/llms.txt': {
+      id: '/llms.txt'
+      path: '/llms.txt'
+      fullPath: '/llms.txt'
+      preLoaderRoute: typeof LlmsDottxtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mcp': {
+      id: '/mcp'
+      path: '/mcp'
+      fullPath: '/mcp'
+      preLoaderRoute: typeof McpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/{-$lang}': {
       id: '/{-$lang}'
       path: '/{-$lang}'
       fullPath: '/{-$lang}'
       preLoaderRoute: typeof Char123LangChar125RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/work-order': {
+      id: '/api/work-order'
+      path: '/api/work-order'
+      fullPath: '/api/work-order'
+      preLoaderRoute: typeof ApiWorkOrderRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/{-$lang}/': {
@@ -78,7 +224,14 @@ const Char123LangChar125RouteWithChildren =
   Char123LangChar125Route._addFileChildren(Char123LangChar125RouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
+  EnDotmdRoute: EnDotmdRoute,
+  IndexDotmdRoute: IndexDotmdRoute,
+  LlmsFullDottxtRoute: LlmsFullDottxtRoute,
+  LlmsDottxtRoute: LlmsDottxtRoute,
+  McpRoute: McpRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   Char123LangChar125Route: Char123LangChar125RouteWithChildren,
+  ApiWorkOrderRoute: ApiWorkOrderRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

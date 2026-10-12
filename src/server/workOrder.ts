@@ -12,3 +12,11 @@ export const workOrderSchema = z.object({
 
 export type WorkOrder = z.infer<typeof workOrderSchema>;
 export type WorkOrderField = "name" | "email" | "message";
+
+/** Agents calling the API or MCP tool may leave out `parts` and `lang`; everything else is checked as strictly as the form. */
+export const parseAgentWorkOrder = (input: unknown) =>
+  workOrderSchema.safeParse(
+    typeof input === "object" && input !== null && !Array.isArray(input)
+      ? { parts: [], lang: "en", ...input }
+      : input,
+  );

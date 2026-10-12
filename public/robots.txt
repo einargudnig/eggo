@@ -1,37 +1,13 @@
-# https://eggo.is robots.txt
-# RFC 9309 compliant
+# https://eggo.is
+# Everyone is welcome, people, search engines and AI agents alike.
+# Agents: start at /llms.txt. The site is also available as Markdown (/index.md, /en.md),
+# and there is an MCP server at /mcp and a JSON work-order endpoint at /api/work-order.
 
 User-agent: *
 Allow: /
-Disallow: /api/
+Disallow: /_serverFn/
 
-# AI Crawlers
-User-agent: GPTBot
-Disallow: /
+# Content Signals (https://contentsignals.org/)
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
 
-User-agent: OAI-SearchBot
-Allow: /
-
-User-agent: Claude-Web
-Disallow: /
-
-User-agent: Google-Extended
-Disallow: /
-
-User-agent: CCBot
-Disallow: /
-
-User-agent: anthropic-ai
-Disallow: /
-
-User-agent: Bytespider
-Disallow: /
-
-User-agent: cohere-ai
-Disallow: /
-
-# Content Signals (draft-romm-aipref-contentsignals)
-# https://contentsignals.org/
-Content-Signal: ai-train=no, search=yes, ai-input=no
-
-Sitemap: https://eggo.is/sitemap-index.xml
+Sitemap: https://eggo.is/sitemap.xml
