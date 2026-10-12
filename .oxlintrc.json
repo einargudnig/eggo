@@ -48,12 +48,16 @@
   },
   "overrides": [
     {
-      "files": ["src/server/**"],
+      "files": ["src/server/**", "inbox/**"],
       "rules": { "no-console": "off" }
     },
     {
       "files": ["tests/**", "lint/**", "scripts/**", "*.config.ts"],
       "rules": { "eggo/no-literal-copy": "off", "no-console": "off" }
+    },
+    {
+      "files": ["inbox/**"],
+      "rules": { "no-await-in-loop": "off" }
     },
     {
       "files": ["video/render.ts", "video/*.config.ts"],

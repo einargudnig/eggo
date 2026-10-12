@@ -18,6 +18,9 @@ export default Alchemy.Stack(
     const { stage } = yield* Alchemy.Stack;
     // Optional: without it the Worker skips life-os hub logging (src/server/hubLog.ts).
     const hubToken = yield* Config.option(Config.Redacted("LIFEOS_INGEST_TOKEN"));
+    // Optional: without both there are no inbox push alerts (inbox/worker.ts).
+    const imapPassword = yield* Config.option(Config.Redacted("SPACEMAIL_PASSWORD"));
+    const ntfyTopic = yield* Config.option(Config.Redacted("NTFY_TOPIC"));
 
     const props = {
       compatibility: { date: "2026-10-01", flags: ["nodejs_compat"] },
@@ -48,6 +51,23 @@ export default Alchemy.Stack(
       // Apex is canonical; www 301s to it. Alchemy manages the DNS records and certificates for both.
       domain: { name: "eggo.is", redirects: ["www.eggo.is"], zoneId: zone.zoneId },
     });
+
+    // Reads the Spacemail inbox once a minute and pushes new mail to ntfy. Never sends or deletes mail.
+    if (Option.isSome(imapPassword) && Option.isSome(ntfyTopic)) {
+      yield* Cloudflare.Workers.Worker("Inbox", {
+        name: "eggo-inbox",
+        main: "./inbox/worker.ts",
+        compatibility: props.compatibility,
+        observability: { enabled: true },
+        crons: ["* * * * *"],
+        env: {
+          IMAP_HOST: "mail.spacemail.com",
+          IMAP_USER: "eggo@eggo.is",
+          IMAP_PASSWORD: imapPassword.value,
+          NTFY_TOPIC: ntfyTopic.value,
+        },
+      });
+    }
 
     return { url: site.url };
   }),
