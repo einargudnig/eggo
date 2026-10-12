@@ -61,6 +61,21 @@ Skip Instagram and TikTok for now: the work isn't visual enough to sustain them.
 
 Cadence: one post a week on LinkedIn (Tue–Thu morning), two "give" posts for every "ask". Each one gets a screenshot or the OG image. No emoji, no "spennt að tilkynna".
 
+**Videos.** `bun run video:render` writes every video to `video/out/<video>-<lang>-<format>.mp4`: `feed` (4:5, LinkedIn and Facebook feed) and `story` (9:16, stories and reels). Silent, 20–27 s, readable without sound. Post the video natively (not a YouTube link) with the text below it.
+
+| Post | Video |
+|---|---|
+| 1 Launch | `launch-is-feed` |
+| 2 Gigover assistant | `gigover-assistant-is-feed` |
+| 3 The quietest bug | `gigover-product-is-feed` |
+| 4 Ask | none, text only (asks work better plain) |
+| 5 Sterkir pabbar | `sterkir-pabbar-is-feed` |
+| 6 Agents | `agents-is-feed`; `agents-en-feed` for X/Bluesky |
+| 7 Maul | `maul-verification-is-feed` |
+| 8 Undefined | none yet; reuse `launch` or write a part-05 video |
+
+`life-os` has a video but no post; use it for an English developer post on X/Bluesky.
+
 ### Post 1: Launch (week 1)
 
 > Eggó er komið í loftið.
