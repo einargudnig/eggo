@@ -2,13 +2,13 @@
 
 _Version 2.0 · 2026-10-12 · Source: the live site copy (`src/i18n/is.ts`, `en.ts`) and `docs/DESIGN.md`. Replaces v1.0 (2026-04-16), which spoke as a team ("við"), used amber and Instrument Serif._
 
-Anything published under Eggó (site, LinkedIn, email, proposals, ads) should sound like the same person wrote it. Because one person did.
+Anything published under Eggó (site, LinkedIn, email, proposals, ads) should sound like the same person wrote it.
 
 ---
 
 ## 1. Who Eggó is, in one sentence
 
-**Eggó is one person, Einar, who builds software that does the work for small and mid-size companies.**
+**Eggó builds software solutions that do the work for small and mid-size companies.**
 
 _"Ég smíða hugbúnað sem vinnur vinnuna."_ / _"I build software that does the work."_
 
@@ -16,7 +16,7 @@ _"Ég smíða hugbúnað sem vinnur vinnuna."_ / _"I build software that does th
 
 ## 2. Audience
 
-**Primary:** Icelandic companies, often with a non-technical owner or manager who has a slow, manual or broken process and needs to decide whether to trust one person with it.
+**Primary:** Icelandic companies, often with a non-technical owner or manager who has a slow, manual or broken process and needs to decide whether to trust Eggó with it.
 
 **Secondary:** English-speaking companies, and the agents people ask ("who can build X for me?"). The site is bilingual and agent-readable; the voice is the same in both languages.
 
@@ -32,7 +32,7 @@ _"Ég smíða hugbúnað sem vinnur vinnuna."_ / _"I build software that does th
 
 ## 3. Personality
 
-Capable. Plain. Direct. Honest about size.
+Capable. Plain. Direct. Solution-first.
 
 A craftsman who looks at the problem, asks two sharp questions, says in plain words what he'd build and what it costs, and shows you something working on Friday.
 
@@ -44,7 +44,7 @@ Confidence comes from specifics, never from adjectives.
 
 | Eggó is | Eggó is not |
 |---|---|
-| **One person.** _"Eggó er bara ég."_ | A "team", an "agency", "we" |
+| **Solution-first:** starts from the problem, then picks the tool | Tool-first, "we do React", a list of technologies |
 | Direct: says whether he's the right person | Blunt to the point of cold |
 | Plain: the reader's words, not the developer's | Dumbed down or condescending |
 | Specific: a number, a client, a thing shipped | "Digital transformation", "solutions", "synergy" |
@@ -58,6 +58,7 @@ Confidence comes from specifics, never from adjectives.
 
 ### Pronoun
 - **_Ég_** for Eggó, everywhere: site, posts, email, proposals. Never _"við"_ for Eggó, never third person (_"Eggó trúir…"_).
+- Don't make being one person the message. Lead with the problem and the solution; _ég_ is just how it's said.
 - **_Við_** only for work actually done with others, and say so: _"Hjá Maul smíðuðum við…"_ (in-house, team effort).
 - **_Þú_** for the reader.
 
@@ -80,7 +81,7 @@ Confidence comes from specifics, never from adjectives.
 
 ### Tone markers
 - Dry warmth is fine. Cultural nods sparingly.
-- Humble about size, confident about craft. Never self-deprecating about the work.
+- Confident about craft, never self-deprecating about the work. Size is not the point.
 
 ---
 
@@ -103,8 +104,8 @@ Voice is constant. Tone shifts.
 ## 7. Signature lines (from the live site)
 
 - _"Ég smíða hugbúnað sem vinnur vinnuna."_
-- _"Eggó er bara ég. Sá sem þú talar við í fyrsta símtali er sá sem skrifar kóðann."_
-- _"Engir verkefnastjórar, engin framsending, engir lærlingar að læra á verkefninu þínu."_
+- _"Ég byrja á vandanum, ekki tækninni, og smíða lausnina sem leysir hann."_
+- _"Lausnin á að passa við reksturinn, ekki öfugt."_
 - _"Fast verð, vikulegar afhendingar, og þú átt allt sem ég smíða."_
 - _"Fimm hlutar. Fjórir eru vel skilgreindir. Sá fimmti er það sem þú þarft."_
 - _"Þú átt kortið, jafnvel þótt einhver annar smíði."_
@@ -152,7 +153,7 @@ English, personal account only. Technical angle: agents, MCP, how things were bu
 - Signature: Einar Guðni, Eggó, eggo.is.
 
 ### Paid ads (later)
-- Headline from the site's own lines. CTA: _"Bóka símtal"_.
+- Headline from the site's own lines. CTA: _"Hafa samband"_.
 - Send traffic to the part it promises (`/#part-03` etc.), not just the hero.
 
 ---
@@ -160,6 +161,8 @@ English, personal account only. Technical angle: agents, MCP, how things were bu
 ## 10. Before publishing
 
 - [ ] Is it _ég_, and is any _við_ actually a team?
+- [ ] Does it lead with the solution, not with who or how many is building it?
+- [ ] Is the ask _"Hafa samband"_, not _"Bóka símtal"_?
 - [ ] Is there one number, name or link that backs the claim?
 - [ ] Would a non-technical owner understand it on first read?
 - [ ] Under 150 words for social?
@@ -172,4 +175,5 @@ English, personal account only. Technical angle: agents, MCP, how things were bu
 
 - **v1.0** 2026-04-16: team voice ("við"), amber, Instrument Serif. Retired.
 - **v2.0** 2026-10-12: one-person voice, A1 Pappír, bilingual, agent-readable, real named work.
+- **v2.1** 2026-10-12: solutions first, size not the message, "Hafa samband" as the ask, "Um" instead of "Hver".
 - Revisit §6 and §9 after the first eight posts, with what actually got replies.

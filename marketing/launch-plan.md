@@ -80,9 +80,9 @@ Cadence: one post a week on LinkedIn (Tue–Thu morning), two "give" posts for e
 
 > Eggó er komið í loftið.
 >
-> Eggó er bara ég. Sá sem þú talar við í fyrsta símtali er sá sem skrifar kóðann.
+> Eggó smíðar lausnir sem spara tíma: vefsíður, innri kerfi, AI agents og tengingar á milli kerfa.
 >
-> Ég smíða fimm hluti: vefsíður, innri kerfi, AI agents, tengingar á milli kerfa. Og fimmta hlutinn, sem er óskilgreindur. Hann er fyrir vandamálin sem passa ekki í neinn flokk ennþá.
+> Og fimmta hlutinn, sem er óskilgreindur. Hann er fyrir vandamálin sem passa ekki í neinn flokk ennþá. Þar byrjum við á að kortleggja.
 >
 > Fast verð, eitthvað sem virkar í hverri viku, og þú átt allt.
 >
@@ -114,7 +114,7 @@ Cadence: one post a week on LinkedIn (Tue–Thu morning), two "give" posts for e
 >
 > Ef þú ert með eitthvað sem ætti að ganga sjálft (reikninga sem þarf að slá inn, Excel-skjal sem bara ein manneskja skilur, kerfi sem tala ekki saman), sendu mér línu.
 >
-> 20 mínútna símtal, frítt. Ég segi þér hreinskilnislega hvort ég sé rétti maðurinn í það.
+> Fyrsta samtalið er frítt. Ég segi þér hreinskilnislega hvort og hvernig ég get leyst það.
 >
 > eggo.is
 
