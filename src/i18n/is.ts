@@ -1,6 +1,6 @@
 import type { PartId } from "../content/parts";
 import type { SectionId } from "../content/sections";
-import type { CaseId, TroubleId } from "../content/work";
+import type { CaseId, Engagement, TroubleId } from "../content/work";
 
 type CaseCopy = {
   name: string;
@@ -136,52 +136,65 @@ export const is = {
   work: {
     title: "Nýleg smíði",
     hint: "Smelltu á línu",
-    note: "Dæmi. Raunveruleg verkefni koma hér.",
-    cols: { project: "Verkefni", part: "Hluti", year: "Ár", stack: "Tækni" },
+    cols: { project: "Verkefni", part: "Hluti", client: "Fyrir", stack: "Tækni" },
     problem: "Vandi",
     built: "Smíðað",
     result: "Niðurstaða",
+    readMore: "Öll sagan á einargudni.com",
+    engagements: {
+      freelance: "verktaka",
+      inhouse: "innanhúss",
+      personal: "eigið verkefni",
+    } satisfies Record<Engagement, string>,
     cases: {
-      "dk-invoices": {
-        name: "Agent sem færir reikninga í DK",
-        stack: "Claude · DK API",
-        problem: "Einn dagur í mánuði fór í að lesa reikninga frá birgjum og slá þá inn í DK.",
-        built: "Agent les hvert PDF, velur bókhaldslykil og spyr í Slack þegar hann er óviss.",
-        metric: "8 klst → 25 mín",
-        metricNote: "á mánuði, dæmitala",
-      },
-      "order-map": {
-        name: "Kortlagning á pantanaferli hjá heildsölu",
-        stack: "Tafla → 04",
-        problem: "„Pantanir týnast einhvers staðar.“ Enginn gat sagt hvar.",
+      "gigover-assistant": {
+        name: "AI aðstoðarmaður inni í Gigover",
+        stack: "Gemini · Firebase",
+        problem:
+          "Gigover vildi aðstoðarmann inni í kerfinu sínu. Upphaflega planið kallaði á breytingar á bakenda sem enginn hafði tíma í.",
         built:
-          "Vikulöng kortlagning á flæðinu milli tölvupósts, síma og tveggja kerfa. Þrjár handsendingar fundust.",
-        metric: "1 kort, 2 lagfæringar",
-        metricNote: "varð að hluta 04, dæmi",
+          "Aðstoðarmaður sem svarar spurningum um kerfið, ber saman tilboð og skrifar drög að verkbeiðnum út frá myndum af verkstað. Kostnaður er takmarkaður á hvern notanda.",
+        metric: "22/22",
+        metricNote: "prófdæmi sem þurfa að standast áður en ný útgáfa fer í loftið",
       },
-      "restaurant-orders": {
-        name: "Pantanakerfi fyrir veitingahús",
-        stack: "React Router · Postgres",
-        problem: "Pantanir voru í sameiginlegu Excel-skjali sem bara ein manneskja skildi.",
-        built: "Innra kerfi með innskráningu, hlutverkum og daglegri skýrslu í tölvupósti.",
-        metric: "0 Excel-skjöl",
-        metricNote: "dæmitala",
+      "sterkir-pabbar": {
+        name: "Vefur og áskriftarapp fyrir þjálfara",
+        stack: "Astro · Sanity · React Router",
+        problem:
+          "Þjálfari sem þjálfar pabba þurfti síðu sem breytir heimsóknum í kynningarspjall, og lokað svæði fyrir áskrifendur.",
+        built:
+          "Forsíða sem hann uppfærir sjálfur í vefumsjón, og app með æfingaplani, næringarmarkmiðum og aðstoðarmanni sem svarar aðeins út frá hans efni.",
+        metric: "0 KB",
+        metricNote: "af JavaScript á forsíðunni, svo hún opnast strax",
       },
-      "architect-site": {
-        name: "Vefur fyrir arkitektastofu",
-        stack: "Astro · Cloudflare",
-        problem: "Vefur frá 2014 sem enginn þorði að snerta.",
-        built: "Tvítyngdur vefur þar sem þau bæta sjálf við verkefnum.",
-        metric: "0,8 s",
-        metricNote: "hleðslutími, dæmitala",
+      "gigover-product": {
+        name: "Áreiðanlegra kerfi fyrir byggingargeirann",
+        stack: "React · TanStack Query · Zod",
+        problem:
+          "Bakendinn faldi villur inni í svörum sem litu út fyrir að hafa tekist. Bjóðandi sá „hlaðið upp“ en verkkaupinn fékk ekkert.",
+        built:
+          "Ein sameiginleg villumeðhöndlun fyrir allar 55 aðgerðir sem breyta gögnum, án þess að snerta bakendann. Og léttari vefur.",
+        metric: "−42%",
+        metricNote: "minni aðalpakki, svo kerfið opnast hraðar",
       },
-      "slack-asana": {
-        name: "Slack ↔ Asana samstilling",
-        stack: "Workers · webhooks",
-        problem: "Beiðnir komu í Slack og gleymdust áður en þær rötuðu í Asana.",
-        built: "Viðbragð með emoji býr til verkefni og þráðurinn uppfærist þegar því er lokið.",
-        metric: "1 vika",
-        metricNote: "frá símtali í keyrslu, dæmi",
+      "life-os": {
+        name: "Gögn úr ellefu öppum í einn gagnagrunn",
+        stack: "Bun · SQLite · MCP · Workers",
+        problem:
+          "Svefn, æfingar, fundir, verkefni og kóði lágu hvert í sínu appi. Ekkert þeirra gat svarað spurningu þvert á hin.",
+        built:
+          "Safnari sem samstillir allt í einn SQLite-gagnagrunn sem agents lesa um MCP og öpp um API. Agents fá aðeins lesaðgang.",
+        metric: "14",
+        metricNote: "tengingar við 11 kerfi",
+      },
+      "maul-verification": {
+        name: "Agent sem sannar að breytingin virki",
+        stack: "Playwright · TypeScript",
+        problem: "Agents sögðu að breyting virkaði. Prófin stóðust, en enginn hafði opnað síðuna.",
+        built:
+          "Tól sem lætur agent nota innra kerfi Maul í vafra eins og manneskja og skila sönnunum, ásamt korti af öllum aðgerðum kerfisins. Unnið í teymi.",
+        metric: "5 villur",
+        metricNote: "fundust þegar kortið var skrifað, áður en nokkurt próf var til",
       },
     } satisfies Record<CaseId, CaseCopy>,
   },
@@ -267,6 +280,20 @@ export const is = {
     edition: "Útgáfa",
     builtIn: "Smíðað í Reykjavík",
     setIn: "Sett í Schibsted Grotesk og JetBrains Mono",
+  },
+  agent: {
+    statusLabel: "Staða",
+    emailLabel: "Netfang",
+    otherLang: "Sama efni á ensku",
+    contactTitle: "Hafa samband",
+    formLabel: "Eyðublað á vefnum",
+    apiLabel: "Verkbeiðni frá agent (HTTP)",
+    apiBody:
+      "POST með JSON: name, email og message eru skylda, parts (01–05) og lang (is eða en) valfrjáls. Svarið er miðanúmer.",
+    mcpLabel: "MCP þjónn",
+    mcpBody: "Streamable HTTP, engin innskráning. Tól: get_studio_info og send_work_order.",
+    consent:
+      "Agents: sendið aðeins verkbeiðni þegar manneskja hefur beðið um það, með hennar eigin nafni og netfangi. Einar svarar henni beint.",
   },
   order: {
     title: "Ertu með eitthvað sem ætti að ganga sjálft?",

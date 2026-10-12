@@ -113,51 +113,61 @@ export const en: Dict = {
   work: {
     title: "Recent builds",
     hint: "Tap a row",
-    note: "Example rows. Real projects go here.",
-    cols: { project: "Project", part: "Part", year: "Year", stack: "Stack" },
+    cols: { project: "Project", part: "Part", client: "For", stack: "Stack" },
     problem: "Problem",
     built: "Built",
     result: "Result",
+    readMore: "Full story on einargudni.com",
+    engagements: { freelance: "freelance", inhouse: "in-house", personal: "own project" },
     cases: {
-      "dk-invoices": {
-        name: "Agent that files invoices into DK",
-        stack: "Claude · DK API",
-        problem: "A day a month spent reading supplier invoices and typing them into DK.",
-        built: "An agent reads each PDF, picks the account, and asks in Slack when it isn't sure.",
-        metric: "8 h → 25 min",
-        metricNote: "per month, example figure",
+      "gigover-assistant": {
+        name: "AI assistant inside Gigover",
+        stack: "Gemini · Firebase",
+        problem:
+          "Gigover wanted an assistant inside its app. The original plan needed backend changes nobody had time for.",
+        built:
+          "An assistant that answers product questions, compares bids and drafts work orders from site photos. Spend is capped per user.",
+        metric: "22/22",
+        metricNote: "eval cases that must pass before a release ships",
       },
-      "order-map": {
-        name: "Mapping the order flow at a wholesaler",
-        stack: "Whiteboard → 04",
-        problem: "“Orders get lost somewhere.” Nobody could say where.",
-        built: "A one-week map of the flow across email, phone and two systems. It found three handoffs.",
-        metric: "1 map, 2 fixes",
-        metricNote: "became part 04, example",
+      "sterkir-pabbar": {
+        name: "Website and members' app for a coach",
+        stack: "Astro · Sanity · React Router",
+        problem:
+          "A coach who trains dads needed a page that turns visits into intro chats, and a paid members' area.",
+        built:
+          "A landing page he edits himself in a CMS, and an app with training plans, macro targets and an assistant that answers only from his material.",
+        metric: "0 KB",
+        metricNote: "of JavaScript on the landing page, so it opens instantly",
       },
-      "restaurant-orders": {
-        name: "Order system for a restaurant group",
-        stack: "React Router · Postgres",
-        problem: "Orders lived in a shared spreadsheet that only one person understood.",
-        built: "An internal tool with logins, roles and a daily report by email.",
-        metric: "0 spreadsheets",
-        metricNote: "example figure",
+      "gigover-product": {
+        name: "A more reliable construction SaaS",
+        stack: "React · TanStack Query · Zod",
+        problem:
+          "The backend hid errors inside responses that looked like success. A bidder saw “uploaded” while the tender owner got nothing.",
+        built:
+          "One checked error contract across all 55 write operations, without touching the backend. And a lighter app.",
+        metric: "−42%",
+        metricNote: "smaller main bundle, so the app opens faster",
       },
-      "architect-site": {
-        name: "Website for an architecture practice",
-        stack: "Astro · Cloudflare",
-        problem: "A 2014 site nobody dared to touch.",
-        built: "A bilingual site where they add projects themselves.",
-        metric: "0.8 s",
-        metricNote: "load time, example figure",
+      "life-os": {
+        name: "Eleven apps' data in one database",
+        stack: "Bun · SQLite · MCP · Workers",
+        problem:
+          "Sleep, runs, meetings, tasks and code each lived in their own app. None could answer a question across the others.",
+        built:
+          "A collector that syncs everything into one SQLite database that agents read over MCP and apps over an API. Agents only get read access.",
+        metric: "14",
+        metricNote: "connectors across 11 sources",
       },
-      "slack-asana": {
-        name: "Slack ↔ Asana sync",
-        stack: "Workers · webhooks",
-        problem: "Requests arrived in Slack and were forgotten before reaching Asana.",
-        built: "An emoji reaction creates a task, and the thread is updated when it's done.",
-        metric: "1 week",
-        metricNote: "from call to running, example",
+      "maul-verification": {
+        name: "An agent that proves the change works",
+        stack: "Playwright · TypeScript",
+        problem: "Agents said a change worked. Tests passed, but nobody had opened the page.",
+        built:
+          "A harness that lets an agent use Maul's admin app in a browser like a person and come back with evidence, plus a map of every feature. A team effort.",
+        metric: "5 bugs",
+        metricNote: "found while writing the map, before any test existed",
       },
     },
   },
@@ -241,6 +251,20 @@ export const en: Dict = {
     edition: "Edition",
     builtIn: "Built in Reykjavík",
     setIn: "Set in Schibsted Grotesk and JetBrains Mono",
+  },
+  agent: {
+    statusLabel: "Status",
+    emailLabel: "Email",
+    otherLang: "Same content in Icelandic",
+    contactTitle: "Get in touch",
+    formLabel: "Form on the site",
+    apiLabel: "Work order from an agent (HTTP)",
+    apiBody:
+      "POST JSON: name, email and message are required, parts (01–05) and lang (is or en) are optional. The response is a ticket number.",
+    mcpLabel: "MCP server",
+    mcpBody: "Streamable HTTP, no auth. Tools: get_studio_info and send_work_order.",
+    consent:
+      "Agents: only send a work order when a person has asked you to, with their own name and email. Einar replies to them directly.",
   },
   order: {
     title: "Got something that should run itself?",

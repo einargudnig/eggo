@@ -1,6 +1,6 @@
 import * as stylex from "@stylexjs/stylex";
 import { parts } from "../content/parts";
-import { caseIds, cases, type CaseId } from "../content/work";
+import { caseIds, cases, clientLabel, type CaseId } from "../content/work";
 import { media } from "../design/media.stylex";
 import { ui } from "../design/primitives";
 import { colors, fonts, layout, motion, space, type } from "../design/tokens.stylex";
@@ -14,14 +14,10 @@ export function WorkIndex() {
     <section id="verk" aria-labelledby="h-verk" tabIndex={-1} {...stylex.props(ui.anchor, styles.section)}>
       <SectionHead id="h-verk" index="§2" label={t.sections.verk} title={t.work.title} aside={t.work.hint} />
       <div {...stylex.props(styles.flush)}>
-        <p {...stylex.props(styles.note)}>
-          <span aria-hidden="true">▲</span>
-          {t.work.note}
-        </p>
         <div aria-hidden="true" {...stylex.props(styles.grid, styles.head)}>
           <span {...stylex.props(ui.label)}>{t.work.cols.project}</span>
           <span {...stylex.props(ui.label)}>{t.work.cols.part}</span>
-          <span {...stylex.props(ui.label, styles.wide)}>{t.work.cols.year}</span>
+          <span {...stylex.props(ui.label, styles.wide)}>{t.work.cols.client}</span>
           <span {...stylex.props(ui.label, styles.wide)}>{t.work.cols.stack}</span>
           <span />
         </div>
@@ -36,7 +32,7 @@ export function WorkIndex() {
 function CaseRow({ id, open }: { id: CaseId; open: boolean }) {
   const { t } = useLang();
   const copy = t.work.cases[id];
-  const { part, year } = cases[id];
+  const { part, url } = cases[id];
   const unknown = !parts[part].defined;
   const sep = <span {...stylex.props(ui.srOnly)}>, </span>;
   return (
@@ -49,7 +45,9 @@ function CaseRow({ id, open }: { id: CaseId; open: boolean }) {
           <span {...stylex.props(ui.srOnly)}>{`${t.a11y.partWord} ${part}, ${t.parts[part].short}`}</span>
         </span>
         {sep}
-        <span {...stylex.props(ui.label, ui.tabular, styles.ink, styles.wide)}>{year}</span>
+        <span {...stylex.props(ui.label, styles.ink, styles.wide)}>
+          {clientLabel(id, t.work.engagements)}
+        </span>
         {sep}
         <span {...stylex.props(ui.label, styles.wide)}>{copy.stack}</span>
         <span aria-hidden="true" {...stylex.props(styles.plus)}>
@@ -69,6 +67,10 @@ function CaseRow({ id, open }: { id: CaseId; open: boolean }) {
           <span {...stylex.props(ui.label)}>{t.work.result}</span>
           <span {...stylex.props(styles.metric)}>{copy.metric}</span>
           <p {...stylex.props(styles.text)}>{copy.metricNote}</p>
+          <a href={url} {...stylex.props(styles.more, ui.focusRing)}>
+            {t.work.readMore}
+            <span aria-hidden="true"> →</span>
+          </a>
         </div>
       </div>
     </details>
@@ -82,24 +84,22 @@ const styles = stylex.create({
     borderBottomColor: colors.ruleStrong,
   },
   flush: { maxWidth: layout.max, marginInline: "auto" },
-  note: {
-    display: "flex",
-    alignItems: "center",
-    gap: space.s3,
-    margin: 0,
-    paddingBlock: space.s3,
-    paddingInline: { default: space.s5, [media.phone]: space.s4 },
-    backgroundColor: colors.signal,
-    color: colors.onAccent,
+  more: {
+    justifySelf: "start",
+    marginTop: space.s2,
+    paddingBlock: space.s1,
     fontFamily: fonts.mono,
     fontSize: "12px",
     fontWeight: 500,
-    letterSpacing: "0.04em",
+    color: colors.ink,
+    textDecorationLine: "underline",
+    textDecorationThickness: { default: "1px", ":hover": "2px" },
+    textUnderlineOffset: "3px",
   },
   grid: {
     display: "grid",
     gridTemplateColumns: {
-      default: "minmax(0, 6fr) minmax(0, 1.6fr) minmax(0, 0.9fr) minmax(0, 2.6fr) 32px",
+      default: "minmax(0, 5fr) minmax(0, 1.5fr) minmax(0, 1.8fr) minmax(0, 2.4fr) 32px",
       [media.tablet]: "minmax(0, 1fr) auto 24px",
       [media.phone]: "minmax(0, 1fr) 24px",
     },
