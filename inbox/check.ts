@@ -3,7 +3,7 @@ import { imapDate, type Notification, parseSearch, quote, toNotification } from 
 
 /** Custom IMAP keyword set on every message we've pushed, so each one is announced once. */
 export const KEYWORD = "EggoNotified";
-/** More than this in one minute is a burst; the rest go out on the next run. */
+/** More than this in one run is a burst; the rest go out on the next run. */
 const BATCH = 10;
 const DAY = 24 * 60 * 60 * 1000;
 
@@ -13,7 +13,7 @@ export type InboxConfig = { user: string; password: string; now: Date };
  * One pass over the inbox: unread mail from the last day that hasn't been pushed yet.
  * Reading in webmail first (\Seen) counts as "already know". Headers are read with BODY.PEEK so
  * nothing gets marked as read. The keyword is set only after `notify` succeeds, so a failed push
- * retries next minute instead of being lost.
+ * retries on the next run instead of being lost.
  */
 export const checkInbox = async (
   socket: Duplex,

@@ -59,7 +59,7 @@ export default Alchemy.Stack(
         main: "./inbox/worker.ts",
         compatibility: props.compatibility,
         observability: { enabled: true },
-        crons: ["* * * * *"],
+        crons: ["*/10 * * * *"],
         env: {
           IMAP_HOST: "mail.spacemail.com",
           IMAP_USER: "eggo@eggo.is",

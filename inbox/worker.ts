@@ -1,5 +1,5 @@
 /**
- * Pushes new mail in the Spacemail inbox (eggo@eggo.is) to ntfy, checked once a minute.
+ * Pushes new mail in the Spacemail inbox (eggo@eggo.is) to ntfy, checked every 10 minutes.
  * Deployed by alchemy.run.ts as its own Worker. Spacemail stays the inbox; this only reads it.
  */
 import { connect } from "cloudflare:sockets";
