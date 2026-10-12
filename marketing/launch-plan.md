@@ -2,7 +2,7 @@
 
 _Drafted 2026-10-12. The site is live on Cloudflare with real work rows, llms.txt, Markdown mirrors, JSON-LD, a sitemap, a work-order API and an MCP server._
 
-Voice note: `.claude/brand-voice-guidelines.md` predates the redesign. It says "við", amber and Instrument Serif. The live site says **"ég"**: one person, A1 Pappír, Schibsted Grotesk. Everything below uses "ég". Update or retire that guide.
+Voice: `.claude/brand-voice-guidelines.md` (v2.0, "ég", A1 Pappír). Clients named below (Gigover, Sterkir pabbar, Maul) are fine to name publicly.
 
 ---
 
@@ -151,7 +151,7 @@ English version for X/Bluesky:
 
 ### After week 8
 
-Repeat the rhythm. A good post is one specific thing shipped or learned, under 150 words, with one claim you can back up. New work rows on the site make new posts. When a project ends, ask the client whether you can name them.
+Repeat the rhythm. A good post is one specific thing shipped or learned, under 150 words, with one claim you can back up. New work rows on the site make new posts. For new clients, ask at handover whether you can name them.
 
 ## 5. Order of operations
 

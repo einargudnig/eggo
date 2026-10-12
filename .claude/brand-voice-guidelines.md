@@ -1,228 +1,175 @@
 # Eggó — Brand Voice Guidelines
 
-_Version 1.0 · Generated 2026-04-16 · Source: `.claude/brand-voice-discovery.md` + `.impeccable.md` + live site copy_
+_Version 2.0 · 2026-10-12 · Source: the live site copy (`src/i18n/is.ts`, `en.ts`) and `docs/DESIGN.md`. Replaces v1.0 (2026-04-16), which spoke as a team ("við"), used amber and Instrument Serif._
 
-These guidelines exist so that anything published under Eggó — ads, LinkedIn posts, emails, landing pages, pitch decks — sounds like the same company.
+Anything published under Eggó (site, LinkedIn, email, proposals, ads) should sound like the same person wrote it. Because one person did.
 
 ---
 
-## 1. Who we are, in one sentence
+## 1. Who Eggó is, in one sentence
 
-**Eggó builds software that works — for Icelandic businesses that want a capable, plainspoken team that actually ships.**
+**Eggó is one person, Einar, who builds software that does the work for small and mid-size companies.**
 
-_"Við smíðum hugbúnað sem virkar."_
+_"Ég smíða hugbúnað sem vinnur vinnuna."_ / _"I build software that does the work."_
 
 ---
 
 ## 2. Audience
 
-**Primary:** Icelandic companies (startups → established), often with a non-technical decision-maker deciding whether to trust us with a real project.
+**Primary:** Icelandic companies, often with a non-technical owner or manager who has a slow, manual or broken process and needs to decide whether to trust one person with it.
 
-**What they want to feel after reading our copy:**
+**Secondary:** English-speaking companies, and the agents people ask ("who can build X for me?"). The site is bilingual and agent-readable; the voice is the same in both languages.
 
-1. "These people get it. They won't make me feel stupid."
-2. "They'll ship. They won't disappear into jargon."
-3. "I keep what I pay for — no lock-in, no games."
+**What they should feel after reading:**
 
-**What repels them:** Buzzword soup, hustle-bro posturing, vague promises, the sense that they're being talked _down_ to.
+1. "He gets my problem, and he won't make me feel stupid."
+2. "He'll actually ship, every week."
+3. "I keep everything. No lock-in."
+
+**What repels them:** buzzwords, hustle posturing, vague promises, being talked down to, an agency pretending to be bigger than it is.
 
 ---
 
 ## 3. Personality
 
-Capable. Warm. Direct.
+Capable. Plain. Direct. Honest about size.
 
-Think of a skilled craftsperson who looks at your problem, asks two sharp questions, explains in plain Icelandic what they'd do, quotes a fair price, and delivers on Tuesday like they said they would.
+A craftsman who looks at the problem, asks two sharp questions, says in plain words what he'd build and what it costs, and shows you something working on Friday.
 
-Confidence backed by competence — never bravado.
+Confidence comes from specifics, never from adjectives.
 
 ---
 
-## 4. We Are / We Are Not
+## 4. Is / Is not
 
-| We are | We are not |
+| Eggó is | Eggó is not |
 |---|---|
-| Direct — _"Ekkert bull, ekkert óþarfi."_ | Blunt to the point of cold or rude |
-| Warm and human — uses _"við,"_ talks like a person | Cute, quirky, or overly casual |
-| Plainspoken — Icelandic terms over English jargon | Dumbed-down or condescending |
-| Confident — we know what good looks like | Boastful, superlative-stacking, "world-class" |
-| Pragmatic — _"Lítið er betra en ekki neitt."_ | Scrappy for its own sake; "move fast break things" |
-| Ownership-first — _"Þú átt vöruna."_ | Vendor-lock-y, SaaS-subscription-trap language |
-| Humanist about tech — tech serves people | Tech-for-tech's-sake, feature-list-dumping |
-| Culturally rooted — plays with _"Þetta reddast"_ | Generic global-startup-English voice |
-| Modest about scale — _"Lítið teymi sem hreyfist hratt"_ | Pretending to be bigger than we are |
-| Specific — names actual services, actual outcomes | Abstract — "digital transformation," "synergy," "solutions" |
+| **One person.** _"Eggó er bara ég."_ | A "team", an "agency", "we" |
+| Direct: says whether he's the right person | Blunt to the point of cold |
+| Plain: the reader's words, not the developer's | Dumbed down or condescending |
+| Specific: a number, a client, a thing shipped | "Digital transformation", "solutions", "synergy" |
+| Ownership-first: _"þú átt allt sem ég smíða"_ | Subscriptions, lock-in, "our platform" |
+| Honest about what's unclear: part 05 exists for that | Pretending every problem fits a package |
+| Proof over trust: shows the result, then the claim | "Trust us", testimonials without substance |
 
 ---
 
 ## 5. Voice rules
 
-### Rhythm
-- **Short sentences.** If it's over 20 words, cut it.
-- **Two-part structure with an em-dash** is our signature beat. _"Frá vefsíðum til gervigreindar — við hjálpum fyrirtækjum að skila frábærum hugbúnaði."_
-- **One italicized word per paragraph, max.** Used for landing the punchline. Rare = powerful.
-
 ### Pronoun
-- **_Við_** for the company. Collaborative. Never _"Eggó believes..."_ in third person.
-- **_Þú_** for the reader. Direct address.
-- Avoid the passive voice where active is possible.
+- **_Ég_** for Eggó, everywhere: site, posts, email, proposals. Never _"við"_ for Eggó, never third person (_"Eggó trúir…"_).
+- **_Við_** only for work actually done with others, and say so: _"Hjá Maul smíðuðum við…"_ (in-house, team effort).
+- **_Þú_** for the reader.
 
-### Jargon
-- Use proper Icelandic: _gervigreind_, _sjálfvirknivæðing_, _tækniráðgjöf_.
-- English tech terms (API, DevOps) are fine when they're the term; don't force Icelandic where it sounds awkward.
-- Never: _"leverage,"_ _"synergy,"_ _"world-class,"_ _"cutting-edge,"_ _"innovative solutions,"_ _"best-in-class."_ If you can delete it and the sentence still works, it wasn't doing work.
+### Rhythm
+- Short sentences. Over 20 words, cut.
+- One idea per paragraph. Posts are 3–5 short paragraphs.
+- The site's beat is a plain statement, then a turn: _"Fimm hlutar. Fjórir eru vel skilgreindir. Sá fimmti er það sem þú þarft."_
+- One emphasised phrase per piece at most (the hero's _vinnur vinnuna_ is the model).
+- Commas and full stops over em-dashes in running text.
+
+### Words
+- Use the term the reader would use. English tech terms are fine when they are the term people say: _AI agents_, _API_, _MCP_. Don't force _gervigreindarþjónn_.
+- Never: _leverage, synergy, world-class, cutting-edge, innovative solutions, best-in-class, spennt(ur) að tilkynna_.
+- If a word can be deleted and the sentence still works, delete it.
 
 ### Claims
-- Prefer **specifics over superlatives.** _"Við sendum vikulega uppfærslu"_ beats _"Við erum með bestu samskiptin."_
-- If we can't back it with a concrete example, don't say it.
+- Every claim needs a number, a name or a thing you can click. _"22 prófdæmi sem þurfa öll að standast"_ beats _"vandaður hugbúnaður"_.
+- Name clients and projects plainly (Gigover, Sterkir pabbar, Maul). Say when work was in-house or a team effort.
+- No timelines that date the copy (_"í síðustu viku"_, _"í ár"_). Keep it to what was built and what it did.
 
 ### Tone markers
-- Dry warmth is allowed. Cultural nods (_"Þetta reddast"_) are encouraged, sparingly.
-- Never self-deprecating about our work. Humble about scale, confident about craft.
+- Dry warmth is fine. Cultural nods sparingly.
+- Humble about size, confident about craft. Never self-deprecating about the work.
 
 ---
 
-## 6. Tone-by-context matrix
+## 6. Tone by surface
 
-Voice is constant. Tone shifts by surface.
+Voice is constant. Tone shifts.
 
-| Surface | Tone | Signature move | Example |
-|---|---|---|---|
-| **Website hero / home** | Plain, confident, declarative | _"Við smíðum X. Sem virkar."_ | _"Við smíðum hugbúnað sem virkar."_ |
-| **Manifesto / about** | Warmer, more philosophical, can play with culture | Cultural phrase inversion | _"Þetta reddast!?" → "Við reddum þessu."_ |
-| **LinkedIn post (thought leadership)** | First-person _ég_ is OK for founder voice; otherwise _við_. Confident, specific, short paragraphs | Name a concrete thing shipped, or one lesson learned | See §9 |
-| **Instagram / X / social** | Shorter, more personality, can use understatement or dry humor | Pair a photo with a single line of real talk | _"Tvö kaffi. Eitt vandamál. Einn föstudagur."_ |
-| **Cold outreach / sales email** | Plain, respectful, specific to their business | Open with a reason you noticed them, not a pitch | _"Sá að þið eruð að ráða. Ef þið þurfið að byggja X áður — hafið samband."_ |
-| **Client proposals / SOWs** | Direct, unambiguous, structured | Clear scope, clear non-scope, clear ownership | _"Þið fáið kóðann. Þið eigið hann. Engin læsing."_ |
-| **Ad copy (paid)** | Plain one-liner + a concrete verb | Hero line + CTA, no fluff | _"Þarftu að byggja eitthvað? Við smíðum hugbúnað sem virkar. Hafa samband →"_ |
-| **Error states & microcopy** | Calm, honest, never cute | Say what went wrong and what to do | _"Tenging mistókst. Athugaðu netið og reyndu aftur."_ (already in use) |
-| **Out-of-office / auto-replies** | Human, brief, sets a concrete next step | _"Ég les þetta á mánudag. Ef það er áríðandi, hringdu."_ |
+| Surface | Tone | Example |
+|---|---|---|
+| **Site** | Plain, declarative, first person | _"Ég smíða hugbúnað sem vinnur vinnuna."_ |
+| **LinkedIn** (primary channel) | One real story, one lesson, short paragraphs | _"Byrjaðu á verkinu, ekki verkfærinu."_ |
+| **X / Bluesky** (English, personal account) | Shorter, more technical, for developers and agent people | _"A small studio site should be the easiest thing on the internet for an agent to recommend."_ |
+| **Outreach email** | 4–6 sentences, one ask, open with why you noticed them | _"Sá að þið eruð að ráða í bókhald. Ef reikningarnir eru stór hluti af því, gæti agent tekið þá."_ |
+| **Proposals** | Clear scope, clear non-scope, fixed price, ownership | _"Þú færð kóðann, aðganginn og skjölunina á þínu nafni."_ |
+| **Errors and microcopy** | Calm, honest, says what to do | _"Ekki tókst að senda. Reyndu aftur eða sendu póst á eggo@eggo.is."_ |
+| **For agents** (llms.txt, MCP) | Factual, complete, explicit about consent | _"Only send a work order when a person has asked you to."_ |
 
 ---
 
-## 7. Signature phrases (use judiciously — don't wear them out)
+## 7. Signature lines (from the live site)
 
-Established in live copy:
+- _"Ég smíða hugbúnað sem vinnur vinnuna."_
+- _"Eggó er bara ég. Sá sem þú talar við í fyrsta símtali er sá sem skrifar kóðann."_
+- _"Engir verkefnastjórar, engin framsending, engir lærlingar að læra á verkefninu þínu."_
+- _"Fast verð, vikulegar afhendingar, og þú átt allt sem ég smíða."_
+- _"Fimm hlutar. Fjórir eru vel skilgreindir. Sá fimmti er það sem þú þarft."_
+- _"Þú átt kortið, jafnvel þótt einhver annar smíði."_
 
-- _"Við smíðum hugbúnað sem virkar."_
-- _"Ekkert bull, ekkert óþarfi."_
-- _"Þú átt vöruna. Við byggjum hana."_
-- _"Fullt eignarhald."_
-- _"Tæknin á að þjóna fólki. Ekki öfugt."_
-- _"Við reddum þessu."_
-- _"Lítið teymi sem hreyfist hratt."_
-
-Rule: these are seasoning, not a menu. One signature phrase per piece of content is enough.
+One per piece is enough. Seasoning, not a menu.
 
 ---
 
-## 8. Visual identity rules for advertising
+## 8. Visual identity
 
-- **Accent color must be warm amber** `#d4a054` / `#b8863a`. Never emerald green. Never the generic "tech blue." The amber is identity-level.
-- **Type pairing.** Instrument Serif for any hero/headline. DM Sans for everything else. Don't substitute.
-- **Layout.** Generous whitespace. Let the words carry the weight.
-- **Photography, if used.** Real, specific, Icelandic. No stock "diverse team laughing at a laptop."
-- **Motion.** Subtle, deliberate. The existing easing (`cubic-bezier(0.23, 1, 0.32, 1)`) is the house curve.
+The design system is the source of truth: `docs/DESIGN-SYSTEM.md` and `src/design/tokens.stylex.ts`. Don't restate values here; they drift.
+
+In short, for anything made outside the site (social images, slides, ads):
+- **A1 Pappír:** warm paper background, near-black ink, **signal orange** accent. Not amber, not tech blue.
+- **Schibsted Grotesk** for headlines and text, **JetBrains Mono** for labels, codes and numbers. Not Instrument Serif or DM Sans.
+- Part codes (_01 · WEB … 05_) and spec-sheet layout are the house look. Generous space, hairline rules.
+- Ready assets: `public/og-is.png`, `public/og-en.png`, `public/logo-social.png`, `docs/brand/`.
+- Photos, if any: real work, real screens. No stock.
 
 ---
 
 ## 9. Channel playbook
 
-### LinkedIn (primary B2B channel — recommended starting point)
+The full launch plan and eight drafted posts are in `marketing/launch-plan.md`.
 
-**What works for Eggó on LinkedIn:**
-- Short post (80–150 words), one specific story or lesson, one CTA or none.
-- First-person founder voice (Einar) is more believable than company-voice here. Mix in _"við"_ when talking about team work.
-- Share actual shipped work — screenshots, before/after, specific metrics. No "thrilled to announce" openers.
+### LinkedIn (personal profile first, Eggó page reshares)
+- 80–150 words. One specific thing shipped or learned, one takeaway, at most one ask.
+- Two "give" posts for every "ask".
+- A screenshot or the OG image. No emoji, no threads of "7 lessons".
 
-**Template:**
-> [Specific observation from real work this week]
+Template:
+> [A concrete thing that happened in real work]
 >
-> [What we did / what we learned — 2–3 short lines]
+> [What I did about it, 2–3 short lines, with one number]
 >
-> [One takeaway for the reader]
+> [The takeaway in one sentence]
 >
-> [Optional soft CTA: "Ef þið eruð að glíma við þetta líka — hafið samband."]
+> [Optional: _"Ef þú ert að glíma við þetta, sendu mér línu. eggo.is"_]
 
-**Avoid:** "Here are 7 lessons from 10 years of shipping software 🧵" style threads. Not our voice.
-
-### Instagram / X
-
-- Images of actual work, the team, or one screenshot.
-- Captions are 1–3 lines. Dry over cheery.
-- No emoji in body copy. A single emoji as a visual marker is OK at most.
-
-### Paid ads (Google / Meta)
-
-- **Headline:** Direct, concrete verb. _"Við smíðum hugbúnað sem virkar."_
-- **Description:** The value in their language, not ours. _"Vefir, vefforrit, gervigreind. Þú átt kóðann. Engin læsing."_
-- **CTA:** _"Hafa samband"_ (not _"Lærðu meira"_).
-- **Landing page:** Don't send ad traffic to the homepage hero and expect it to convert — add one page per service or campaign with a direct match to the ad promise.
+### X / Bluesky
+English, personal account only. Technical angle: agents, MCP, how things were built.
 
 ### Email (outbound)
+- Plain subject: _"Spurning um reikningana ykkar"_, not _"🚀 Transform your business"_.
+- Signature: Einar Guðni, Eggó, eggo.is.
 
-- 4–6 sentences, maximum. One ask.
-- Subject line is plain, not clever. _"Spurning um verkefni"_ beats _"🚀 Transform your business."_
-- Signature: real name, role, phone, eggo.is. No quotes or banners.
-
----
-
-## 10. Confidence scores (what's solid, what needs validation)
-
-| Section | Confidence | Why |
-|---|---|---|
-| Personality & core voice | **High** | Documented in `.impeccable.md` + consistent in live copy |
-| Visual system | **High** | Tokens already defined and in production |
-| Signature phrases | **High** | All pulled directly from live site |
-| We Are / We Are Not | **High** | Directly derivable from source |
-| Tone-by-context matrix | **Medium** | Website surfaces are grounded; ad/LinkedIn/email patterns are extrapolated — validate after first campaigns |
-| Channel playbook | **Medium** | No prior Eggó campaigns to validate against — treat as v1 hypothesis |
-| English voice (if needed) | **Not yet defined** | See open question #1 below |
+### Paid ads (later)
+- Headline from the site's own lines. CTA: _"Bóka símtal"_.
+- Send traffic to the part it promises (`/#part-03` etc.), not just the hero.
 
 ---
 
-## 11. Open questions to resolve as you go
+## 10. Before publishing
 
-These don't block you from publishing — they'll get answered by doing the work. Return to this list every few weeks.
-
-1. **Icelandic only, or Icelandic + English?** Decision point: first time a non-Icelandic-speaking prospect could realistically hire you.
-   _Recommendation: stay Icelandic-only until a concrete international lead appears. The cultural rootedness is a differentiator._
-
-2. **Which channel first for advertising?**
-   _Recommendation: LinkedIn first (lowest cost, highest B2B signal in Iceland), Google Ads on a narrow set of keywords second ("vefþróun Ísland," "gervigreind fyrirtæki"), Meta third._
-
-3. **Eggó voice vs Einar voice.** When does each lead?
-   _Recommendation: Eggó for the site, ads, proposals, email. Einar for LinkedIn posts, talks, interviews, podcast appearances. They share the same values but Einar's posts are first-person and personal._
-
-4. **Target segment to lead with.**
-   _Recommendation: Pick one for the next 90 days (e.g., "Icelandic mid-size companies that need AI integration") and tune all ads to that single target. Broaden later._
-
-5. **Proof points.** No case studies on the site yet.
-   _Recommendation: before a paid ad campaign, publish 2–3 short case studies (one paragraph + one screenshot each). Conversion without proof is hard._
-
-6. **How front-and-center is _"Þetta reddast"_?**
-   _Recommendation: keep it as a second-layer brand moment (manifesto page, a campaign riff, a billboard) — not the primary tagline. The primary is _"Við smíðum hugbúnað sem virkar."_ which is clearer to cold audiences._
-
-7. **Conscious differentiation from competitors.**
-   _Recommendation: pick 2–3 named competitors you'd compare against in a sales conversation and write a private one-liner for each ("vs. X, we're Y"). Don't publish these — use them as a compass for copy decisions._
+- [ ] Is it _ég_, and is any _við_ actually a team?
+- [ ] Is there one number, name or link that backs the claim?
+- [ ] Would a non-technical owner understand it on first read?
+- [ ] Under 150 words for social?
+- [ ] No date that will make it look stale next month?
+- [ ] Read it aloud. Would you say it to a client across a table? If not, edit.
 
 ---
 
-## 12. Quick self-check before publishing
+## 11. Maintenance
 
-Before any piece of public content goes out, ask:
-
-- [ ] Would a non-technical Icelandic business owner understand this on first read?
-- [ ] Is there one specific, concrete claim or verb — not just abstractions?
-- [ ] Is it short enough? (If over 150 words for social, cut it.)
-- [ ] Is there at most one italicized word / one signature phrase?
-- [ ] Does it sound like Eggó — not like every other consultancy?
-- [ ] If a prospect read it aloud at their kitchen table, would they cringe? If yes, edit.
-
----
-
-## 13. Version & maintenance
-
-- **v1.0** — 2026-04-16 — initial synthesis from discovery report.
-- **Trigger for v1.1:** after first 5 ads / 10 LinkedIn posts, revisit §6 and §9 with real engagement data. Update whichever patterns didn't land.
-- **Trigger for v2.0:** if English is adopted, or if the founder voice diverges significantly from the company voice.
+- **v1.0** 2026-04-16: team voice ("við"), amber, Instrument Serif. Retired.
+- **v2.0** 2026-10-12: one-person voice, A1 Pappír, bilingual, agent-readable, real named work.
+- Revisit §6 and §9 after the first eight posts, with what actually got replies.
