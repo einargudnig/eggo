@@ -1,13 +1,18 @@
 {
   "name": "eggo",
   "private": true,
+  "workspaces": [
+    "video"
+  ],
   "type": "module",
   "scripts": {
     "dev": "vite dev",
     "build": "vite build && bun scripts/verify-prerender.ts",
     "preview": "vite preview",
     "deploy": "alchemy deploy --stage prod",
-    "typecheck": "tsc -p tsconfig.json && tsc -p tsconfig.tools.json",
+    "video": "bun run --cwd video studio",
+    "video:render": "bun run --cwd video render",
+    "typecheck": "tsc -p tsconfig.json && tsc -p tsconfig.tools.json && tsc -p video/tsconfig.json",
     "lint": "oxlint --type-aware --deny-warnings",
     "format": "oxfmt",
     "format:check": "oxfmt --check",

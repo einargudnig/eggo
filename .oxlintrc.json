@@ -54,6 +54,10 @@
     {
       "files": ["tests/**", "lint/**", "scripts/**", "*.config.ts"],
       "rules": { "eggo/no-literal-copy": "off", "no-console": "off" }
+    },
+    {
+      "files": ["video/render.ts", "video/*.config.ts"],
+      "rules": { "no-console": "off", "no-await-in-loop": "off" }
     }
   ],
   "ignorePatterns": ["src/routeTree.gen.ts", "worker-configuration.d.ts", "dist/**"]
