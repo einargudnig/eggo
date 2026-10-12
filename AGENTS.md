@@ -38,6 +38,7 @@ PLAYWRIGHT_BASE_URL=<url> bun x playwright test     # run the suite against a de
 | Any visible or screen-reader text | `src/i18n/is.ts` then `src/i18n/en.ts` | Icelandic is the source. A missing English key is a type error. Proper nouns go in `src/content/brand.ts`. |
 | The five parts (01–05) | `src/content/parts.ts` | Per-part data is `Record<PartId, …>`; adding a part errors everywhere it's missing. |
 | Server-side work | `src/server/*` via `createServerFn` + a `zod/mini` schema | Validate input with the same schema on client and server. Read env from `cloudflare:workers`, never `process.env` at module scope. |
+| Agent-facing output (llms.txt, `.md` mirrors, sitemap, JSON-LD, MCP at `/mcp`, `/api/work-order`) | `src/content/agent.ts`, `src/server/mcp.ts` | Generated from the dictionaries and prerendered (`pages` in `vite.config.ts`). New page content shows up there automatically; new pages need a sitemap entry. |
 | Routes | `src/routes/`, language via `/{-$lang}` | `src/routeTree.gen.ts` is generated; don't edit. |
 
 ## House lint rules (`lint/eggo-plugin.ts`, tests beside it)
