@@ -18,6 +18,8 @@ export default Alchemy.Stack(
     const { stage } = yield* Alchemy.Stack;
     // Optional: without it the Worker skips life-os hub logging (src/server/hubLog.ts).
     const hubToken = yield* Config.option(Config.Redacted("LIFEOS_INGEST_TOKEN"));
+    // Optional: without it work orders reach outreach only through the inbox email (src/server/outreachIntake.ts).
+    const intakeToken = yield* Config.option(Config.Redacted("OUTREACH_INTAKE_TOKEN"));
     // Optional: without both there are no inbox push alerts (inbox/worker.ts).
     const imapPassword = yield* Config.option(Config.Redacted("SPACEMAIL_PASSWORD"));
     const ntfyTopic = yield* Config.option(Config.Redacted("NTFY_TOPIC"));
@@ -31,6 +33,9 @@ export default Alchemy.Stack(
         CONTACT_TRANSPORT: "resend",
         RESEND_API_KEY: Config.Redacted("RESEND_API_KEY"),
         ...(Option.isSome(hubToken) ? { LIFEOS_INGEST_TOKEN: hubToken.value } : {}),
+        ...(Option.isSome(intakeToken) && stage === "prod"
+          ? { OUTREACH_INTAKE_TOKEN: intakeToken.value }
+          : {}),
       },
     };
 

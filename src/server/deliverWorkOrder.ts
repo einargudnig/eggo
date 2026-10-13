@@ -1,4 +1,6 @@
 import { brand } from "../content/brand";
+import { logToHub } from "./hubLog";
+import { sendToOutreach } from "./outreachIntake";
 import type { WorkOrder } from "./workOrder";
 
 /** Any address on eggo.is works: the domain is verified in Resend (DKIM on resend._domainkey, bounces via send.eggo.is). */
@@ -25,7 +27,7 @@ const formatBody = (order: WorkOrder, ticket: string, channel: Channel) =>
     order.message,
   ].join("\n");
 
-/** Emails a validated work order to the inbox and returns its ticket number. Throws if sending fails. */
+/** Emails a validated work order to the inbox, hands it to outreach, and returns its ticket number. Throws if the email fails. */
 export const deliverWorkOrder = async (order: WorkOrder, channel: Channel) => {
   // Imported lazily: server routes are bundled into every page, and the build prerenders outside workerd.
   const { env } = await import("cloudflare:workers");
@@ -46,5 +48,8 @@ export const deliverWorkOrder = async (order: WorkOrder, channel: Channel) => {
     text,
   });
   if (error) throw new Error(`Resend: ${error.message}`);
+  // After the response, so a slow or broken outreach never delays or fails the visitor's order.
+  const { waitUntil } = await import("cloudflare:workers");
+  waitUntil(sendToOutreach(order, ticket, channel, env, logToHub));
   return { ticket };
 };
