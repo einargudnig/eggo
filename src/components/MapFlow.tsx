@@ -78,7 +78,8 @@ export function MapFlow() {
 
 const styles = stylex.create({
   flow: {
-    display: "grid",
+    // Stacked on a phone it would be the tallest card in the swipe row and leave a screen of empty space under the others.
+    display: { default: "grid", [media.phone]: "none" },
     gridTemplateColumns: {
       default: "minmax(0, 1.1fr) 28px minmax(0, 1fr) 28px minmax(0, 1.1fr)",
       [media.tablet]: "1fr",
