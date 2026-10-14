@@ -59,7 +59,7 @@ Not yet tested: real VoiceOver (macOS + iOS) and TalkBack runs. They're needed b
 | Submit empty form | 3 fields `aria-invalid`, focus on Nafn, error announced | ✅ |
 | Submit bad email | only email invalid, focus on email | ✅ |
 | Submit valid | focus on "Verkbeiðni móttekin" | ✅ |
-| Switch to EN | all aria-labels switch ("Dark mode", "Main menu", "05 Undefined, see details") | ✅ |
+| Switch to EN | all aria-labels switch ("Dark mode", "Main menu", "05 Not sure yet, see details") | ✅ |
 
 ## 4. Rules for the real build
 

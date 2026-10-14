@@ -33,6 +33,7 @@ export function Hero({ highlighted, onSelect }: Props) {
             <div {...stylex.props(styles.copy)}>
               <p {...stylex.props(styles.sub)}>{t.hero.sub}</p>
               <p {...stylex.props(styles.lead)}>{t.hero.lead}</p>
+              <p {...stylex.props(ui.label, styles.price)}>{t.hero.price}</p>
             </div>
             <ButtonLink href="#samband" variant="primary" stretchOnPhone>
               {t.hero.cta}
@@ -105,6 +106,7 @@ const styles = stylex.create({
   copy: { maxWidth: "46ch" },
   sub: { marginTop: 0, marginBottom: space.s2, fontSize: type.lead, fontWeight: 700, textWrap: "balance" },
   lead: { margin: 0, fontSize: type.lead, color: colors.muted, textWrap: "pretty" },
+  price: { marginTop: space.s4, marginBottom: 0, color: colors.ink },
   figure: {
     gridColumn: { default: "8 / 13", [media.tablet]: "1 / -1" },
     gridRow: { default: "1 / span 2", [media.tablet]: "auto" },

@@ -1,3 +1,4 @@
+import { brand } from "../content/brand";
 import { isk, monthlyFee, priceFrom } from "../content/pricing";
 import type { Dict } from "./is";
 
@@ -24,8 +25,9 @@ export const en: Dict = {
     titleStart: "From problem to ",
     titleEm: "a solution that works.",
     sub: "What takes time today runs itself tomorrow.",
-    lead: "Websites, internal systems, AI agents and integrations, and the problems that don't fit any of those yet. Fixed price, weekly drops, and you own the solution.",
+    lead: "Websites, internal systems, AI agents and integrations, and the problems that don't fit any of those yet. Fixed price, something working every week, and you own the solution.",
     cta: "Get in touch",
+    price: `From ${isk("en", Math.min(...Object.values(priceFrom)))} · fixed price`,
     figure: "Fig. 1 — a typical build",
     figureCount: "05 parts",
     duration: "≈ 1–8 weeks",
@@ -90,8 +92,8 @@ export const en: Dict = {
       diagramDetail: "Slack · Asana · DK",
     },
     "05": {
-      name: "Undefined",
-      short: "Undefined",
+      name: "Not sure yet",
+      short: "Not sure yet",
       lead: "Something is slow, manual or annoying, and you can't quite say what you need. We start by mapping it.",
       specs: [
         { term: "Input", detail: "A problem you can't quite describe" },
@@ -230,14 +232,14 @@ export const en: Dict = {
     ],
   },
   who: {
-    intro: "I'm Einar. I start with the problem, not the technology, and build the solution that fixes it.",
+    intro: `I'm ${brand.ownerFullName}. I start with the problem, not the technology, and build the solution that fixes it.`,
     aside:
       "The solution should fit how you work, not the other way round. So I start by understanding how the work gets done today.",
     facts: [
       { term: "Based", detail: "Reykjavík" },
       { term: "Languages", detail: "Icelandic, English" },
       { term: "Price", detail: "Fixed, agreed up front. The starting points are negotiable" },
-      { term: "Running it", detail: `Optional, ${isk("en", monthlyFee)} a month` },
+      { term: "Upkeep", detail: `Optional, ${isk("en", monthlyFee)} a month` },
       { term: "Reply", detail: "Within one working day" },
     ],
   },
@@ -293,6 +295,7 @@ export const en: Dict = {
     errServer: "Couldn't send. Try again or email eggo@eggo.is.",
     received: "Work order received",
     receivedBody: "I reply within one working day.",
+    replyTo: "My reply goes to",
     again: "New order",
     orEmail: "Or email",
     copy: "Copy",

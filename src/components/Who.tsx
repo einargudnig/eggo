@@ -20,6 +20,13 @@ export function Who() {
           <span aria-hidden="true" {...stylex.props(styles.sig)}>
             {`— ${brand.owner}`}
           </span>
+          <p {...stylex.props(styles.links)}>
+            {[brand.ownerSite, brand.github].map((href) => (
+              <a key={href} href={href} {...stylex.props(styles.link, ui.focusRing)}>
+                {href.replace(/^https:\/\//, "")}
+              </a>
+            ))}
+          </p>
         </div>
         <dl {...stylex.props(styles.facts)}>
           {t.who.facts.map((fact) => (
@@ -62,6 +69,17 @@ const styles = stylex.create({
     maxWidth: "34ch",
   },
   muted: { color: colors.muted },
+  links: { display: "flex", flexWrap: "wrap", gap: space.s4, marginTop: space.s5, marginBottom: 0 },
+  link: {
+    paddingBlock: space.s1,
+    fontFamily: fonts.mono,
+    fontSize: "12px",
+    fontWeight: 500,
+    color: colors.ink,
+    textDecorationLine: "underline",
+    textDecorationThickness: { default: "1px", ":hover": "2px" },
+    textUnderlineOffset: "3px",
+  },
   sig: {
     display: "inline-block",
     marginTop: space.s1,

@@ -14,7 +14,7 @@ import { Button } from "./Button";
 type State =
   | { kind: "editing"; invalid: readonly WorkOrderField[]; error: string }
   | { kind: "sending" }
-  | { kind: "sent"; ticket: string };
+  | { kind: "sent"; ticket: string; email: string };
 
 const fieldIds: Record<WorkOrderField, string> = { name: "o-name", email: "o-email", message: "o-msg" };
 const text = (value: FormDataEntryValue | null) => (typeof value === "string" ? value : "");
@@ -49,7 +49,7 @@ export function WorkOrder() {
     setState({ kind: "sending" });
     try {
       const { ticket } = await send({ data: parsed.data });
-      setState({ kind: "sent", ticket });
+      setState({ kind: "sent", ticket, email: parsed.data.email });
       requestAnimationFrame(() => receiptTitle.current?.focus());
     } catch {
       setState({ kind: "editing", invalid: [], error: t.order.errServer });
@@ -95,7 +95,10 @@ export function WorkOrder() {
                 {t.order.received}
               </h3>
               <p {...stylex.props(styles.ticket)}>{state.ticket}</p>
-              <p {...stylex.props(styles.receiptBody)}>{t.order.receivedBody}</p>
+              <p {...stylex.props(styles.receiptBody)}>
+                {t.order.receivedBody} {t.order.replyTo}{" "}
+                <b {...stylex.props(styles.replyTo)}>{state.email}</b>.
+              </p>
               <Button type="button" variant="ghost" inverted onClick={reset}>
                 {t.order.again}
               </Button>
@@ -140,7 +143,9 @@ export function WorkOrder() {
                     <PartChip
                       key={id}
                       id={id}
-                      label={parts[id].defined ? `${id} · ${parts[id].code}` : `${id} · ${t.order.notSure}`}
+                      label={
+                        parts[id].defined ? `${id} · ${t.parts[id].short}` : `${id} · ${t.order.notSure}`
+                      }
                       srLabel={`${id} ${t.parts[id].short}`}
                     />
                   ))}
@@ -313,6 +318,8 @@ const styles = stylex.create({
     width: "100%",
     resize: "vertical",
     outline: "none",
+    // focus() after a failed submit must not leave the field or its label under the sticky bar (WCAG 2.4.11)
+    scrollMarginTop: `calc(${layout.barHeight} + ${space.s8})`,
     "::placeholder": { color: colors.contactMuted, opacity: 0.7 },
   },
   invalid: { boxShadow: `inset 0 -2px 0 ${colors.accent}` },
@@ -375,4 +382,5 @@ const styles = stylex.create({
     fontVariantNumeric: "tabular-nums",
   },
   receiptBody: { margin: 0, color: colors.contactMuted, fontSize: type.small },
+  replyTo: { color: colors.contactFg, fontWeight: 500, overflowWrap: "anywhere" },
 });

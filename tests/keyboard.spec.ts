@@ -67,7 +67,7 @@ test("language switch keeps every label in the new language", async ({ page, isM
   await page.getByRole("link", { name: "English" }).click();
   await expect(page).toHaveURL(/\/en$/);
   await expect(page.getByRole("switch", { name: "Dark mode" })).toBeAttached();
-  await expect(page.getByRole("button", { name: "05 Undefined, see details" }).first()).toBeAttached();
+  await expect(page.getByRole("button", { name: "05 Not sure yet, see details" }).first()).toBeAttached();
 });
 
 test("theme switch persists across reloads", async ({ page, isMobile }) => {

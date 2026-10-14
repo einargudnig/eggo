@@ -1,4 +1,5 @@
 import type { PartId } from "../content/parts";
+import { brand } from "../content/brand";
 import { isk, monthlyFee, priceFrom } from "../content/pricing";
 import type { SectionId } from "../content/sections";
 import type { CaseId, Engagement, TroubleId } from "../content/work";
@@ -49,6 +50,7 @@ export const is = {
     sub: "Það sem tekur tíma í dag gengur sjálft á morgun.",
     lead: "Vefsíður, innri kerfi, AI agents og tengingar, og líka vandamál sem passa ekki enn í neinn flokk. Fast verð, vikulegar afhendingar, og þú átt lausnina.",
     cta: "Hafa samband",
+    price: `Frá ${isk("is", Math.min(...Object.values(priceFrom)))} · fast verð`,
     figure: "Mynd 1 — dæmigerð smíði",
     figureCount: "05 hlutar",
     duration: "≈ 1–8 vikur",
@@ -260,7 +262,7 @@ export const is = {
     ],
   },
   who: {
-    intro: "Ég heiti Einar. Ég byrja á vandanum, ekki tækninni, og smíða lausnina sem leysir hann.",
+    intro: `Ég heiti ${brand.ownerFullName}. Ég byrja á vandanum, ekki tækninni, og smíða lausnina sem leysir hann.`,
     aside:
       "Lausnin á að passa við reksturinn, ekki öfugt. Þess vegna byrja ég á að skilja hvernig vinnan er unnin í dag.",
     facts: [
@@ -323,6 +325,7 @@ export const is = {
     errServer: "Ekki tókst að senda. Reyndu aftur eða sendu póst á eggo@eggo.is.",
     received: "Verkbeiðni móttekin",
     receivedBody: "Ég svara innan eins virks dags.",
+    replyTo: "Svarið fer á",
     again: "Ný beiðni",
     orEmail: "Eða tölvupóstur",
     copy: "Afrita",
