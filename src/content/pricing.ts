@@ -9,7 +9,7 @@ export const priceFrom = {
   "01": 200_000,
   "02": 400_000,
   "03": 300_000,
-  "04": 300_000,
+  "04": 250_000,
   "05": 290_000,
 } as const satisfies Record<PartId, number>;
 
