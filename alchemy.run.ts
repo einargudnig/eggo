@@ -51,6 +51,12 @@ export default Alchemy.Stack(
     }
 
     const zone = yield* Cloudflare.Zone.Zone("Zone", { name: "eggo.is" });
+    // Plain http:// answered 200; redirect it. HSTS (public/_headers) keeps browsers on https after that.
+    yield* Cloudflare.Zone.Setting("AlwaysUseHttps", {
+      zoneId: zone.zoneId,
+      settingId: "always_use_https",
+      value: "on",
+    });
     for (const { id, ...record } of mailRecords) {
       yield* Cloudflare.DNS.Record(id, { zoneId: zone.zoneId, ttl: 1, proxied: false, ...record });
     }

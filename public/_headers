@@ -1,0 +1,31 @@
+# Applied by Cloudflare's asset layer to static files (prerendered pages included), not to Worker responses.
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Content-Security-Policy: frame-ancestors 'none'
+  Strict-Transport-Security: max-age=31536000
+
+# Content-hashed by Vite: a changed file gets a new name.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Not hashed: rename a font file when replacing it.
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Prerendered agent files: the asset layer serves them without a charset (garbling "Eggó") and without CORS.
+/llms.txt
+  Content-Type: text/plain; charset=utf-8
+  Access-Control-Allow-Origin: *
+/llms-full.txt
+  Content-Type: text/plain; charset=utf-8
+  Access-Control-Allow-Origin: *
+/index.md
+  Content-Type: text/markdown; charset=utf-8
+  Access-Control-Allow-Origin: *
+/en.md
+  Content-Type: text/markdown; charset=utf-8
+  Access-Control-Allow-Origin: *
+/sitemap.xml
+  Content-Type: application/xml; charset=utf-8
