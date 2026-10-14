@@ -45,7 +45,7 @@ function CaseRow({ id, open }: { id: CaseId; open: boolean }) {
           <span {...stylex.props(ui.srOnly)}>{`${t.a11y.partWord} ${part}, ${t.parts[part].short}`}</span>
         </span>
         {sep}
-        <span {...stylex.props(ui.label, styles.ink, styles.wide)}>
+        <span {...stylex.props(ui.label, styles.ink, styles.client)}>
           {clientLabel(id, t.work.engagements)}
         </span>
         {sep}
@@ -116,6 +116,8 @@ const styles = stylex.create({
     borderBottomColor: colors.ruleStrong,
   },
   wide: { display: { default: null, [media.tablet]: "none" } },
+  // Narrow screens drop the column but keep who it was for on its own line: own and in-house work must not read as client work.
+  client: { gridColumn: { default: null, [media.tablet]: "1 / 2" } },
   row: { borderBottomWidth: layout.rule, borderBottomStyle: "solid", borderBottomColor: colors.rule },
   summary: {
     position: "relative",
