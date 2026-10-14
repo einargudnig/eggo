@@ -8,7 +8,7 @@ import { siteMarkdown } from "../content/agent";
 import { brand } from "../content/brand";
 import { partIds } from "../content/parts";
 import { getDict } from "../i18n";
-import { deliverWorkOrder } from "./deliverWorkOrder";
+import { deliverWorkOrder, RateLimitedError } from "./deliverWorkOrder";
 import { parseAgentWorkOrder } from "./workOrder";
 
 const PROTOCOL_VERSIONS = ["2025-11-25", "2025-06-18", "2025-03-26", "2024-11-05"];
@@ -77,7 +77,9 @@ const callTool = async (params: unknown): Promise<ToolResult | null> => {
   try {
     const { ticket } = await deliverWorkOrder(parsed.data, "mcp");
     return text(`Sent. Ticket ${ticket}. ${getDict(parsed.data.lang).order.receivedBody}`);
-  } catch {
+  } catch (error) {
+    if (error instanceof RateLimitedError)
+      return text("Too many work orders from here. Wait a minute and try again.", true);
     return text(`Could not send the work order. Ask the person to email ${brand.email} instead.`, true);
   }
 };
@@ -121,6 +123,9 @@ const handleMessage = async (msg: RpcMessage) => {
   }
 };
 
+/** A work order caps out at about 6 KB; anything far past that isn't a real request. */
+const MAX_BODY = 64 * 1024;
+
 const CORS = {
   "access-control-allow-origin": "*",
   "access-control-allow-methods": "POST, OPTIONS",
@@ -133,12 +138,21 @@ export const handleMcp = async (request: Request): Promise<Response> => {
   if (request.method !== "POST")
     return new Response(null, { status: 405, headers: { ...CORS, allow: "POST" } });
 
+  if (Number(request.headers.get("content-length")) > MAX_BODY)
+    return Response.json(fail(null, -32600, "Request too large"), { status: 413, headers: CORS });
   const body: unknown = await request.json().catch(() => undefined);
   if (body === undefined)
     return Response.json(fail(null, -32700, "Parse error"), { status: 400, headers: CORS });
+  // Batching left the spec in 2025-06-18, and a batch would let one request send many work orders.
+  if (Array.isArray(body))
+    return Response.json(fail(null, -32600, "Batch requests are not supported"), {
+      status: 400,
+      headers: CORS,
+    });
+  if (typeof body !== "object" || body === null)
+    return Response.json(fail(null, -32600, "Invalid request"), { status: 400, headers: CORS });
 
-  const messages: RpcMessage[] = Array.isArray(body) ? body : [body];
-  const replies = (await Promise.all(messages.map(handleMessage))).filter((r) => r !== null);
-  if (replies.length === 0) return new Response(null, { status: 202, headers: CORS });
-  return Response.json(Array.isArray(body) ? replies : replies[0], { headers: CORS });
+  const reply = await handleMessage(body);
+  if (reply === null) return new Response(null, { status: 202, headers: CORS });
+  return Response.json(reply, { headers: CORS });
 };

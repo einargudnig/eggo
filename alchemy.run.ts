@@ -31,6 +31,11 @@ export default Alchemy.Stack(
       assets: { htmlHandling: "drop-trailing-slash" as const },
       env: {
         CONTACT_TRANSPORT: "resend",
+        // Work orders per visitor IP, so a script can't flood the inbox or the Resend quota. Deploy-only: not in wrangler.jsonc.
+        ORDER_LIMIT: Cloudflare.Workers.RateLimit("ORDER_LIMIT", {
+          namespaceId: 1001,
+          simple: { limit: 3, period: 60 },
+        }),
         RESEND_API_KEY: Config.Redacted("RESEND_API_KEY"),
         ...(Option.isSome(hubToken) ? { LIFEOS_INGEST_TOKEN: hubToken.value } : {}),
         ...(Option.isSome(intakeToken) && stage === "prod"

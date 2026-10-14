@@ -5,5 +5,7 @@ declare namespace Cloudflare {
     LIFEOS_HUB_URL?: string;
     OUTREACH_INTAKE_TOKEN?: string;
     OUTREACH_URL?: string;
+    /** Work orders per visitor IP. Set by alchemy.run.ts only, so local dev and tests are never throttled. */
+    ORDER_LIMIT?: RateLimit;
   }
 }

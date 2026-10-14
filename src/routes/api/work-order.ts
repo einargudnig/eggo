@@ -3,7 +3,7 @@ import * as z from "zod/mini";
 import { apiUrl } from "../../content/agent";
 import { brand } from "../../content/brand";
 import { partIds } from "../../content/parts";
-import { deliverWorkOrder } from "../../server/deliverWorkOrder";
+import { deliverWorkOrder, RateLimitedError } from "../../server/deliverWorkOrder";
 import { parseAgentWorkOrder } from "../../server/workOrder";
 
 const CORS = {
@@ -42,7 +42,9 @@ export const Route = createFileRoute("/api/work-order")({
         if (!parsed.success) return json({ error: z.prettifyError(parsed.error), usage }, 400);
         try {
           return json(await deliverWorkOrder(parsed.data, "api"), 201);
-        } catch {
+        } catch (error) {
+          if (error instanceof RateLimitedError)
+            return json({ error: "Too many work orders. Wait a minute and try again." }, 429);
           return json({ error: `Could not send the work order. Email ${brand.email} instead.` }, 502);
         }
       },

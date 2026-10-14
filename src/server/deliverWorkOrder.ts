@@ -27,10 +27,24 @@ const formatBody = (order: WorkOrder, ticket: string, channel: Channel) =>
     order.message,
   ].join("\n");
 
+/** Thrown when one visitor sends too many orders in a minute. Callers turn it into a 429 or a tool error. */
+export class RateLimitedError extends Error {}
+
+const withinLimit = async (limiter: RateLimit | undefined) => {
+  if (!limiter) return true;
+  const { getRequestHeader } = await import("@tanstack/react-start/server");
+  // Cloudflare's edge always sets it; only local dev and tests go without, and they shouldn't share one bucket.
+  const ip = getRequestHeader("cf-connecting-ip");
+  if (!ip) return true;
+  const { success } = await limiter.limit({ key: ip });
+  return success;
+};
+
 /** Emails a validated work order to the inbox, hands it to outreach, and returns its ticket number. Throws if the email fails. */
 export const deliverWorkOrder = async (order: WorkOrder, channel: Channel) => {
   // Imported lazily: server routes are bundled into every page, and the build prerenders outside workerd.
   const { env } = await import("cloudflare:workers");
+  if (!(await withinLimit(env.ORDER_LIMIT))) throw new RateLimitedError("Too many work orders");
   const ticket = ticketNumber();
   const text = formatBody(order, ticket, channel);
   if (env.CONTACT_TRANSPORT === "log") {
