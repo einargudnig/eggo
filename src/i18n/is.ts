@@ -1,4 +1,5 @@
 import type { PartId } from "../content/parts";
+import { isk, monthlyFee, priceFrom } from "../content/pricing";
 import type { SectionId } from "../content/sections";
 import type { CaseId, Engagement, TroubleId } from "../content/work";
 
@@ -66,6 +67,7 @@ export const is = {
       specs: [
         { term: "Inntak", detail: "Hugmynd, efni, vörumerki" },
         { term: "Tími", detail: "2–4 vikur" },
+        { term: "Verð", detail: `Frá ${isk("is", priceFrom["01"])}` },
         { term: "Tækni", detail: "React · Cloudflare" },
         { term: "Þú átt", detail: "Kóða, hönnun, lén", own: true },
       ],
@@ -78,6 +80,7 @@ export const is = {
       specs: [
         { term: "Inntak", detail: "Töflureiknar, handvirk ferli" },
         { term: "Tími", detail: "4–8 vikur" },
+        { term: "Verð", detail: `Frá ${isk("is", priceFrom["02"])}, eftir umfangi` },
         { term: "Tækni", detail: "TypeScript · Postgres" },
         { term: "Þú átt", detail: "Kóða, gögn, hýsingu", own: true },
       ],
@@ -90,6 +93,7 @@ export const is = {
       specs: [
         { term: "Inntak", detail: "Tölvupóstar, PDF-reikningar, fyrirspurnir" },
         { term: "Tími", detail: "2–6 vikur" },
+        { term: "Verð", detail: `Frá ${isk("is", priceFrom["03"])}` },
         { term: "Tækni", detail: "Claude · MCP" },
         { term: "Þú átt", detail: "Kóða, fyrirmæli, mælingar", own: true },
       ],
@@ -102,6 +106,7 @@ export const is = {
       specs: [
         { term: "Inntak", detail: "Tvö eða fleiri tól og mikið afrita-líma" },
         { term: "Tími", detail: "1–3 vikur" },
+        { term: "Verð", detail: `Frá ${isk("is", priceFrom["04"])}` },
         { term: "Tækni", detail: "API · webhooks · Workers" },
         { term: "Þú átt", detail: "Kóða, skjölun", own: true },
       ],
@@ -115,6 +120,7 @@ export const is = {
         { term: "Inntak", detail: "Vandamál sem þú getur ekki alveg lýst" },
         { term: "Skref 1", detail: "Kortlagning: hver gerir hvað, hvert tíminn fer" },
         { term: "Tími", detail: "1 vika að kortleggja, svo fer það eftir" },
+        { term: "Verð", detail: `${isk("is", priceFrom["05"])} fyrir kortlagninguna` },
         { term: "Þú átt", detail: "Kortið, jafnvel þótt einhver annar smíði", own: true },
       ],
       diagramDetail: "Óljóst",
@@ -260,7 +266,8 @@ export const is = {
     facts: [
       { term: "Staður", detail: "Reykjavík" },
       { term: "Mál", detail: "Íslenska, enska" },
-      { term: "Verð", detail: "Fast, samið fyrirfram" },
+      { term: "Verð", detail: "Fast, samið fyrirfram. Viðmiðin eru umsemjanleg" },
+      { term: "Rekstur", detail: `Valfrjáls, ${isk("is", monthlyFee)} á mánuði` },
       { term: "Svar", detail: "Innan eins virks dags" },
     ],
   },

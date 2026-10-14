@@ -1,3 +1,4 @@
+import { isk, monthlyFee, priceFrom } from "../content/pricing";
 import type { Dict } from "./is";
 
 export const en: Dict = {
@@ -43,6 +44,7 @@ export const en: Dict = {
       specs: [
         { term: "Input", detail: "Idea, content, brand" },
         { term: "Time", detail: "2–4 weeks" },
+        { term: "Price", detail: `From ${isk("en", priceFrom["01"])}` },
         { term: "Stack", detail: "React · Cloudflare" },
         { term: "You own", detail: "Code, design, domain", own: true },
       ],
@@ -55,6 +57,7 @@ export const en: Dict = {
       specs: [
         { term: "Input", detail: "Spreadsheets, manual routines" },
         { term: "Time", detail: "4–8 weeks" },
+        { term: "Price", detail: `From ${isk("en", priceFrom["02"])}, depending on scope` },
         { term: "Stack", detail: "TypeScript · Postgres" },
         { term: "You own", detail: "Code, data, hosting", own: true },
       ],
@@ -67,6 +70,7 @@ export const en: Dict = {
       specs: [
         { term: "Input", detail: "Emails, PDF invoices, enquiries" },
         { term: "Time", detail: "2–6 weeks" },
+        { term: "Price", detail: `From ${isk("en", priceFrom["03"])}` },
         { term: "Stack", detail: "Claude · MCP" },
         { term: "You own", detail: "Code, prompts, evals", own: true },
       ],
@@ -79,6 +83,7 @@ export const en: Dict = {
       specs: [
         { term: "Input", detail: "Two or more tools and a lot of copy-paste" },
         { term: "Time", detail: "1–3 weeks" },
+        { term: "Price", detail: `From ${isk("en", priceFrom["04"])}` },
         { term: "Stack", detail: "API · webhooks · Workers" },
         { term: "You own", detail: "Code, documentation", own: true },
       ],
@@ -92,6 +97,7 @@ export const en: Dict = {
         { term: "Input", detail: "A problem you can't quite describe" },
         { term: "Step 1", detail: "Map: who does what, where time goes" },
         { term: "Time", detail: "1 week to map, then it depends" },
+        { term: "Price", detail: `${isk("en", priceFrom["05"])} for the mapping` },
         { term: "You own", detail: "The map, even if someone else builds it", own: true },
       ],
       diagramDetail: "TBD",
@@ -230,7 +236,8 @@ export const en: Dict = {
     facts: [
       { term: "Based", detail: "Reykjavík" },
       { term: "Languages", detail: "Icelandic, English" },
-      { term: "Price", detail: "Fixed, agreed up front" },
+      { term: "Price", detail: "Fixed, agreed up front. The starting points are negotiable" },
+      { term: "Running it", detail: `Optional, ${isk("en", monthlyFee)} a month` },
       { term: "Reply", detail: "Within one working day" },
     ],
   },
