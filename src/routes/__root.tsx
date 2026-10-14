@@ -6,9 +6,6 @@ import { colors, fonts, motion, type } from "../design/tokens.stylex";
 import { langFromParam } from "../i18n";
 import appCss from "../styles/global.css?url";
 
-const FONTS =
-  "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Schibsted+Grotesk:wght@400;500;700;800;900&family=Reenie+Beanie&display=swap";
-
 const THEME_SCRIPT = `try{var t=localStorage.getItem("eggo-theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}`;
 
 export const Route = createRootRoute({
@@ -18,9 +15,14 @@ export const Route = createRootRoute({
       { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
     ],
     links: [
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: FONTS },
+      // The hero headline and its labels: fetch them alongside the CSS instead of after it (src/styles/fonts.css).
+      ...["schibsted-grotesk", "jetbrains-mono"].map((font) => ({
+        rel: "preload",
+        href: `/fonts/${font}-latin.woff2`,
+        as: "font",
+        type: "font/woff2",
+        crossOrigin: "anonymous" as const,
+      })),
       { rel: "stylesheet", href: appCss },
       { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
     ],

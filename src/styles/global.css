@@ -1,3 +1,5 @@
+@import "./fonts.css";
+
 /* Only what StyleX can't express: document-level resets and the colour-scheme switch.
    Everything is inside @layer reset, declared first, so StyleX's layers always win.
    (Unlayered CSS beats every layer, which would let `font: inherit` override component fonts.) */

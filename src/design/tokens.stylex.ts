@@ -24,7 +24,7 @@ export const colors = stylex.defineVars({
 });
 
 export const fonts = stylex.defineVars({
-  display: '"Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif',
+  display: '"Schibsted Grotesk", "Schibsted Grotesk Fallback", "Helvetica Neue", Arial, sans-serif',
   mono: '"JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace',
   hand: '"Reenie Beanie", "Bradley Hand", cursive',
 });
