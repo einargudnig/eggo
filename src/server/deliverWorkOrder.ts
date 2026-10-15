@@ -61,7 +61,11 @@ export const deliverWorkOrder = async (order: WorkOrder, channel: Channel) => {
     subject: `Verkbeiðni ${ticket} frá ${order.name}${via}`,
     text,
   });
-  if (error) throw new Error(`Resend: ${error.message}`);
+  if (error) {
+    // Details stay in the Worker logs: a thrown server-function error is serialized back to the browser.
+    console.error("Resend failed", ticket, error.message);
+    throw new Error("Could not send the work order");
+  }
   // After the response, so a slow or broken outreach never delays or fails the visitor's order.
   const { waitUntil } = await import("cloudflare:workers");
   waitUntil(sendToOutreach(order, ticket, channel, env, logToHub));
