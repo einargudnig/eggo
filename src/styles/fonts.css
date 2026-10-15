@@ -1,5 +1,5 @@
 /* Self-hosted Latin subsets (from Google Fonts, SIL OFL). Same origin, so text paints without waiting on a
-   third-party stylesheet. Variable: one file covers every weight.
+   third-party stylesheet. Both are variable: one file covers every weight.
    Icelandic letters (þ ð æ ö á …) are all in this range. Replacing a file? Rename it: /fonts/* is cached as immutable. */
 @font-face {
   font-family: "Public Sans";
@@ -7,6 +7,15 @@
   font-weight: 400 700;
   font-display: swap;
   src: url("/fonts/public-sans-latin.woff2") format("woff2");
+}
+
+/* Labels and part codes only. */
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("/fonts/jetbrains-mono-latin.woff2") format("woff2");
 }
 
 /* Arial scaled to the face's width and line metrics (fontTools, 2026-10-15), so the swap doesn't move text (CLS). */

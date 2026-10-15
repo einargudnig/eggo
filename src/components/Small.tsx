@@ -3,6 +3,7 @@ import { media } from "../design/media.stylex";
 import { ui } from "../design/primitives";
 import { colors, space, type } from "../design/tokens.stylex";
 import { useLang } from "../i18n/useLang";
+import { SectionHead } from "./SectionHead";
 
 /** "Ekkert er of lítið.": small example fixes, so nobody thinks their problem is too minor to ask about. */
 export function Small() {
@@ -15,12 +16,9 @@ export function Small() {
       {...stylex.props(ui.anchor, ui.section, styles.section)}
     >
       <div {...stylex.props(ui.wrap)}>
-        <div {...stylex.props(ui.head)}>
-          <h2 id="h-small" {...stylex.props(ui.h2)}>
-            {t.small.title}
-          </h2>
-          <p {...stylex.props(ui.headBody)}>{t.small.body}</p>
-        </div>
+        <SectionHead section="smatt" headingId="h-small" title={t.small.title}>
+          {t.small.body}
+        </SectionHead>
         <ul {...stylex.props(styles.grid)}>
           {t.small.items.map((item) => (
             <li key={item} {...stylex.props(ui.card, styles.item)}>

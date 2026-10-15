@@ -1,7 +1,7 @@
 import * as stylex from "@stylexjs/stylex";
-import { partIds, type PartId } from "../content/parts";
+import { partIds, parts, type PartId } from "../content/parts";
 import { isk, priceFrom } from "../content/pricing";
-import { troubleIds, type TroubleId } from "../content/work";
+import { troubleIds, troubles, type TroubleId } from "../content/work";
 import { media } from "../design/media.stylex";
 import { ui } from "../design/primitives";
 import { colors, fonts, layout, motion, space, type } from "../design/tokens.stylex";
@@ -48,6 +48,9 @@ export function Hero({ picked, route, onToggle, onSend }: Props) {
                     {t.trouble.rows[id].symptom}
                     {t.trouble.quote.close}
                   </span>
+                  <span aria-hidden="true" {...stylex.props(ui.label, styles.code)}>
+                    {`→ ${troubles[id]} · ${parts[troubles[id]].code}`}
+                  </span>
                 </label>
               </li>
             ))}
@@ -80,7 +83,12 @@ function Summary({ route, onSend }: { route: readonly PartId[]; onSend: () => vo
               .filter((id) => route.includes(id))
               .map((id) => (
                 <li key={id} {...stylex.props(styles.leg)}>
-                  <b {...stylex.props(styles.legName)}>{id === "05" ? t.trip.mapping : t.parts[id].sign}</b>
+                  <b {...stylex.props(styles.legName)}>
+                    <span aria-hidden="true" {...stylex.props(ui.label, styles.legCode)}>
+                      {`${id} · ${parts[id].code}`}
+                    </span>
+                    {id === "05" ? t.trip.mapping : t.parts[id].sign}
+                  </b>
                   <span {...stylex.props(styles.legTime)}>{t.parts[id].time}</span>
                   <span {...stylex.props(styles.legPrice, ui.tabular)}>
                     {id === "05" ? isk(lang, priceFrom[id]) : `${t.trip.from} ${isk(lang, priceFrom[id])}`}
@@ -144,7 +152,7 @@ const styles = stylex.create({
   list: { listStyle: "none", margin: 0, padding: 0, display: "grid", gap: space.s1 },
   row: {
     display: "grid",
-    gridTemplateColumns: "20px minmax(0, 1fr)",
+    gridTemplateColumns: { default: "20px minmax(0, 1fr) auto", [media.phone]: "20px minmax(0, 1fr)" },
     gap: space.s4,
     alignItems: "start",
     paddingBlock: space.s3,
@@ -180,6 +188,7 @@ const styles = stylex.create({
     transitionProperty: "background-color, border-color",
     transitionDuration: motion.fast,
   },
+  code: { alignSelf: "center", whiteSpace: "nowrap", display: { default: "block", [media.phone]: "none" } },
   summary: {
     position: { default: "sticky", [media.tablet]: "static" },
     top: space.s5,
@@ -199,6 +208,7 @@ const styles = stylex.create({
     borderTopColor: colors.line,
   },
   legName: { fontWeight: 600 },
+  legCode: { display: "block", marginBottom: space.s1 },
   legTime: { gridColumn: 1, color: colors.muted, fontSize: type.small },
   legPrice: { gridColumn: 2, gridRow: 1, fontWeight: 600, textAlign: "right", whiteSpace: "nowrap" },
   note: { marginTop: space.s3, marginBottom: 0, color: colors.muted, fontSize: type.small },

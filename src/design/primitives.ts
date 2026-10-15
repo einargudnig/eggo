@@ -22,6 +22,18 @@ export const ui = stylex.create({
   /** Section head: heading, then one muted sentence under it. */
   head: { display: "grid", gap: space.s3, marginBottom: space.s7, maxWidth: "40em" },
   headBody: { margin: 0, color: colors.muted, textWrap: "pretty" },
+  /** Small mono caps: section numbers, part codes, meta lines with " · " between items. Always muted. */
+  label: {
+    margin: 0,
+    fontFamily: fonts.mono,
+    fontSize: type.label,
+    fontWeight: 500,
+    lineHeight: 1.4,
+    letterSpacing: type.trackLabel,
+    textTransform: "uppercase",
+    color: colors.muted,
+  },
+  labelStrong: { color: colors.ink, fontWeight: 700 },
   tabular: { fontVariantNumeric: "tabular-nums" },
   focusRing: {
     outline: { default: "none", ":focus-visible": `2px solid ${colors.accent}` },

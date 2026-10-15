@@ -22,6 +22,7 @@ export const colors = stylex.defineVars({
 
 export const fonts = stylex.defineVars({
   text: '"Public Sans", "Public Sans Fallback", "Helvetica Neue", Arial, sans-serif',
+  mono: '"JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace',
 });
 
 const PHONE = "@media (max-width: 760px)";
@@ -34,8 +35,10 @@ export const type = stylex.defineVars({
   body: "17px",
   small: "15px",
   fine: "14px",
+  label: "12px",
   trackDisplay: "-0.03em",
   trackHead: "-0.02em",
+  trackLabel: "0.06em",
 });
 
 /** Spacing scale: 2 · 4 · 8 · 12 · 16 · 24 · 32 · 48 · 64 · 96 · 144. Lint rejects raw spacing values outside this folder. */

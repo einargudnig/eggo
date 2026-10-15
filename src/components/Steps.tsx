@@ -3,6 +3,7 @@ import { media } from "../design/media.stylex";
 import { ui } from "../design/primitives";
 import { colors, space, type } from "../design/tokens.stylex";
 import { useLang } from "../i18n/useLang";
+import { SectionHead } from "./SectionHead";
 
 /** How a project runs: four steps in order. */
 export function Steps() {
@@ -10,17 +11,17 @@ export function Steps() {
   return (
     <section id="ferli" aria-labelledby="h-steps" tabIndex={-1} {...stylex.props(ui.anchor, ui.section)}>
       <div {...stylex.props(ui.wrap)}>
-        <div {...stylex.props(ui.head)}>
-          <h2 id="h-steps" {...stylex.props(ui.h2)}>
-            {t.steps.title}
-          </h2>
-          <p {...stylex.props(ui.headBody)}>{t.steps.intro}</p>
-        </div>
+        <SectionHead section="ferli" headingId="h-steps" title={t.steps.title}>
+          {t.steps.intro}
+        </SectionHead>
         <ol {...stylex.props(styles.list)}>
-          {t.steps.items.map((step) => (
+          {t.steps.items.map((step, i) => (
             <li key={step.title} {...stylex.props(styles.step)}>
+              <p {...stylex.props(ui.label)}>
+                <b aria-hidden="true" {...stylex.props(ui.labelStrong)}>{`0${i + 1} · `}</b>
+                {step.when}
+              </p>
               <h3 {...stylex.props(styles.title)}>{step.title}</h3>
-              <p {...stylex.props(styles.when)}>{step.when}</p>
               <p {...stylex.props(styles.body)}>{step.body}</p>
             </li>
           ))}
@@ -49,7 +50,12 @@ const styles = stylex.create({
     borderTopStyle: "solid",
     borderTopColor: colors.ink,
   },
-  title: { margin: 0, fontSize: type.h3, fontWeight: 600, letterSpacing: type.trackHead },
-  when: { marginTop: space.s1, marginBottom: 0, fontSize: type.fine, color: colors.muted },
+  title: {
+    marginTop: space.s2,
+    marginBottom: 0,
+    fontSize: type.h3,
+    fontWeight: 600,
+    letterSpacing: type.trackHead,
+  },
   body: { marginTop: space.s3, marginBottom: 0, color: colors.muted, textWrap: "pretty" },
 });

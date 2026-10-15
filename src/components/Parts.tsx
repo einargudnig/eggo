@@ -4,7 +4,9 @@ import { isk, priceFrom } from "../content/pricing";
 import { media } from "../design/media.stylex";
 import { ui } from "../design/primitives";
 import { colors, space, type } from "../design/tokens.stylex";
+import { PartDrawing } from "./PartDrawing";
 import { useLang } from "../i18n/useLang";
+import { SectionHead } from "./SectionHead";
 
 /** What Eggó builds: one row per part with time and starting price, then the plain terms. */
 export function Parts() {
@@ -12,18 +14,24 @@ export function Parts() {
   return (
     <section id="smidi" aria-labelledby="h-parts" tabIndex={-1} {...stylex.props(ui.anchor, ui.section)}>
       <div {...stylex.props(ui.wrap)}>
-        <div {...stylex.props(ui.head)}>
-          <h2 id="h-parts" {...stylex.props(ui.h2)}>
-            {t.partsSection.title}
-          </h2>
-          <p {...stylex.props(ui.headBody)}>{t.partsSection.body}</p>
-        </div>
+        <SectionHead section="smidi" headingId="h-parts" title={t.partsSection.title}>
+          {t.partsSection.body}
+        </SectionHead>
         <ul {...stylex.props(styles.list)}>
           {partIds.map((id) => {
             const part = t.parts[id];
             return (
               <li key={id} id={partDomId(id)} tabIndex={-1} {...stylex.props(styles.row, ui.anchor)}>
-                <h3 {...stylex.props(styles.name)}>{part.name}</h3>
+                <div {...stylex.props(styles.id)}>
+                  <PartDrawing id={id} on={false} />
+                  <div>
+                    <p aria-hidden="true" {...stylex.props(ui.label)}>
+                      <b {...stylex.props(ui.labelStrong)}>{id}</b>
+                      {` · ${parts[id].code}`}
+                    </p>
+                    <h3 {...stylex.props(styles.name)}>{part.name}</h3>
+                  </div>
+                </div>
                 <div {...stylex.props(styles.text)}>
                   <p {...stylex.props(styles.lead)}>{part.lead}</p>
                   <p {...stylex.props(styles.owns)}>{part.owns}</p>
@@ -52,17 +60,24 @@ const styles = stylex.create({
   row: {
     display: "grid",
     gridTemplateColumns: {
-      default: "minmax(0, 0.8fr) minmax(0, 1.6fr) minmax(0, 0.7fr)",
+      default: "minmax(0, 1.1fr) minmax(0, 1.6fr) minmax(0, 0.6fr)",
       [media.phone]: "minmax(0, 1fr)",
     },
     gap: { default: space.s6, [media.phone]: space.s2 },
-    alignItems: "baseline",
+    alignItems: { default: "center", [media.phone]: "start" },
     paddingBlock: { default: space.s6, [media.phone]: space.s5 },
     borderTopWidth: "1px",
     borderTopStyle: "solid",
     borderTopColor: colors.line,
   },
-  name: { margin: 0, fontSize: type.h3, fontWeight: 600, letterSpacing: type.trackHead },
+  id: { display: "flex", alignItems: "center", gap: space.s4 },
+  name: {
+    marginTop: space.s1,
+    marginBottom: 0,
+    fontSize: type.h3,
+    fontWeight: 600,
+    letterSpacing: type.trackHead,
+  },
   text: { minWidth: 0 },
   lead: { margin: 0, textWrap: "pretty", maxWidth: "34em" },
   owns: { marginTop: space.s2, marginBottom: 0, fontSize: type.small, color: colors.muted },

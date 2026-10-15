@@ -3,6 +3,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { useRef, useState, type FormEvent } from "react";
 import { brand } from "../content/brand";
 import { partIds, type PartId } from "../content/parts";
+import { sectionIds } from "../content/sections";
 import { media } from "../design/media.stylex";
 import { ui } from "../design/primitives";
 import { colors, fonts, layout, space, type } from "../design/tokens.stylex";
@@ -91,6 +92,10 @@ export function WorkOrder({ chosen, onToggle }: Props) {
       <div {...stylex.props(ui.card)}>
         <div {...stylex.props(styles.grid)}>
           <div>
+            <p aria-hidden="true" {...stylex.props(ui.label, styles.eyebrow)}>
+              <b {...stylex.props(ui.labelStrong)}>{`§${sectionIds.indexOf("samband") + 1}`}</b>
+              {` · ${t.sections.samband}`}
+            </p>
             <h2 id="h-contact" {...stylex.props(styles.title)}>
               {t.order.title}
             </h2>
@@ -165,7 +170,12 @@ export function WorkOrder({ chosen, onToggle }: Props) {
                           onChange={() => onToggle(id)}
                           {...stylex.props(styles.destInput, stylex.defaultMarker())}
                         />
-                        <span {...stylex.props(styles.destLabel)}>{t.parts[id].sign}</span>
+                        <span {...stylex.props(styles.destLabel)}>
+                          <span aria-hidden="true" {...stylex.props(styles.destCode)}>
+                            {id}
+                          </span>
+                          {t.parts[id].sign}
+                        </span>
                       </label>
                     ))}
                   </div>
@@ -207,6 +217,7 @@ const styles = stylex.create({
     paddingBlock: { default: space.s8, [media.phone]: space.s6 },
     paddingInline: { default: space.s8, [media.phone]: space.s5 },
   },
+  eyebrow: { marginBottom: space.s3 },
   title: {
     margin: 0,
     fontFamily: fonts.text,
@@ -277,6 +288,7 @@ const styles = stylex.create({
     outline: { default: "none", [stylex.when.siblingBefore(":focus-visible")]: `2px solid ${colors.accent}` },
     outlineOffset: "2px",
   },
+  destCode: { fontFamily: fonts.mono, fontSize: type.label, opacity: 0.7, marginRight: space.s2 },
   foot: {
     display: "flex",
     flexWrap: "wrap",
