@@ -43,6 +43,11 @@ export const is = {
     seePart: "sjá lýsingu",
     partWord: "hluti",
   },
+  notFound: {
+    title: "Síða fannst ekki",
+    body: "Þessi slóð er ekki til. Kannski var hún færð.",
+    home: "Á forsíðuna",
+  },
   bar: { light: "Ljós", dark: "Myrkur", otherLang: "English", otherLangShort: "EN" },
   hero: {
     eyebrow: "Hugbúnaðarlausnir",

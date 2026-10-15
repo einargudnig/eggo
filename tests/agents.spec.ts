@@ -88,3 +88,17 @@ test("MCP server initializes and lists its tools", async ({ request }) => {
     result: { content: [{ type: "text", text: expect.stringContaining("# Eggó — from problem") }] },
   });
 });
+
+for (const [path, title] of [
+  ["/nope", "Síða fannst ekki · Eggó"],
+  ["/en/nope", "Page not found · Eggó"],
+] as const) {
+  test(`unknown URL ${path} is a 404 that search engines skip`, async ({ request }) => {
+    const res = await request.get(path);
+    expect(res.status()).toBe(404);
+    const html = await res.text();
+    expect(html).toContain(`<title>${title}</title>`);
+    expect(html).toContain('name="robots" content="noindex"');
+    expect(html).not.toContain('rel="canonical"');
+  });
+}

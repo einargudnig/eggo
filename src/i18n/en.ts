@@ -18,6 +18,11 @@ export const en: Dict = {
     seePart: "see details",
     partWord: "part",
   },
+  notFound: {
+    title: "Page not found",
+    body: "This address doesn't exist. It may have moved.",
+    home: "To the front page",
+  },
   bar: { light: "Light", dark: "Dark", otherLang: "Íslenska", otherLangShort: "IS" },
   hero: {
     eyebrow: "Software solutions",

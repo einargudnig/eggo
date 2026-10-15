@@ -1,18 +1,36 @@
 import * as stylex from "@stylexjs/stylex";
 import { HeadContent, Outlet, Scripts, createRootRoute, useParams } from "@tanstack/react-router";
 import type { ReactNode } from "react";
+import { NotFound } from "../components/NotFound";
+import { brand } from "../content/brand";
 import { media } from "../design/media.stylex";
 import { colors, fonts, motion, type } from "../design/tokens.stylex";
-import { langFromParam } from "../i18n";
+import { getDict, langFromParam } from "../i18n";
 import appCss from "../styles/global.css?url";
 
 const THEME_SCRIPT = `try{var t=localStorage.getItem("eggo-theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}`;
 
+/**
+ * An unknown URL renders <NotFound /> under the root alone, so the page head (title, canonical, og) never runs.
+ * Give it a title and keep it out of search.
+ */
+const notFoundMeta = (matches: readonly { routeId: string; params: { lang?: string } }[]) => {
+  // The root head runs before /{-$lang}'s beforeLoad rejects /nope, so check the language here as well.
+  const page = matches.find((m) => m.routeId === "/{-$lang}/");
+  if (page && langFromParam(page.params.lang)) return [];
+  const lang = matches.some((m) => m.params.lang === "en") ? "en" : "is";
+  return [
+    { title: `${getDict(lang).notFound.title} · ${brand.name}` },
+    { name: "robots", content: "noindex" },
+  ];
+};
+
 export const Route = createRootRoute({
-  head: () => ({
+  head: ({ matches }) => ({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
+      ...notFoundMeta(matches),
     ],
     links: [
       // The hero headline and its labels: fetch them alongside the CSS instead of after it (src/styles/fonts.css).
@@ -28,6 +46,7 @@ export const Route = createRootRoute({
     ],
   }),
   component: RootComponent,
+  notFoundComponent: NotFound,
 });
 
 const styles = stylex.create({
