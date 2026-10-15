@@ -4,7 +4,8 @@
  */
 import { getDict, type Lang } from "../i18n";
 import { brand } from "./brand";
-import { partIds } from "./parts";
+import { partIds, parts as partData } from "./parts";
+import { isk, priceFrom } from "./pricing";
 import { caseIds, cases, clientLabel, troubleIds, troubles } from "./work";
 
 export const pageUrl = (lang: Lang) => (lang === "is" ? `${brand.url}/` : `${brand.url}/en`);
@@ -115,7 +116,12 @@ export const llmsTxt = () => {
       `${t.agent.statusLabel}: ${t.hero.status}`,
       `${t.agent.emailLabel}: ${brand.email}`,
       ...t.who.facts.map((f) => `${f.term}: ${f.detail}`),
-      `Services: ${partIds.map((id) => `${id} ${t.parts[id].name}`).join(", ")}`,
+      `Services (prices excl. VAT): ${partIds
+        .map(
+          (id) =>
+            `${id} ${t.parts[id].name} (${partData[id].defined ? "from " : "mapping "}${isk("en", priceFrom[id])})`,
+        )
+        .join(", ")}`,
     ]),
     "",
     "## Pages",
@@ -169,6 +175,13 @@ export const structuredData = (lang: Lang) => {
           itemListElement: partIds.map((id) => ({
             "@type": "Offer",
             itemOffered: { "@type": "Service", name: t.parts[id].name, description: t.parts[id].lead },
+            // Defined parts are starting prices; 05 is the fixed price of the mapping week.
+            priceSpecification: {
+              "@type": "PriceSpecification",
+              [partData[id].defined ? "minPrice" : "price"]: priceFrom[id],
+              priceCurrency: "ISK",
+              valueAddedTaxIncluded: false,
+            },
           })),
         },
         potentialAction: {
