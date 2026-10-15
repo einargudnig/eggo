@@ -37,6 +37,18 @@
   }
 }
 
+@layer reset {
+  ::selection {
+    background-color: color-mix(in oklab, var(--selection, Highlight) 26%, transparent);
+  }
+  /* The theme switch animates the new snapshot itself (ThemeSwitch.tsx); drop the default cross-fade. */
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+  }
+}
+
 /* Kept unlayered on purpose: these must beat component styles. */
 [hidden] {
   display: none !important;

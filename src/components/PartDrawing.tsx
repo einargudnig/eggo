@@ -1,7 +1,7 @@
 import * as stylex from "@stylexjs/stylex";
 import type { ReactNode } from "react";
 import type { PartId } from "../content/parts";
-import { colors } from "../design/tokens.stylex";
+import { colors, motion } from "../design/tokens.stylex";
 
 /**
  * One line drawing per part: 72×48 box, 4px grid, 1px stroke, exactly one 4×4 `out` square marking
@@ -83,7 +83,16 @@ export function PartDrawing({ id, on }: { id: PartId; on: boolean }) {
 const styles = stylex.create({
   svg: { display: "block", width: "72px", height: "48px", color: colors.muted, shapeRendering: "crispEdges" },
   dot: { fill: "currentColor", stroke: "none" },
-  out: { fill: colors.accent, stroke: "none" },
-  outOn: { fill: colors.ink },
+  /** Grey until the part is in the hero's suggestion, then it lights in the accent: the tick and the row are one thing. */
+  out: {
+    fill: colors.control,
+    stroke: "none",
+    transformBox: "fill-box",
+    transformOrigin: "center",
+    transitionProperty: "fill, transform",
+    transitionDuration: "400ms",
+    transitionTimingFunction: motion.ease,
+  },
+  outOn: { fill: colors.accent, transform: "scale(1.5)" },
   outUnknown: { fill: "none", stroke: colors.accent, strokeDasharray: "1 1" },
 });

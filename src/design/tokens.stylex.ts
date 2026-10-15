@@ -65,7 +65,7 @@ export const layout = stylex.defineVars({
 });
 
 export const motion = stylex.defineVars({
-  ease: "cubic-bezier(0.2, 0, 0, 1)",
+  ease: "cubic-bezier(0.16, 1, 0.3, 1)",
   fast: "120ms",
   base: "200ms",
 });

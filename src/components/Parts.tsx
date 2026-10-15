@@ -1,5 +1,5 @@
 import * as stylex from "@stylexjs/stylex";
-import { partDomId, partIds, parts } from "../content/parts";
+import { partDomId, partIds, parts, type PartId } from "../content/parts";
 import { isk, priceFrom } from "../content/pricing";
 import { media } from "../design/media.stylex";
 import { ui } from "../design/primitives";
@@ -9,7 +9,7 @@ import { useLang } from "../i18n/useLang";
 import { SectionHead } from "./SectionHead";
 
 /** What Eggó builds: one row per part with time and starting price, then the plain terms. */
-export function Parts() {
+export function Parts({ lit }: { lit: readonly PartId[] }) {
   const { lang, t } = useLang();
   return (
     <section id="smidi" aria-labelledby="h-parts" tabIndex={-1} {...stylex.props(ui.anchor, ui.section)}>
@@ -23,7 +23,7 @@ export function Parts() {
             return (
               <li key={id} id={partDomId(id)} tabIndex={-1} {...stylex.props(styles.row, ui.anchor)}>
                 <div {...stylex.props(styles.id)}>
-                  <PartDrawing id={id} on={false} />
+                  <PartDrawing id={id} on={lit.includes(id)} />
                   <div>
                     <p aria-hidden="true" {...stylex.props(ui.label)}>
                       <b {...stylex.props(ui.labelStrong)}>{id}</b>

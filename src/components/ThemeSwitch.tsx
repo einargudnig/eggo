@@ -1,5 +1,5 @@
 import * as stylex from "@stylexjs/stylex";
-import { useSyncExternalStore } from "react";
+import { useSyncExternalStore, type MouseEvent } from "react";
 import { ui } from "../design/primitives";
 import { colors, fonts, space, type } from "../design/tokens.stylex";
 import { useLang } from "../i18n/useLang";
@@ -29,7 +29,7 @@ export function ThemeSwitch() {
   const { t } = useLang();
   const theme = useSyncExternalStore<Theme | null>(subscribe, currentTheme, () => null);
 
-  const toggle = () => {
+  const apply = () => {
     const next: Theme = currentTheme() === "dark" ? "light" : "dark";
     document.documentElement.dataset.theme = next;
     try {
@@ -38,6 +38,27 @@ export function ThemeSwitch() {
       // storage blocked: the switch still works for this page view
     }
     window.dispatchEvent(new Event(CHANGE));
+  };
+
+  /** The new theme spreads out from the switch as a circle. Plain swap without View Transitions or with reduced motion. */
+  const toggle = (e: MouseEvent<HTMLButtonElement>) => {
+    const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (still || !document.startViewTransition) return apply();
+    const box = e.currentTarget.getBoundingClientRect();
+    const x = box.left + box.height / 2;
+    const y = box.top + box.height / 2;
+    const r = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+    const transition = document.startViewTransition(apply);
+    void transition.ready.then(() => {
+      document.documentElement.animate(
+        { clipPath: [`circle(0 at ${x}px ${y}px)`, `circle(${r}px at ${x}px ${y}px)`] },
+        {
+          duration: 520,
+          easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+          pseudoElement: "::view-transition-new(root)",
+        },
+      );
+    });
   };
 
   const dark = theme === "dark";

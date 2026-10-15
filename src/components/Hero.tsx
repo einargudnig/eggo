@@ -37,18 +37,26 @@ export function Hero({ picked, route, onToggle, onSend }: Props) {
             {troubleIds.map((id) => (
               <li key={id}>
                 <label {...stylex.props(styles.row)}>
-                  <input
-                    type="checkbox"
-                    checked={picked.includes(id)}
-                    onChange={() => onToggle(id)}
-                    {...stylex.props(styles.box)}
-                  />
+                  <span {...stylex.props(styles.boxWrap)}>
+                    <input
+                      type="checkbox"
+                      checked={picked.includes(id)}
+                      onChange={() => onToggle(id)}
+                      {...stylex.props(styles.box, stylex.defaultMarker())}
+                    />
+                    <svg viewBox="0 0 20 20" aria-hidden="true" {...stylex.props(styles.tick)}>
+                      <path d="M5 10.5l3.2 3L15 6.5" {...stylex.props(styles.tickPath)} />
+                    </svg>
+                  </span>
                   <span>
                     {t.trouble.quote.open}
                     {t.trouble.rows[id].symptom}
                     {t.trouble.quote.close}
                   </span>
-                  <span aria-hidden="true" {...stylex.props(ui.label, styles.code)}>
+                  <span
+                    aria-hidden="true"
+                    {...stylex.props(ui.label, styles.code, picked.includes(id) && ui.labelStrong)}
+                  >
                     {`→ ${troubles[id]} · ${parts[troubles[id]].code}`}
                   </span>
                 </label>
@@ -82,7 +90,7 @@ function Summary({ route, onSend }: { route: readonly PartId[]; onSend: () => vo
             {partIds
               .filter((id) => route.includes(id))
               .map((id) => (
-                <li key={id} {...stylex.props(styles.leg)}>
+                <li key={id} {...stylex.props(styles.leg, styles.enter)}>
                   <b {...stylex.props(styles.legName)}>
                     <span aria-hidden="true" {...stylex.props(ui.label, styles.legCode)}>
                       {`${id} · ${parts[id].code}`}
@@ -97,8 +105,14 @@ function Summary({ route, onSend }: { route: readonly PartId[]; onSend: () => vo
               ))}
           </ul>
         )}
-        {note ? <p {...stylex.props(styles.note)}>{note}</p> : null}
-        {route.length > 0 ? <p {...stylex.props(styles.priceNote)}>{t.trip.priceNote}</p> : null}
+        {note ? (
+          <p key={note} {...stylex.props(styles.note, styles.enter)}>
+            {note}
+          </p>
+        ) : null}
+        {route.length > 0 ? (
+          <p {...stylex.props(styles.priceNote, styles.enter)}>{t.trip.priceNote}</p>
+        ) : null}
       </div>
       <div {...stylex.props(styles.go)}>
         <ButtonLink
@@ -115,6 +129,14 @@ function Summary({ route, onSend }: { route: readonly PartId[]; onSend: () => vo
     </section>
   );
 }
+
+/** A new line in the summary unrolls from its top edge, so the eye catches what the tick added. */
+const unroll = stylex.keyframes({
+  from: { opacity: 0, transform: "translateY(-6px)", clipPath: "inset(0 0 100% 0)" },
+  to: { opacity: 1, transform: "none", clipPath: "inset(0 0 0 0)" },
+});
+
+const draw = stylex.keyframes({ from: { strokeDashoffset: 16 }, to: { strokeDashoffset: 0 } });
 
 const styles = stylex.create({
   hero: {
@@ -165,28 +187,54 @@ const styles = stylex.create({
     transitionDuration: motion.fast,
   },
   /** Native checkbox, restyled: a square that fills with the accent and shows a white tick. */
+  boxWrap: { position: "relative", width: "20px", height: "20px", marginTop: space.s0 },
   box: {
     appearance: { default: "none", [media.forcedColors]: "auto" },
+    display: "block",
     width: "20px",
     height: "20px",
-    marginTop: space.s0,
-    marginInline: 0,
-    marginBottom: 0,
+    margin: 0,
     borderWidth: "1.5px",
     borderStyle: "solid",
     borderColor: { default: colors.control, ":checked": colors.accent },
     borderRadius: "5px",
     backgroundColor: { default: colors.page, ":checked": colors.accent },
-    backgroundImage: {
-      default: "none",
-      ":checked":
-        "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5 10.5l3.2 3L15 6.5' fill='none' stroke='white' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E\")",
-    },
     cursor: "pointer",
     outline: { default: "none", ":focus-visible": `2px solid ${colors.accent}` },
     outlineOffset: "3px",
     transitionProperty: "background-color, border-color",
     transitionDuration: motion.fast,
+  },
+  /** The tick is drawn in accent ink on top of the box, so it stays legible on the light dark-mode accent. */
+  tick: {
+    position: "absolute",
+    inset: 0,
+    width: "20px",
+    height: "20px",
+    pointerEvents: "none",
+    display: {
+      default: "none",
+      [stylex.when.siblingBefore(":checked")]: "block",
+      [media.forcedColors]: "none",
+    },
+  },
+  tickPath: {
+    fill: "none",
+    stroke: colors.accentInk,
+    strokeWidth: 2.2,
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    strokeDasharray: 16,
+    animationName: draw,
+    animationDuration: "180ms",
+    animationTimingFunction: motion.ease,
+    animationFillMode: "both",
+  },
+  enter: {
+    animationName: unroll,
+    animationDuration: "320ms",
+    animationTimingFunction: motion.ease,
+    animationFillMode: "both",
   },
   code: { alignSelf: "center", whiteSpace: "nowrap", display: { default: "block", [media.phone]: "none" } },
   summary: {

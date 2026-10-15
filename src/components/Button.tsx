@@ -7,13 +7,15 @@ import { colors, fonts, layout, motion, space } from "../design/tokens.stylex";
 type Common = { children: ReactNode; stretchOnPhone?: boolean | undefined };
 
 const buttonStyle = (stretchOnPhone = false) =>
-  stylex.props(styles.base, ui.focusRing, stretchOnPhone && styles.stretch);
+  stylex.props(styles.base, ui.focusRing, stretchOnPhone && styles.stretch, stylex.defaultMarker());
 
 /** The arrow is part of the button language (DESIGN-SYSTEM §5) and hidden from screen readers. */
 const Label = ({ children }: { children: ReactNode }) => (
   <>
     <span>{children}</span>
-    <span aria-hidden="true">→</span>
+    <span aria-hidden="true" {...stylex.props(styles.arrow)}>
+      →
+    </span>
   </>
 );
 
@@ -42,6 +44,16 @@ export function Button({
 }
 
 const styles = stylex.create({
+  arrow: {
+    display: "inline-block",
+    transitionProperty: "transform",
+    transitionDuration: motion.base,
+    transitionTimingFunction: motion.ease,
+    transform: {
+      default: "none",
+      [media.hover]: { default: "none", [stylex.when.ancestor(":hover")]: "translateX(3px)" },
+    },
+  },
   base: {
     display: "inline-flex",
     alignItems: "center",

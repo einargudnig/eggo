@@ -55,6 +55,11 @@ const styles = stylex.create({
     fontFamily: fonts.text,
     fontSize: type.body,
     lineHeight: 1.55,
+    caretColor: colors.accent,
+    accentColor: colors.accent,
+    scrollbarColor: `${colors.control} transparent`,
+    // Read by ::selection in global.css, which StyleX can't reach for every descendant.
+    "--selection": colors.accent,
     transitionProperty: "background-color, color",
     transitionDuration: motion.base,
     transitionTimingFunction: motion.ease,

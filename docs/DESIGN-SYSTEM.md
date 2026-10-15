@@ -7,6 +7,8 @@ This branch is the plain fallback for the Vegvísir design on `vegvisir`: same c
 - **Space:** 2 · 4 · 8 · 12 · 16 · 24 · 32 · 48 · 64 · 96 · 144; sections 144px apart (88 on phone). Max width 1120.
 - **Shape:** one container, `ui.card` (grey panel, 12px radius). Everything else is text and 1px dividers.
 - **Detail, carried over from the 2026.10 design:** a `§n · Section` label over each heading (number from `sectionIds`), part codes `01 · VEF` beside a 72×48 line drawing (`PartDrawing`), the code next to each symptom and in the summary, `01 · Ókeypis` over each step, and meta lines with ` · ` between items in the work list. Codes and numbers are `aria-hidden`; screen readers get names, and the `<ol>` carries step order. These are known AI-look tells (DESIGN.md §0), kept small and muted on purpose.
+- **Motion** (one thread, expo-out `cubic-bezier(.16,1,.3,1)`): ticking a symptom draws the tick (180ms), unrolls the new line into the summary from its top edge (320ms, clip-path + 6px), and lights that part's square in its drawing down the page (400ms), so the picker, the summary and the services list read as one thing. Buttons nudge their arrow 3px on hover. The theme switch reveals the new theme as a circle from the switch (View Transitions, 520ms). Reduced motion removes all of it.
+- **Browser surfaces:** selection, caret, native controls and scrollbars take the palette (`--selection` on body feeds `::selection` in global.css).
 - **Copy:** the road metaphors are swapped for plain words ("Hugbúnaður sem leysir það sem tefur þig.", "Það sem ég smíða", "Svona vinn ég", "Tillaga").
 - **Still to do:** OG and social images still show the Vegvísir sign; the favicon is a plain "e" on the accent.
 

@@ -55,7 +55,7 @@ function HomePage() {
       <Bar />
       <main id="top" tabIndex={-1} {...stylex.props(styles.main)}>
         <Hero picked={picked} route={routeFor(picked)} onToggle={onToggleSymptom} onSend={onSend} />
-        <Parts />
+        <Parts lit={routeFor(picked)} />
         <Small />
         <WorkIndex />
         <Steps />
