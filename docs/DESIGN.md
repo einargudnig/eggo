@@ -1,6 +1,6 @@
 # Eggó redesign: design plan
 
-Status: **redecided 2026-10-15.** "Vegvísir" (road signs) with the Tilboð symptom picker replaces A1 "Pappír" (§0). The system lives in [`DESIGN-SYSTEM.md`](DESIGN-SYSTEM.md), and the accessibility audit in [`ACCESSIBILITY.md`](ACCESSIBILITY.md). This file keeps the brief, the alternatives and the reasoning behind each choice.
+Status: **shipped 2026-10-15: "Minimal"**, a plain version of "Vegvísir" (road signs) with the Tilboð symptom picker, replacing A1 "Pappír" (§0). Vegvísir itself stays on the `vegvisir` branch. The system lives in [`DESIGN-SYSTEM.md`](DESIGN-SYSTEM.md), and the accessibility audit in [`ACCESSIBILITY.md`](ACCESSIBILITY.md). This file keeps the brief, the alternatives and the reasoning behind each choice.
 
 ---
 
@@ -13,7 +13,7 @@ A1 shipped and looked good, but it read as generated: another developer's portfo
 
 Four new directions were mocked up: **Auglýsing** (newsprint classifieds), **Bréf** (a letter), **Vegvísir** (Icelandic road signs) and **Tilboð** (a quote builder). The choice was Vegvísir as the base with Tilboð's symptom picker in the hero: a borrowed public visual language (Vegagerðin's blue signs) that no template uses, and a hero that does something (tick what's wrong, see the route, time and price) instead of describing it. Auglýsing is worth keeping for the 404 or social videos.
 
-Second pass, same day: the site is about the work and the possible solutions, not about Einar. The bio section went; a "nothing is too small" section and a visible "prices are a guide, always negotiable" plate came in. A plain fallback design lives on the `minimal` branch.
+Second pass, same day: the site is about the work and the possible solutions, not about Einar. The bio section went; a "nothing is too small" section and a visible "prices are a guide, always negotiable" plate came in. A plain version without the road-sign theme was built alongside it and is the one that shipped.
 
 What would make it more distinctive, in order: a licensed Transport-style face and real screenshots in the work log.
 

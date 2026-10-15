@@ -1,6 +1,6 @@
-# Eggó design system: "Minimal" (branch `minimal`)
+# Eggó design system: "Minimal"
 
-This branch is the plain fallback for the Vegvísir design on `vegvisir`: same content, structure, symptom picker and accessibility, without the road-sign theme. Switch to it by merging this branch instead of `vegvisir`. The Vegvísir spec below is kept for reference; where it talks about signs, plates, arrows, the junction, the road or yellow, this branch has none of them.
+Shipped 2026-10-15. Same content, structure, symptom picker and accessibility as the Vegvísir design (branch `vegvisir`), without the road-sign theme. The Vegvísir spec below is kept for reference; where it talks about signs, plates, arrows, the junction, the road or yellow, the shipped site has none of them.
 
 - **Colour:** neutral greys with a faint green cast (never cream) and one muted pine accent, **Fura**, `#2F5D50` light / `#8FBFAE` dark (chosen 2026-10-15 over moss, lupine, fjord blue and ink-only; lupine was the bold runner-up but violet reads as the AI default), for links, buttons, ticked boxes and focus rings. Tokens: `page`, `page2`, `ink`, `muted`, `line`, `control` (field borders, 3:1), `accent`, `accentInk`.
 - **Type:** Public Sans, headings 600 with tight tracking. JetBrains Mono only for small caps labels (`ui.label`). Display `clamp(40px, 4.6vw, 64px)`, h2 `clamp(28px, 3vw, 40px)`, body 17.
