@@ -23,3 +23,6 @@ playwright-report/
 .DS_Store
 .idea/
 .vercel
+
+# browser tool scratch files
+.playwright-mcp/
