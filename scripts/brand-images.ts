@@ -7,6 +7,7 @@ import { copyFileSync, readFileSync } from "node:fs";
 import { chromium } from "@playwright/test";
 import { brand } from "../src/content/brand";
 import { partIds, parts, type PartId } from "../src/content/parts";
+import { wordmark } from "../src/design/wordmark";
 import { en } from "../src/i18n/en";
 import { is, type Dict } from "../src/i18n/is";
 
@@ -27,6 +28,12 @@ const c = {
 
 const font = (file: string) =>
   `data:font/woff2;base64,${readFileSync(new URL(`public/fonts/${file}`, root)).toString("base64")}`;
+/** The drawn wordmark at a given height in px, as inline SVG. */
+const mark = (height: number) =>
+  `<svg class="mark" width="${(height * wordmark.width) / wordmark.height}" height="${height}" viewBox="0 0 ${wordmark.width} ${wordmark.height}">${wordmark.letters
+    .map((d) => `<path d="${d}" fill="${c.ink}"/>`)
+    .join("")}<polygon points="${wordmark.accent}" fill="${c.accent}"/></svg>`;
+
 const css = `
 @font-face { font-family: "Public Sans"; font-weight: 400 700; src: url(${font("public-sans-latin.woff2")}) format("woff2"); }
 @font-face { font-family: "JetBrains Mono"; font-weight: 400 700; src: url(${font("jetbrains-mono-latin.woff2")}) format("woff2"); }
@@ -36,7 +43,7 @@ body { background: ${c.page}; color: ${c.ink}; font-family: "Public Sans", sans-
   text-rendering: geometricPrecision; }
 .label { font: 500 22px "JetBrains Mono", monospace; letter-spacing: .06em; text-transform: uppercase; color: ${c.muted}; }
 .label b { color: ${c.ink}; font-weight: 700; }
-.mark { font-weight: 700; letter-spacing: -.03em; }
+.mark { display: block; flex: none; align-self: flex-start; overflow: visible; }
 `;
 
 /** The hero figure's four parts as a 2×2 of outlined boxes; `lit` gets the accent outline, like a ticked symptom. */
@@ -52,7 +59,6 @@ const boxes = (t: Dict, lit: PartId) =>
 const og = (t: Dict) => `<style>${css}
 .og { width: 1200px; height: 630px; padding: 64px 72px; display: grid; grid-template-columns: 1.15fr 1fr; gap: 56px; }
 .left { display: flex; flex-direction: column; justify-content: space-between; }
-.mark { font-size: 40px; }
 h1 { font-size: 66px; font-weight: 600; line-height: 1.04; letter-spacing: -.035em; text-wrap: balance; }
 .grid { align-self: center; display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
 .box { border: 2px solid ${c.ink}; padding: 22px 22px 26px; background: ${c.page}; }
@@ -60,7 +66,7 @@ h1 { font-size: 66px; font-weight: 600; line-height: 1.04; letter-spacing: -.035
 .box .label { font-size: 17px; }
 .name { margin-top: 10px; font-size: 30px; font-weight: 600; letter-spacing: -.02em; }
 </style>
-<div class="og"><div class="left"><p class="mark">${brand.wordmark}</p>
+<div class="og"><div class="left">${mark(52)}
 <h1>${t.hero.titleStart}${t.hero.titleEm}</h1>
 <p class="label"><b>${brand.url.replace("https://", "")}</b> · ${t.figure.count}</p></div>
 <div class="grid">${boxes(t, "03")}</div></div>`;
@@ -68,12 +74,11 @@ h1 { font-size: 66px; font-weight: 600; line-height: 1.04; letter-spacing: -.035
 const square = (size: number, scale: number) => `<style>${css}
 .sq { width: ${size}px; height: ${size}px; display: grid; place-items: center; background: ${c.page}; }
 .in { display: grid; justify-items: center; gap: ${24 * scale}px; }
-.mark { font-size: ${200 * scale}px; line-height: 1; }
 .dots { display: grid; grid-template-columns: repeat(2, ${40 * scale}px); gap: ${12 * scale}px; }
 .dots i { height: ${28 * scale}px; border: ${Math.max(2, 4 * scale)}px solid ${c.ink}; }
 .dots i:last-child { background: ${c.accent}; border-color: ${c.accent}; }
 </style>
-<div class="sq"><div class="in"><p class="mark">${brand.wordmark}</p><div class="dots"><i></i><i></i><i></i><i></i></div></div></div>`;
+<div class="sq"><div class="in">${mark(300 * scale)}<div class="dots"><i></i><i></i><i></i><i></i></div></div></div>`;
 
 const shots: { file: string; html: string; w: number; h: number }[] = [
   { file: "og-is.png", html: og(is), w: 1200, h: 630 },

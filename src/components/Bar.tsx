@@ -1,6 +1,5 @@
 import * as stylex from "@stylexjs/stylex";
 import { Link } from "@tanstack/react-router";
-import { brand } from "../content/brand";
 import { navSections } from "../content/sections";
 import { media } from "../design/media.stylex";
 import { ui } from "../design/primitives";
@@ -9,6 +8,7 @@ import { paramFromLang } from "../i18n";
 import { useLang } from "../i18n/useLang";
 import { LangLink } from "./LangLink";
 import { ThemeSwitch } from "./ThemeSwitch";
+import { Wordmark } from "./Wordmark";
 
 /** Top of the page: wordmark, section links, language and theme. Not sticky. */
 export function Bar() {
@@ -21,7 +21,7 @@ export function Bar() {
         aria-label={t.a11y.home}
         {...stylex.props(styles.mark, ui.focusRing)}
       >
-        {brand.wordmark}
+        <Wordmark style={styles.word} />
       </Link>
       <nav aria-label={t.a11y.mainNav} {...stylex.props(styles.nav)}>
         {navSections.map((id) => (
@@ -45,16 +45,8 @@ const styles = stylex.create({
     gap: { default: space.s6, [media.phone]: space.s4 },
     paddingBlock: space.s5,
   },
-  mark: {
-    marginRight: "auto",
-    fontFamily: fonts.text,
-    fontWeight: 700,
-    fontSize: "22px",
-    letterSpacing: type.trackDisplay,
-    color: colors.ink,
-    textDecoration: "none",
-    paddingBlock: space.s1,
-  },
+  mark: { marginRight: "auto", color: colors.ink, paddingBlock: space.s1 },
+  word: { height: { default: "26px", [media.phone]: "24px" } },
   nav: { display: { default: "flex", [media.tablet]: "none" }, gap: space.s6 },
   link: {
     fontFamily: fonts.text,
