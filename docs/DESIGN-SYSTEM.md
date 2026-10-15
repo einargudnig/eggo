@@ -2,7 +2,7 @@
 
 This branch is the plain fallback for the Vegvísir design on `vegvisir`: same content, structure, symptom picker and accessibility, without the road-sign theme. Switch to it by merging this branch instead of `vegvisir`. The Vegvísir spec below is kept for reference; where it talks about signs, plates, arrows, the junction, the road or yellow, this branch has none of them.
 
-- **Colour:** neutral greys with a faint green cast (never cream) and one muted pine accent, `#2F5D50` light / `#8FBFAE` dark, for links, buttons, ticked boxes and focus rings. Tokens: `page`, `page2`, `ink`, `muted`, `line`, `control` (field borders, 3:1), `accent`, `accentInk`.
+- **Colour:** neutral greys with a faint green cast (never cream) and one muted pine accent, **Fura**, `#2F5D50` light / `#8FBFAE` dark (chosen 2026-10-15 over moss, lupine, fjord blue and ink-only; lupine was the bold runner-up but violet reads as the AI default), for links, buttons, ticked boxes and focus rings. Tokens: `page`, `page2`, `ink`, `muted`, `line`, `control` (field borders, 3:1), `accent`, `accentInk`.
 - **Type:** Public Sans, headings 600 with tight tracking. JetBrains Mono only for small caps labels (`ui.label`). Display `clamp(40px, 4.6vw, 64px)`, h2 `clamp(28px, 3vw, 40px)`, body 17.
 - **Space:** 2 · 4 · 8 · 12 · 16 · 24 · 32 · 48 · 64 · 96 · 144; sections 144px apart (88 on phone). Max width 1120.
 - **Shape:** one container, `ui.card` (grey panel, 12px radius). Everything else is text and 1px dividers.
