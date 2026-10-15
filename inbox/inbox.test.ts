@@ -126,6 +126,28 @@ void describe("checkInbox", () => {
     assert.equal(commands.at(-1), "LOGOUT");
   });
 
+  void it("tags what was pushed before a later push fails, so it isn't announced twice", async () => {
+    const { socket, commands } = fakeServer((command) => {
+      if (command.startsWith("SELECT")) return ["* OK [PERMANENTFLAGS (\\*)] Ok"];
+      if (command.startsWith("UID SEARCH")) return ["* SEARCH 7 8"];
+      if (command.startsWith("UID FETCH"))
+        return [
+          `* 3 FETCH (UID 7 BODY[HEADER.FIELDS (FROM SUBJECT)] ${literal(header)})`,
+          `* 4 FETCH (UID 8 BODY[HEADER.FIELDS (FROM SUBJECT)] ${literal(header)})`,
+        ];
+      return [];
+    });
+    let calls = 0;
+    await assert.rejects(
+      checkInbox(socket, config, async () => {
+        calls += 1;
+        if (calls === 2) throw new Error("ntfy down");
+      }),
+      /ntfy down/,
+    );
+    assert.ok(commands.includes(`UID STORE 7 +FLAGS.SILENT (${KEYWORD})`));
+  });
+
   void it("reports a failed login without echoing the password", async () => {
     const { socket } = fakeServer((command) =>
       command.startsWith("LOGIN") ? new Error("[AUTHENTICATIONFAILED] Authentication failed.") : [],

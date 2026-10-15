@@ -37,13 +37,17 @@ export const checkInbox = async (
       `UID FETCH ${uids.join(",")} (UID BODY.PEEK[HEADER.FIELDS (FROM SUBJECT)])`,
     );
     const sent: number[] = [];
-    for (const { text, literals } of fetched) {
-      const uid = /UID (\d+)/.exec(text)?.[1];
-      if (!uid || literals[0] === undefined) continue;
-      await notify(toNotification(literals[0], config.user));
-      sent.push(Number(uid));
+    try {
+      for (const { text, literals } of fetched) {
+        const uid = /UID (\d+)/.exec(text)?.[1];
+        if (!uid || literals[0] === undefined) continue;
+        await notify(toNotification(literals[0], config.user));
+        sent.push(Number(uid));
+      }
+    } finally {
+      // Even when a later push fails: what already went out must not be announced again next run.
+      if (sent.length > 0) await imap.run(`UID STORE ${sent.join(",")} +FLAGS.SILENT (${KEYWORD})`);
     }
-    if (sent.length > 0) await imap.run(`UID STORE ${sent.join(",")} +FLAGS.SILENT (${KEYWORD})`);
     return sent.length;
   } finally {
     await imap.close().catch(() => undefined);
