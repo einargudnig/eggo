@@ -1,9 +1,6 @@
-/**
- * Homepage sections in page order. The desktop nav, the phone contents sheet and the thumb bar's
- * visibility all read from here, so a new section only needs an entry and a dictionary name.
- */
-export const sectionIds = ["smidi", "verk", "bilanaleit", "ferli", "hver", "samband"] as const;
+/** Homepage sections in page order. The nav reads from here, so a new section only needs an entry and a dictionary name. */
+export const sectionIds = ["smidi", "verk", "ferli", "hver", "samband"] as const;
 export type SectionId = (typeof sectionIds)[number];
 
-/** Sections linked from the desktop nav. The rest are reachable from the phone contents sheet. */
-export const navSections = ["smidi", "verk", "bilanaleit", "samband"] as const satisfies readonly SectionId[];
+/** Sections linked from the nav. On phones the nav collapses to the language and theme controls. */
+export const navSections = ["smidi", "verk", "ferli", "samband"] as const satisfies readonly SectionId[];

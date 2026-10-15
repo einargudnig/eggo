@@ -2,120 +2,57 @@ import * as stylex from "@stylexjs/stylex";
 import { brand } from "../content/brand";
 import { media } from "../design/media.stylex";
 import { ui } from "../design/primitives";
-import { colors, fonts, layout, space, type } from "../design/tokens.stylex";
+import { colors, fonts, space, type } from "../design/tokens.stylex";
 import { useLang } from "../i18n/useLang";
 
-/** §5: who you'd be working with. The heading is styled as a label but stays an h2 (ACCESSIBILITY.md #4). */
+/** "Hver keyrir?": a short signed note from Einar, in the first person. */
 export function Who() {
   const { t } = useLang();
   return (
-    <section id="hver" aria-labelledby="h-who" tabIndex={-1} {...stylex.props(ui.anchor, styles.section)}>
+    <section id="hver" aria-labelledby="h-who" tabIndex={-1} {...stylex.props(ui.anchor, ui.section)}>
       <div {...stylex.props(ui.wrap, styles.grid)}>
-        <h2 id="h-who" {...stylex.props(ui.label, styles.label)}>
-          <b {...stylex.props(ui.labelStrong)}>§5</b> {t.sections.hver}
+        <h2 id="h-who" {...stylex.props(ui.h2)}>
+          {t.who.title}
         </h2>
-        <div {...stylex.props(styles.body)}>
-          <p {...stylex.props(styles.p)}>{t.who.intro}</p>
-          <p {...stylex.props(styles.p, styles.muted)}>{t.who.aside}</p>
-          <span aria-hidden="true" {...stylex.props(styles.sig)}>
-            {`— ${brand.owner}`}
-          </span>
+        <div {...stylex.props(styles.note)}>
+          <p {...stylex.props(styles.lead)}>{t.who.lead}</p>
+          <p {...stylex.props(styles.p)}>{t.who.aside}</p>
+          <p {...stylex.props(styles.p)}>
+            {t.who.sideStart}
+            <a href={brand.sideProject} {...stylex.props(ui.link, ui.focusRing)}>
+              {t.who.sideLink}
+            </a>
+            {t.who.sideEnd}
+          </p>
+          <p {...stylex.props(styles.sign)}>
+            <b {...stylex.props(styles.motto)}>{t.who.motto}</b>
+            <span {...stylex.props(styles.byline)}>{`${brand.ownerFullName}, ${t.who.place}`}</span>
+          </p>
           <p {...stylex.props(styles.links)}>
             {[brand.ownerSite, brand.github].map((href) => (
-              <a key={href} href={href} {...stylex.props(styles.link, ui.focusRing)}>
+              <a key={href} href={href} {...stylex.props(ui.link, ui.focusRing)}>
                 {href.replace(/^https:\/\//, "")}
               </a>
             ))}
           </p>
         </div>
-        <dl {...stylex.props(styles.facts)}>
-          {t.who.facts.map((fact) => (
-            <div key={fact.term} {...stylex.props(styles.fact)}>
-              <dt {...stylex.props(ui.label, styles.dt)}>{fact.term}</dt>
-              <dd {...stylex.props(styles.dd)}>{fact.detail}</dd>
-            </div>
-          ))}
-        </dl>
       </div>
     </section>
   );
 }
 
 const styles = stylex.create({
-  section: {
-    borderBottomWidth: layout.rule,
-    borderBottomStyle: "solid",
-    borderBottomColor: colors.ruleStrong,
-  },
   grid: {
     display: "grid",
-    gridTemplateColumns: "repeat(12, minmax(0, 1fr))",
-    columnGap: space.gutter,
-    paddingTop: { default: space.s7, [media.phone]: space.s6 },
-    paddingBottom: { default: space.s8, [media.phone]: space.s7 },
+    gridTemplateColumns: { default: "minmax(0, 1fr) minmax(0, 1.4fr)", [media.tablet]: "minmax(0, 1fr)" },
+    gap: { default: space.s8, [media.tablet]: space.s5 },
+    alignItems: "start",
   },
-  label: { gridColumn: { default: "1 / 4", [media.tablet]: "1 / -1" } },
-  body: {
-    gridColumn: { default: "4 / 10", [media.tablet]: "1 / -1" },
-    marginTop: { default: 0, [media.tablet]: space.s3 },
-  },
-  p: {
-    marginTop: 0,
-    marginBottom: space.s4,
-    fontSize: "clamp(21px, 2.1vw, 28px)",
-    lineHeight: 1.3,
-    letterSpacing: "-0.015em",
-    textWrap: "pretty",
-    maxWidth: "34ch",
-  },
-  muted: { color: colors.muted },
-  links: { display: "flex", flexWrap: "wrap", gap: space.s4, marginTop: space.s5, marginBottom: 0 },
-  link: {
-    paddingBlock: space.s1,
-    fontFamily: fonts.mono,
-    fontSize: "12px",
-    fontWeight: 500,
-    color: colors.ink,
-    textDecorationLine: "underline",
-    textDecorationThickness: { default: "1px", ":hover": "2px" },
-    textUnderlineOffset: "3px",
-  },
-  sig: {
-    display: "inline-block",
-    marginTop: space.s1,
-    fontFamily: fonts.hand,
-    fontSize: "46px",
-    lineHeight: 1,
-    color: colors.accentInk,
-    transform: "rotate(-4deg)",
-  },
-  facts: {
-    gridColumn: { default: "10 / 13", [media.tablet]: "1 / -1" },
-    alignSelf: "start",
-    marginBottom: 0,
-    marginTop: { default: space.s2, [media.tablet]: space.s5 },
-    display: "grid",
-    gridTemplateColumns: "auto minmax(0, 1fr)",
-    columnGap: space.s3,
-    borderTopWidth: layout.rule,
-    borderTopStyle: "solid",
-    borderTopColor: colors.rule,
-  },
-  fact: { display: "contents" },
-  dt: {
-    paddingTop: space.s3,
-    paddingBottom: space.s2,
-    fontSize: type.label,
-    borderBottomWidth: layout.rule,
-    borderBottomStyle: "solid",
-    borderBottomColor: colors.rule,
-  },
-  dd: {
-    margin: 0,
-    paddingBlock: space.s2,
-    fontSize: "14px",
-    borderBottomWidth: layout.rule,
-    borderBottomStyle: "solid",
-    borderBottomColor: colors.rule,
-  },
+  note: { maxWidth: "36em" },
+  lead: { margin: 0, fontSize: "22px", lineHeight: 1.45, textWrap: "pretty" },
+  p: { marginTop: space.s4, marginBottom: 0, textWrap: "pretty" },
+  sign: { marginTop: space.s7, marginBottom: 0, display: "grid", gap: space.s1 },
+  motto: { fontFamily: fonts.sign, fontWeight: 800, fontSize: type.h3 },
+  byline: { color: colors.muted, fontSize: type.fine },
+  links: { marginTop: space.s5, marginBottom: 0, display: "flex", flexWrap: "wrap", gap: space.s5 },
 });

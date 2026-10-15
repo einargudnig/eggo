@@ -1,8 +1,7 @@
 import * as stylex from "@stylexjs/stylex";
 import { useSyncExternalStore } from "react";
-import { media } from "../design/media.stylex";
 import { ui } from "../design/primitives";
-import { colors, fonts, layout, motion, space, type } from "../design/tokens.stylex";
+import { colors, fonts, space, type } from "../design/tokens.stylex";
 import { useLang } from "../i18n/useLang";
 
 type Theme = "light" | "dark";
@@ -25,6 +24,7 @@ const subscribe = (onChange: () => void) => {
   };
 };
 
+/** A half-filled disc and "Dark". The visible word stays inside the accessible name "Dark mode" (WCAG 2.5.3). */
 export function ThemeSwitch() {
   const { t } = useLang();
   const theme = useSyncExternalStore<Theme | null>(subscribe, currentTheme, () => null);
@@ -50,61 +50,36 @@ export function ThemeSwitch() {
       onClick={toggle}
       {...stylex.props(styles.switch, ui.focusRing)}
     >
-      <span aria-hidden="true" {...stylex.props(styles.text, !dark && styles.textOn)}>
-        {t.bar.light}
-      </span>
-      <span aria-hidden="true" {...stylex.props(styles.track)}>
-        <span {...stylex.props(styles.knob, dark && styles.knobOn)} />
-      </span>
-      <span aria-hidden="true" {...stylex.props(styles.text, dark && styles.textOn)}>
-        {t.bar.dark}
-      </span>
+      <i aria-hidden="true" {...stylex.props(styles.disc, dark && styles.discDark)} />
+      <span>{t.bar.dark}</span>
     </button>
   );
 }
 
 const styles = stylex.create({
   switch: {
-    display: "flex",
+    display: "inline-flex",
     alignItems: "center",
     gap: space.s2,
     backgroundColor: "transparent",
     borderWidth: 0,
-    paddingBlock: space.s1,
+    paddingBlock: space.s3,
     paddingInline: 0,
-    minHeight: { default: null, [media.phone]: "44px" },
     cursor: "pointer",
-    color: colors.muted,
+    fontFamily: fonts.sign,
+    fontWeight: 600,
+    fontSize: type.small,
+    color: { default: colors.ink, ":hover": colors.link },
   },
-  text: {
-    fontFamily: fonts.mono,
-    fontSize: "10px",
-    fontWeight: 700,
-    letterSpacing: type.trackLabel,
-    textTransform: "uppercase",
-    display: { default: null, [media.phone]: "none" },
-  },
-  textOn: { color: colors.ink },
-  track: {
-    width: "40px",
-    height: "20px",
-    borderWidth: layout.rule,
-    borderStyle: "solid",
-    borderColor: colors.ruleStrong,
-    position: "relative",
-    flexShrink: 0,
-    backgroundImage: `repeating-linear-gradient(90deg, ${colors.rule} 0 1px, transparent 1px 4px)`,
-  },
-  knob: {
-    position: "absolute",
-    top: "2px",
-    left: "2px",
+  disc: {
+    display: "block",
     width: "16px",
-    height: "14px",
-    backgroundColor: { default: colors.ink, [media.forcedColors]: "CanvasText" },
-    transitionProperty: "transform",
-    transitionDuration: motion.base,
-    transitionTimingFunction: motion.step,
+    height: "16px",
+    borderRadius: "50%",
+    borderWidth: "2px",
+    borderStyle: "solid",
+    borderColor: "currentColor",
+    backgroundImage: "linear-gradient(90deg, currentColor 50%, transparent 50%)",
   },
-  knobOn: { transform: "translateX(18px)" },
+  discDark: { backgroundImage: "linear-gradient(270deg, currentColor 50%, transparent 50%)" },
 });

@@ -54,18 +54,20 @@ const ratio = (fg: Rgba, bg: Rgba) => {
 
 /** [label, foreground token, background token, minimum ratio]. 4.5 = text, 3 = UI boundaries. */
 const pairs: readonly [string, string, string, number][] = [
-  ["ink / surface", "ink", "surface", 4.5],
-  ["muted / surface", "muted", "surface", 4.5],
-  ["muted / surface-2", "muted", "surface2", 4.5],
-  ["accent-ink / surface", "accentInk", "surface", 4.5],
-  ["accent-ink / surface-2", "accentInk", "surface2", 4.5],
-  ["on-accent / accent (buttons)", "onAccent", "accent", 4.5],
-  ["on-accent / signal (tape)", "onAccent", "signal", 4.5],
-  ["contact fg / contact bg", "contactFg", "contactBg", 4.5],
-  ["contact muted / contact bg", "contactMuted", "contactBg", 4.5],
-  ["accent / contact bg (errors)", "accent", "contactBg", 4.5],
-  ["rule-strong / surface (UI)", "ruleStrong", "surface", 3],
-  ["contact rule / contact bg (UI)", "contactRule", "contactBg", 3],
+  ["ink / page", "ink", "page", 4.5],
+  ["ink / page-2 (bands)", "ink", "page2", 4.5],
+  ["muted / page", "muted", "page", 4.5],
+  ["muted / page-2", "muted", "page2", 4.5],
+  ["link / page", "link", "page", 4.5],
+  ["link / page-2", "link", "page2", 4.5],
+  ["sign ink / sign", "signInk", "sign", 4.5],
+  ["sign soft / sign", "signSoft", "sign", 4.5],
+  ["sign / sign ink (white buttons)", "sign", "signInk", 4.5],
+  ["field ink / field", "fieldInk", "field", 4.5],
+  ["warn ink / warn (ticked triangle)", "warnInk", "warn", 4.5],
+  ["warn / sign (focus ring on signs)", "warn", "sign", 3],
+  ["warn edge / page (ticked triangle)", "warnEdge", "page", 3],
+  ["muted / page (unticked triangle)", "muted", "page", 3],
 ];
 
 let failed = 0;

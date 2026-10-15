@@ -52,7 +52,7 @@ const checkStyleValue = (context: Context, node: StyleNode, prop: string | undef
     if (prop && SPACING_PROP.test(prop) && rawSpacing) {
       context.report({
         node,
-        message: `Raw spacing on \`${prop}\`. Use \`space.*\` from src/design/tokens.stylex.ts (scale 4·8·12·16·22·28·36·56·72, DESIGN-SYSTEM §4).`,
+        message: `Raw spacing on \`${prop}\`. Use \`space.*\` from src/design/tokens.stylex.ts (scale 2·4·8·12·16·22·28·36·56·72·96, DESIGN-SYSTEM §4).`,
       });
     }
     return;

@@ -1,134 +1,84 @@
 import * as stylex from "@stylexjs/stylex";
 import { Link } from "@tanstack/react-router";
-import { useState } from "react";
 import { brand } from "../content/brand";
-import { partIds } from "../content/parts";
-import { navSections, type SectionId } from "../content/sections";
-import { caseIds } from "../content/work";
+import { navSections } from "../content/sections";
 import { media } from "../design/media.stylex";
 import { ui } from "../design/primitives";
-import { colors, fonts, layout, space, type } from "../design/tokens.stylex";
+import { colors, fonts, space, type } from "../design/tokens.stylex";
 import { paramFromLang } from "../i18n";
 import { useLang } from "../i18n/useLang";
-import { Clock } from "./Clock";
-import { ContentsSheet } from "./ContentsSheet";
 import { LangLink } from "./LangLink";
 import { ThemeSwitch } from "./ThemeSwitch";
 
-/** Item counts shown as superscripts in the nav: "Verk (5)". */
-const navCounts: Partial<Record<SectionId, number>> = { smidi: partIds.length, verk: caseIds.length };
-
+/** Top of the page: the wordmark on a small sign plate, section links, language and theme. Not sticky. */
 export function Bar() {
   const { lang, t } = useLang();
-  const [sheetOpen, setSheetOpen] = useState(false);
   return (
-    <header {...stylex.props(styles.bar)}>
-      <div {...stylex.props(ui.wrap, styles.row)}>
-        <Link
-          to="/{-$lang}"
-          params={{ lang: paramFromLang(lang) }}
-          {...stylex.props(styles.logo, ui.focusRing)}
-        >
-          {brand.wordmark}
-          <span {...stylex.props(styles.dot)}>.</span>
-        </Link>
-        <nav aria-label={t.a11y.mainNav} {...stylex.props(styles.nav)}>
-          {navSections.map((id) => (
-            <a key={id} href={`#${id}`} {...stylex.props(styles.navLink, ui.focusRing)}>
-              {t.sections[id]}
-              {navCounts[id] === undefined ? null : (
-                <sup {...stylex.props(styles.sup)}>{`(${navCounts[id]})`}</sup>
-              )}
-            </a>
-          ))}
-        </nav>
-        <Clock />
-        <div {...stylex.props(styles.controls)}>
-          <LangLink />
-          <ThemeSwitch />
-        </div>
-        <button
-          type="button"
-          aria-haspopup="dialog"
-          aria-controls="contents"
-          aria-expanded={sheetOpen}
-          onClick={() => setSheetOpen(true)}
-          {...stylex.props(styles.menu, ui.focusRing, ui.press)}
-        >
-          <i aria-hidden="true" {...stylex.props(styles.burger)} />
-          {t.contents.open}
-        </button>
+    <header {...stylex.props(ui.wrap, styles.bar)}>
+      <Link
+        to="/{-$lang}"
+        params={{ lang: paramFromLang(lang) }}
+        aria-label={t.a11y.home}
+        {...stylex.props(styles.plate, ui.focusRing)}
+      >
+        <span {...stylex.props(styles.plateIn)}>{brand.wordmark}</span>
+      </Link>
+      <nav aria-label={t.a11y.mainNav} {...stylex.props(styles.nav)}>
+        {navSections.map((id) => (
+          <a key={id} href={`#${id}`} {...stylex.props(styles.link, ui.focusRing)}>
+            {t.sections[id]}
+          </a>
+        ))}
+      </nav>
+      <div {...stylex.props(styles.controls)}>
+        <LangLink />
+        <ThemeSwitch />
       </div>
-      <ContentsSheet open={sheetOpen} onClose={() => setSheetOpen(false)} />
     </header>
   );
 }
 
 const styles = stylex.create({
   bar: {
-    position: "sticky",
-    top: 0,
-    zIndex: 30,
-    backgroundColor: `color-mix(in srgb, ${colors.surface} 92%, transparent)`,
-    backdropFilter: "blur(6px)",
-    borderBottomWidth: layout.rule,
-    borderBottomStyle: "solid",
-    borderBottomColor: colors.ruleStrong,
-  },
-  row: {
     display: "flex",
     alignItems: "center",
-    gap: { default: space.s5, [media.phone]: space.s3 },
-    height: layout.barHeight,
+    gap: { default: space.s6, [media.phone]: space.s4 },
+    paddingBlock: space.s5,
   },
-  logo: {
-    fontWeight: 900,
-    fontSize: "22px",
-    letterSpacing: "-0.03em",
+  plate: {
+    display: "inline-block",
+    backgroundColor: colors.sign,
+    color: colors.signInk,
     textDecoration: "none",
-    color: colors.ink,
-    marginRight: { default: null, [media.tablet]: "auto" },
-  },
-  dot: { color: colors.accentInk },
-  nav: {
-    display: { default: "flex", [media.tablet]: "none" },
-    gap: space.s5,
+    borderRadius: "9px",
+    padding: space.s1,
     marginRight: "auto",
   },
-  navLink: {
-    fontFamily: fonts.mono,
-    fontSize: "12px",
-    letterSpacing: "0.06em",
-    textTransform: "uppercase",
+  plateIn: {
+    display: "block",
+    borderWidth: "2.5px",
+    borderStyle: "solid",
+    borderColor: colors.signInk,
+    borderRadius: "6px",
+    fontFamily: fonts.sign,
+    fontWeight: 800,
+    fontSize: "23px",
+    lineHeight: 1,
+    paddingTop: space.s2,
+    paddingBottom: space.s1,
+    paddingInline: space.s3,
+  },
+  nav: {
+    display: { default: "flex", [media.tablet]: "none" },
+    gap: space.s6,
+  },
+  link: {
+    fontFamily: fonts.sign,
+    fontWeight: 600,
+    fontSize: type.small,
+    color: { default: colors.ink, ":hover": colors.link },
     textDecoration: "none",
-    color: { default: colors.muted, [media.hover]: { default: null, ":hover": colors.ink } },
     paddingBlock: space.s1,
   },
-  sup: { fontSize: "9px", marginLeft: "0.2em", color: colors.accentInk },
-  controls: { display: { default: "flex", [media.phone]: "none" }, alignItems: "center", gap: space.s4 },
-  menu: {
-    display: { default: "none", [media.phone]: "inline-flex" },
-    alignItems: "center",
-    gap: space.s2,
-    height: "40px",
-    paddingBlock: 0,
-    paddingInline: space.s3,
-    fontFamily: fonts.mono,
-    fontSize: type.label,
-    fontWeight: 700,
-    letterSpacing: type.trackLabel,
-    textTransform: "uppercase",
-    backgroundColor: colors.ink,
-    color: colors.surface,
-    borderWidth: 0,
-    cursor: "pointer",
-  },
-  burger: {
-    display: "block",
-    width: "12px",
-    height: "6px",
-    borderBlockWidth: "1.5px",
-    borderBlockStyle: "solid",
-    borderBlockColor: "currentColor",
-  },
+  controls: { display: "flex", alignItems: "center", gap: { default: space.s6, [media.phone]: space.s4 } },
 });

@@ -1,67 +1,73 @@
 import * as stylex from "@stylexjs/stylex";
 import { createFileRoute } from "@tanstack/react-router";
-import { useCallback, useEffect, useRef, useState } from "react";
-import { BackCover } from "../../components/BackCover";
+import { useState } from "react";
 import { Bar } from "../../components/Bar";
 import { Hero } from "../../components/Hero";
 import { Parts } from "../../components/Parts";
 import { Steps } from "../../components/Steps";
-import { ThumbBar } from "../../components/ThumbBar";
-import { Troubleshooting } from "../../components/Troubleshooting";
 import { Who } from "../../components/Who";
 import { WorkIndex } from "../../components/WorkIndex";
-import { WorkOrder } from "../../components/WorkOrder";
-import { partDomId, type PartId } from "../../content/parts";
-import { colors, fonts, space } from "../../design/tokens.stylex";
+import { WorkOrder, fieldIds } from "../../components/WorkOrder";
+import { brand } from "../../content/brand";
+import { partIds, type PartId } from "../../content/parts";
+import { troubleIds, troubles, type TroubleId } from "../../content/work";
+import { media } from "../../design/media.stylex";
+import { ui } from "../../design/primitives";
+import { colors, fonts, space, type } from "../../design/tokens.stylex";
 import { useLang } from "../../i18n/useLang";
 
 export const Route = createFileRoute("/{-$lang}/")({
   component: HomePage,
 });
 
-const HIGHLIGHT_MS = 1800;
+const toggle = <T,>(list: readonly T[], item: T) =>
+  list.includes(item) ? list.filter((x) => x !== item) : [...list, item];
 
-/** Jumping to a part scrolls to it, moves focus to it and highlights it briefly (DESIGN-SYSTEM §8). */
-const usePartJump = () => {
-  const [highlighted, setHighlighted] = useState<PartId | null>(null);
-  const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
+/** The parts that fix the picked symptoms, in part order. */
+const routeFor = (picked: readonly TroubleId[]): PartId[] =>
+  partIds.filter((id) => picked.some((trouble) => troubles[trouble] === id));
 
-  useEffect(() => () => clearTimeout(timer.current), []);
-
-  const jump = useCallback((id: PartId) => {
-    const card = document.getElementById(partDomId(id));
-    if (!card) return;
-    const instant = matchMedia("(prefers-reduced-motion: reduce)").matches;
-    card.scrollIntoView({ behavior: instant ? "auto" : "smooth", block: "nearest", inline: "start" });
-    card.focus({ preventScroll: true });
-    setHighlighted(id);
-    clearTimeout(timer.current);
-    timer.current = setTimeout(() => setHighlighted(null), HIGHLIGHT_MS);
-  }, []);
-
-  return { highlighted, jump };
+/** "Senda Einari": scroll to the work order and put the cursor in the first field (ACCESSIBILITY.md: focus follows). */
+const onSend = () => {
+  const name = document.getElementById(fieldIds.name);
+  const instant = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  document.getElementById("samband")?.scrollIntoView({ behavior: instant ? "auto" : "smooth" });
+  name?.focus({ preventScroll: true });
 };
 
 function HomePage() {
   const { t } = useLang();
-  const { highlighted, jump } = usePartJump();
+  const [picked, setPicked] = useState<readonly TroubleId[]>([]);
+  // The work order starts from the hero's route, but its destinations can be changed on their own.
+  const [chosen, setChosen] = useState<readonly PartId[]>([]);
+
+  const onToggleSymptom = (id: TroubleId) => {
+    const next = troubleIds.filter((x) => toggle(picked, id).includes(x));
+    setPicked(next);
+    setChosen(routeFor(next));
+  };
+
   return (
     <>
       <a href="#top" {...stylex.props(styles.skip)}>
         {t.a11y.skip}
       </a>
       <Bar />
-      <main id="top" tabIndex={-1}>
-        <Hero highlighted={highlighted} onSelect={jump} />
-        <Parts highlighted={highlighted} onShow={jump} />
+      <main id="top" tabIndex={-1} {...stylex.props(styles.main)}>
+        <Hero picked={picked} route={routeFor(picked)} onToggle={onToggleSymptom} onSend={onSend} />
+        <Parts />
         <WorkIndex />
-        <Troubleshooting onShow={jump} />
         <Steps />
         <Who />
-        <WorkOrder />
+        <WorkOrder
+          chosen={chosen}
+          onToggle={(id) => setChosen(partIds.filter((x) => toggle(chosen, id).includes(x)))}
+        />
       </main>
-      <BackCover />
-      <ThumbBar />
+      <footer {...stylex.props(ui.wrap, styles.footer)}>
+        <span>{`${brand.name} · ${brand.ownerFullName} · ${t.who.place}`}</span>
+        <span>{t.footer.setIn}</span>
+      </footer>
     </>
   );
 }
@@ -73,15 +79,25 @@ const styles = stylex.create({
     top: space.s2,
     zIndex: 100,
     transform: { default: "translateY(-160%)", ":focus": "none" },
-    backgroundColor: colors.ink,
-    color: colors.surface,
+    backgroundColor: colors.sign,
+    color: colors.signInk,
     paddingBlock: space.s3,
-    paddingInline: space.s3,
-    fontFamily: fonts.mono,
-    fontSize: "12px",
+    paddingInline: space.s4,
+    borderRadius: "8px",
+    fontFamily: fonts.sign,
     fontWeight: 700,
-    letterSpacing: "0.06em",
-    textTransform: "uppercase",
     textDecoration: "none",
+    outline: { default: "none", ":focus-visible": `3px solid ${colors.warn}` },
+  },
+  main: { outline: "none" },
+  footer: {
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+    gap: space.s3,
+    paddingTop: space.s5,
+    paddingBottom: { default: space.s7, [media.phone]: space.s6 },
+    color: colors.muted,
+    fontSize: type.fine,
   },
 });

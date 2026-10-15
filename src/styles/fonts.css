@@ -1,36 +1,38 @@
 /* Self-hosted Latin subsets (from Google Fonts, SIL OFL). Same origin, so text paints without waiting on a
-   third-party stylesheet. Schibsted and JetBrains Mono are variable: one file covers every weight.
-   Icelandic letters (þ ð æ ö á …) are all in this range. Replacing a file? Rename it: /fonts/* is cached as immutable. */
+   third-party stylesheet. Both are variable: one file covers every weight.
+   Icelandic letters (þ ð æ ö á …) are all in this range. Replacing a file? Rename it: /fonts/* is cached as immutable.
+   Overpass is a stand-in for a licensed Transport-style road-sign face (docs/DESIGN-SYSTEM.md §2). */
 @font-face {
-  font-family: "Schibsted Grotesk";
+  font-family: "Overpass";
   font-style: normal;
   font-weight: 400 900;
   font-display: swap;
-  src: url("/fonts/schibsted-grotesk-latin.woff2") format("woff2");
+  src: url("/fonts/overpass-latin.woff2") format("woff2");
 }
 
 @font-face {
-  font-family: "JetBrains Mono";
+  font-family: "Public Sans";
   font-style: normal;
   font-weight: 400 700;
   font-display: swap;
-  src: url("/fonts/jetbrains-mono-latin.woff2") format("woff2");
+  src: url("/fonts/public-sans-latin.woff2") format("woff2");
 }
 
+/* Arial scaled to each face's width and line metrics (fontTools, 2026-10-15), so the swap doesn't move text (CLS). */
 @font-face {
-  font-family: "Reenie Beanie";
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("/fonts/reenie-beanie-latin.woff2") format("woff2");
-}
-
-/* Arial scaled to Schibsted's width and line metrics, so the swap doesn't move the hero (CLS). */
-@font-face {
-  font-family: "Schibsted Grotesk Fallback";
+  font-family: "Overpass Fallback";
   src: local("Arial"), local("Helvetica Neue");
-  size-adjust: 103.41%;
-  ascent-override: 94.44%;
-  descent-override: 24.93%;
+  size-adjust: 100.68%;
+  ascent-override: 87.71%;
+  descent-override: 38.04%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Public Sans Fallback";
+  src: local("Arial"), local("Helvetica Neue");
+  size-adjust: 102.36%;
+  ascent-override: 92.81%;
+  descent-override: 21.98%;
   line-gap-override: 0%;
 }

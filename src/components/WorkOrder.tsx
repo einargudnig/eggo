@@ -2,10 +2,10 @@ import * as stylex from "@stylexjs/stylex";
 import { useServerFn } from "@tanstack/react-start";
 import { useRef, useState, type FormEvent } from "react";
 import { brand } from "../content/brand";
-import { partIds, parts, type PartId } from "../content/parts";
+import { partIds, type PartId } from "../content/parts";
 import { media } from "../design/media.stylex";
 import { ui } from "../design/primitives";
-import { colors, fonts, layout, space, type } from "../design/tokens.stylex";
+import { colors, fonts, space, type } from "../design/tokens.stylex";
 import { useLang } from "../i18n/useLang";
 import { sendWorkOrder } from "../server/contact";
 import { workOrderSchema, type WorkOrderField } from "../server/workOrder";
@@ -16,10 +16,21 @@ type State =
   | { kind: "sending" }
   | { kind: "sent"; ticket: string; email: string };
 
-const fieldIds: Record<WorkOrderField, string> = { name: "o-name", email: "o-email", message: "o-msg" };
+export const fieldIds: Record<WorkOrderField, string> = {
+  name: "o-name",
+  email: "o-email",
+  message: "o-msg",
+};
 const text = (value: FormDataEntryValue | null) => (typeof value === "string" ? value : "");
 
-export function WorkOrder() {
+type Props = {
+  /** Destinations, pre-ticked from the symptoms picked in the hero. */
+  chosen: readonly PartId[];
+  onToggle: (id: PartId) => void;
+};
+
+/** "Segðu mér hvar þú ert.": the last sign on the page, with the work order form on it. */
+export function WorkOrder({ chosen, onToggle }: Props) {
   const { lang, t } = useLang();
   const send = useServerFn(sendWorkOrder);
   const [state, setState] = useState<State>({ kind: "editing", invalid: [], error: "" });
@@ -32,7 +43,7 @@ export function WorkOrder() {
       name: text(form.get("name")),
       email: text(form.get("email")),
       message: text(form.get("message")),
-      parts: form.getAll("part").map(text),
+      parts: [...chosen],
       lang,
     };
     const parsed = workOrderSchema.safeParse(input);
@@ -75,312 +86,228 @@ export function WorkOrder() {
       id="samband"
       aria-labelledby="h-contact"
       tabIndex={-1}
-      {...stylex.props(ui.anchor, styles.contact)}
+      {...stylex.props(ui.anchor, ui.wrap, styles.section)}
     >
-      <div {...stylex.props(ui.wrap, styles.grid)}>
-        <h2 id="h-contact" {...stylex.props(styles.title)}>
-          {t.order.title}
-        </h2>
-        <CopyEmail />
-        <div id="order" {...stylex.props(ui.anchor, styles.order)}>
-          <div {...stylex.props(styles.head)}>
-            <span id="order-title" {...stylex.props(ui.label, styles.muted)}>
-              {t.order.form}
-            </span>
+      <div {...stylex.props(ui.plate)}>
+        <div {...stylex.props(ui.plateIn, styles.grid)}>
+          <div>
+            <h2 id="h-contact" {...stylex.props(styles.title)}>
+              {t.order.title}
+            </h2>
+            <p {...stylex.props(styles.body)}>{t.order.body}</p>
+            <a href={`mailto:${brand.email}`} {...stylex.props(styles.mail, ui.focusRingOnSign)}>
+              {brand.email}
+            </a>
           </div>
 
-          {state.kind === "sent" ? (
-            <div {...stylex.props(styles.receipt)}>
-              <h3 ref={receiptTitle} tabIndex={-1} {...stylex.props(ui.label, styles.muted)}>
-                {t.order.received}
-              </h3>
-              <p {...stylex.props(styles.ticket)}>{state.ticket}</p>
-              <p {...stylex.props(styles.receiptBody)}>
-                {t.order.receivedBody} {t.order.replyTo}{" "}
-                <b {...stylex.props(styles.replyTo)}>{state.email}</b>.
-              </p>
-              <Button type="button" variant="ghost" inverted onClick={reset}>
-                {t.order.again}
-              </Button>
-            </div>
-          ) : (
-            <form noValidate aria-labelledby="order-title" onSubmit={(e) => void onSubmit(e)}>
-              <div {...stylex.props(styles.pair)}>
-                <div {...stylex.props(styles.field)}>
-                  <label htmlFor={fieldIds.name} {...stylex.props(ui.label, styles.muted)}>
-                    {t.order.name}
-                  </label>
-                  <input
-                    type="text"
-                    autoComplete="name"
-                    enterKeyHint="next"
-                    placeholder={t.order.namePlaceholder}
-                    {...fieldProps("name")}
-                    {...stylex.props(styles.input, invalid("name") && styles.invalid)}
-                  />
-                </div>
-                <div {...stylex.props(styles.field, styles.fieldSecond)}>
-                  <label htmlFor={fieldIds.email} {...stylex.props(ui.label, styles.muted)}>
-                    {t.order.email}
-                  </label>
-                  <input
-                    type="email"
-                    autoComplete="email"
-                    inputMode="email"
-                    enterKeyHint="next"
-                    placeholder={t.order.emailPlaceholder}
-                    {...fieldProps("email")}
-                    {...stylex.props(styles.input, invalid("email") && styles.invalid)}
-                  />
-                </div>
-              </div>
-              <fieldset {...stylex.props(styles.field, styles.fieldset)}>
-                <legend {...stylex.props(ui.label, styles.muted, styles.legend)}>
-                  {t.order.partsLegend}
-                </legend>
-                <div {...stylex.props(styles.chips)}>
-                  {partIds.map((id) => (
-                    <PartChip
-                      key={id}
-                      id={id}
-                      label={
-                        parts[id].defined ? `${id} · ${t.parts[id].short}` : `${id} · ${t.order.notSure}`
-                      }
-                      srLabel={`${id} ${t.parts[id].short}`}
-                    />
-                  ))}
-                </div>
-              </fieldset>
-              <div {...stylex.props(styles.field)}>
-                <label htmlFor={fieldIds.message} {...stylex.props(ui.label, styles.muted)}>
-                  {t.order.message}
-                </label>
-                <textarea
-                  rows={3}
-                  placeholder={t.order.messagePlaceholder}
-                  {...fieldProps("message")}
-                  {...stylex.props(styles.input, invalid("message") && styles.invalid)}
-                />
-              </div>
-              <div {...stylex.props(styles.foot)}>
-                <span id="o-err" role="alert" {...stylex.props(styles.error)}>
-                  {state.kind === "editing" ? state.error : ""}
-                </span>
-                <Button
-                  type="submit"
-                  variant="primary"
-                  inverted
-                  stretchOnPhone
-                  disabled={state.kind === "sending"}
-                >
-                  {state.kind === "sending" ? t.order.sending : t.order.submit}
+          <div id="order" {...stylex.props(ui.anchor)}>
+            {state.kind === "sent" ? (
+              <div {...stylex.props(styles.receipt)}>
+                <h3 ref={receiptTitle} tabIndex={-1} {...stylex.props(styles.receiptTitle)}>
+                  {t.order.received}
+                </h3>
+                <p {...stylex.props(styles.ticket, ui.tabular)}>{state.ticket}</p>
+                <p {...stylex.props(styles.body)}>
+                  {t.order.receivedBody} {t.order.replyTo} <b>{state.email}</b>.
+                </p>
+                <Button type="button" variant="onSign" onClick={reset}>
+                  {t.order.again}
                 </Button>
               </div>
-            </form>
-          )}
+            ) : (
+              <form
+                noValidate
+                aria-label={t.order.form}
+                onSubmit={(e) => void onSubmit(e)}
+                {...stylex.props(styles.form)}
+              >
+                <div {...stylex.props(styles.pair)}>
+                  <div {...stylex.props(styles.field)}>
+                    <label htmlFor={fieldIds.name} {...stylex.props(styles.label)}>
+                      {t.order.name}
+                    </label>
+                    <input
+                      type="text"
+                      autoComplete="name"
+                      enterKeyHint="next"
+                      placeholder={t.order.namePlaceholder}
+                      {...fieldProps("name")}
+                      {...stylex.props(styles.input, invalid("name") && styles.invalid)}
+                    />
+                  </div>
+                  <div {...stylex.props(styles.field)}>
+                    <label htmlFor={fieldIds.email} {...stylex.props(styles.label)}>
+                      {t.order.email}
+                    </label>
+                    <input
+                      type="email"
+                      autoComplete="email"
+                      inputMode="email"
+                      enterKeyHint="next"
+                      placeholder={t.order.emailPlaceholder}
+                      {...fieldProps("email")}
+                      {...stylex.props(styles.input, invalid("email") && styles.invalid)}
+                    />
+                  </div>
+                </div>
+                <fieldset {...stylex.props(styles.fieldset)}>
+                  <legend {...stylex.props(styles.label, styles.legend)}>
+                    {t.order.partsLegend} <span {...stylex.props(styles.optional)}>{t.order.optional}</span>
+                  </legend>
+                  <div {...stylex.props(styles.dests)}>
+                    {partIds.map((id) => (
+                      <label key={id} {...stylex.props(styles.dest)}>
+                        <input
+                          type="checkbox"
+                          name="part"
+                          value={id}
+                          checked={chosen.includes(id)}
+                          onChange={() => onToggle(id)}
+                          {...stylex.props(styles.destInput, stylex.defaultMarker())}
+                        />
+                        <span {...stylex.props(styles.destLabel)}>{t.parts[id].sign}</span>
+                      </label>
+                    ))}
+                  </div>
+                </fieldset>
+                <div {...stylex.props(styles.field)}>
+                  <label htmlFor={fieldIds.message} {...stylex.props(styles.label)}>
+                    {t.order.message}
+                  </label>
+                  <textarea
+                    rows={3}
+                    placeholder={t.order.messagePlaceholder}
+                    {...fieldProps("message")}
+                    {...stylex.props(styles.input, styles.textarea, invalid("message") && styles.invalid)}
+                  />
+                </div>
+                <div {...stylex.props(styles.foot)}>
+                  <span id="o-err" role="alert" {...stylex.props(styles.error)}>
+                    {state.kind === "editing" ? state.error : ""}
+                  </span>
+                  <Button type="submit" variant="onSign" stretchOnPhone disabled={state.kind === "sending"}>
+                    {state.kind === "sending" ? t.order.sending : t.order.submit}
+                  </Button>
+                </div>
+              </form>
+            )}
+          </div>
         </div>
       </div>
     </section>
   );
 }
 
-function CopyEmail() {
-  const { t } = useLang();
-  const [copied, setCopied] = useState(false);
-  const copy = async () => {
-    try {
-      await navigator.clipboard.writeText(brand.email);
-      setCopied(true);
-    } catch {
-      // clipboard blocked: the address is still a mailto link and selectable
-    }
-  };
-  return (
-    <div {...stylex.props(styles.alt)}>
-      <span {...stylex.props(ui.label, styles.muted)}>{t.order.orEmail}</span>
-      <div {...stylex.props(styles.mailRow)}>
-        <a href={`mailto:${brand.email}`} {...stylex.props(styles.mail, ui.focusRing)}>
-          {brand.email}
-        </a>
-        <button
-          type="button"
-          onClick={() => void copy()}
-          {...stylex.props(styles.copy, ui.focusRing, ui.press)}
-        >
-          {t.order.copy}
-        </button>
-        <output {...stylex.props(ui.srOnly)}>{copied ? t.order.copied : ""}</output>
-      </div>
-    </div>
-  );
-}
-
-function PartChip({ id, label, srLabel }: { id: PartId; label: string; srLabel: string }) {
-  const unknown = !parts[id].defined;
-  return (
-    <label {...stylex.props(styles.chip, unknown && styles.chipUnknown)}>
-      <input type="checkbox" name="part" value={id} {...stylex.props(styles.chipInput)} />
-      <span aria-hidden="true">{label}</span>
-      <span {...stylex.props(ui.srOnly)}>{srLabel}</span>
-    </label>
-  );
-}
-
 const styles = stylex.create({
-  contact: { backgroundColor: colors.contactBg, color: colors.contactFg },
+  section: { paddingTop: space.section, paddingBottom: space.s8 },
   grid: {
     display: "grid",
-    gridTemplateColumns: "repeat(12, minmax(0, 1fr))",
-    columnGap: space.gutter,
-    rowGap: space.s6,
-    paddingTop: { default: space.s8, [media.phone]: space.s7 },
-    paddingBottom: { default: space.s9, [media.phone]: space.s7 },
+    gridTemplateColumns: { default: "minmax(0, 0.9fr) minmax(0, 1.1fr)", [media.tablet]: "minmax(0, 1fr)" },
+    gap: { default: space.s8, [media.tablet]: space.s7 },
+    paddingBlock: { default: space.s8, [media.phone]: space.s6 },
+    paddingInline: { default: space.s8, [media.phone]: space.s4 },
   },
   title: {
-    gridColumn: { default: "1 / 7", [media.tablet]: "1 / -1" },
     margin: 0,
-    fontSize: { default: "clamp(40px, 5.6vw, 80px)", [media.phone]: "clamp(38px, 11vw, 56px)" },
-    lineHeight: 0.95,
-    letterSpacing: type.trackDisplay,
+    fontFamily: fonts.sign,
+    fontSize: { default: "clamp(40px, 4.6vw, 64px)", [media.phone]: "clamp(36px, 10vw, 44px)" },
     fontWeight: 800,
+    lineHeight: 1.05,
+    letterSpacing: type.trackDisplay,
     textWrap: "balance",
   },
-  muted: { color: colors.contactMuted },
-  alt: {
-    gridColumn: { default: "1 / 7", [media.tablet]: "1 / -1" },
-    display: "grid",
-    gap: space.s3,
-    alignContent: "start",
-    justifyItems: "start",
+  body: { marginTop: space.s5, marginBottom: 0, color: colors.signSoft, fontSize: "19px", maxWidth: "24em" },
+  mail: {
+    display: "inline-block",
+    marginTop: space.s6,
+    paddingBottom: space.s2,
+    fontFamily: fonts.sign,
+    fontWeight: 800,
+    fontSize: "26px",
+    lineHeight: 1.1,
+    color: colors.signInk,
+    textDecoration: "none",
+    borderBottomWidth: "3px",
+    borderBottomStyle: "solid",
+    borderBottomColor: { default: colors.signInk, ":hover": colors.warn },
+    overflowWrap: "anywhere",
   },
-  mailRow: { position: "relative", display: "flex", alignItems: "center", flexWrap: "wrap", gap: space.s3 },
-  mail: { fontFamily: fonts.mono, fontSize: "15px", fontWeight: 500, color: colors.contactFg },
-  copy: {
-    fontFamily: fonts.mono,
-    fontSize: "10px",
+  form: { display: "grid", gap: space.s5 },
+  pair: {
+    display: "grid",
+    gridTemplateColumns: { default: "minmax(0, 1fr) minmax(0, 1fr)", [media.phone]: "minmax(0, 1fr)" },
+    gap: space.s5,
+  },
+  field: { display: "grid", gap: space.s2, minWidth: 0 },
+  label: {
+    fontFamily: fonts.sign,
     fontWeight: 700,
-    letterSpacing: type.trackLabel,
-    textTransform: "uppercase",
-    minHeight: { default: "36px", [media.phone]: "44px" },
-    paddingBlock: 0,
-    paddingInline: space.s3,
-    backgroundColor: { default: "transparent", [media.hover]: { default: null, ":hover": colors.contactFg } },
-    color: { default: colors.contactFg, [media.hover]: { default: null, ":hover": colors.contactBg } },
-    borderWidth: layout.rule,
-    borderStyle: "solid",
-    borderColor: colors.contactRule,
-    cursor: "pointer",
+    fontSize: type.small,
+    lineHeight: 1.2,
+    color: colors.signInk,
   },
-  order: {
-    gridColumn: { default: "7 / 13", [media.tablet]: "1 / -1" },
-    gridRow: { default: "1 / span 2", [media.tablet]: "auto" },
-    borderWidth: layout.rule,
-    borderStyle: "solid",
-    borderColor: colors.contactRule,
-    alignSelf: "start",
-  },
-  head: {
-    paddingBlock: space.s3,
-    paddingInline: space.s4,
-    borderBottomWidth: layout.rule,
-    borderBottomStyle: "solid",
-    borderBottomColor: colors.contactRule,
-  },
-  pair: { display: "grid", gridTemplateColumns: { default: "1fr 1fr", [media.phone]: "1fr" } },
-  field: {
-    display: "grid",
-    gap: space.s2,
-    paddingBlock: space.s3,
-    paddingInline: space.s4,
-    borderBottomWidth: layout.rule,
-    borderBottomStyle: "solid",
-    borderBottomColor: colors.contactRule,
-    backgroundColor: {
-      default: null,
-      ":focus-within": `color-mix(in srgb, ${colors.contactFg} 6%, ${colors.contactBg})`,
-    },
-  },
-  fieldSecond: {
-    borderLeftWidth: { default: layout.rule, [media.phone]: 0 },
-    borderLeftStyle: "solid",
-    borderLeftColor: colors.contactRule,
-  },
-  fieldset: { marginInline: 0, minWidth: 0, borderTopWidth: 0, borderInlineWidth: 0 },
-  legend: { float: "left", width: "100%", marginBottom: space.s2 },
   input: {
-    backgroundColor: "transparent",
-    borderWidth: 0,
-    color: colors.contactFg,
-    fontFamily: fonts.display,
-    fontSize: "16px",
-    paddingBlock: space.s1,
-    paddingInline: 0,
-    width: "100%",
-    resize: "vertical",
-    outline: "none",
-    // focus() after a failed submit must not leave the field or its label under the sticky bar (WCAG 2.4.11)
-    scrollMarginTop: `calc(${layout.barHeight} + ${space.s8})`,
-    "::placeholder": { color: colors.contactMuted, opacity: 0.7 },
-  },
-  invalid: { boxShadow: `inset 0 -2px 0 ${colors.accent}` },
-  chips: {
-    display: { default: "flex", [media.phone]: "grid" },
-    gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
-    flexWrap: "wrap",
-    gap: space.s2,
-  },
-  chip: {
-    position: "relative",
-    display: "inline-flex",
-    alignItems: "center",
-    justifyContent: "center",
-    minHeight: { default: "36px", [media.phone]: "44px" },
-    paddingInline: space.s3,
-    fontFamily: fonts.mono,
-    fontSize: type.label,
-    fontWeight: 700,
-    letterSpacing: "0.06em",
-    textTransform: "uppercase",
-    cursor: "pointer",
-    borderWidth: layout.rule,
+    fontFamily: fonts.text,
+    fontSize: "17px",
+    lineHeight: 1.4,
+    color: colors.fieldInk,
+    backgroundColor: colors.field,
+    borderWidth: "3px",
     borderStyle: "solid",
-    borderColor: { default: colors.contactRule, ":has(:checked)": colors.accent },
-    backgroundColor: { default: "transparent", ":has(:checked)": colors.accent },
-    color: { default: colors.contactMuted, ":has(:checked)": colors.onAccent },
-    outline: {
-      default: null,
-      ":has(:focus-visible)": `2px solid ${colors.accent}`,
-      [media.forcedColors]: { default: null, ":has(:checked)": "2px solid CanvasText" },
-    },
+    borderColor: colors.field,
+    borderRadius: "8px",
+    paddingBlock: space.s3,
+    paddingInline: space.s3,
+    width: "100%",
+    outline: { default: "none", ":focus-visible": `3px solid ${colors.warn}` },
     outlineOffset: "2px",
   },
-  chipUnknown: { borderStyle: "dashed", gridColumn: "1 / -1" },
-  chipInput: { position: "absolute", opacity: 0, inset: 0, margin: 0, cursor: "pointer" },
+  textarea: { minHeight: "104px", resize: "vertical" },
+  invalid: { borderColor: colors.warn },
+  fieldset: { borderWidth: 0, margin: 0, padding: 0, minWidth: 0 },
+  legend: { padding: 0 },
+  optional: { fontWeight: 400, color: colors.signSoft },
+  dests: { display: "flex", flexWrap: "wrap", gap: space.s2, marginTop: space.s2 },
+  dest: { position: "relative", cursor: "pointer" },
+  destInput: {
+    position: "absolute",
+    inset: 0,
+    margin: 0,
+    opacity: 0,
+    cursor: "pointer",
+  },
+  destLabel: {
+    display: "inline-block",
+    borderWidth: "2px",
+    borderStyle: "solid",
+    borderColor: { default: colors.signSoft, [stylex.when.siblingBefore(":checked")]: colors.signInk },
+    borderRadius: "7px",
+    paddingTop: space.s2,
+    paddingBottom: space.s2,
+    paddingInline: space.s3,
+    fontFamily: fonts.sign,
+    fontWeight: 700,
+    fontSize: type.fine,
+    lineHeight: 1,
+    backgroundColor: { default: "transparent", [stylex.when.siblingBefore(":checked")]: colors.signInk },
+    color: { default: colors.signInk, [stylex.when.siblingBefore(":checked")]: colors.sign },
+    // Forced colours drop the fill, so a ticked destination also gets underlined.
+    textDecorationLine: {
+      default: "none",
+      [stylex.when.siblingBefore(":checked")]: { default: "none", [media.forcedColors]: "underline" },
+    },
+    outline: { default: "none", [stylex.when.siblingBefore(":focus-visible")]: `3px solid ${colors.warn}` },
+    outlineOffset: "2px",
+  },
   foot: {
     display: "flex",
     flexWrap: "wrap",
-    justifyContent: "space-between",
     alignItems: "center",
-    gap: space.s3,
-    paddingBlock: space.s3,
-    paddingInline: space.s4,
+    justifyContent: "space-between",
+    gap: space.s4,
   },
-  error: { color: colors.accent, fontFamily: fonts.mono, fontSize: "12px", fontWeight: 500 },
-  receipt: {
-    display: "grid",
-    gap: space.s3,
-    paddingBlock: space.s5,
-    paddingInline: space.s4,
-    justifyItems: "start",
-  },
-  ticket: {
-    margin: 0,
-    fontSize: "36px",
-    fontWeight: 800,
-    lineHeight: 1,
-    letterSpacing: "-0.03em",
-    fontVariantNumeric: "tabular-nums",
-  },
-  receiptBody: { margin: 0, color: colors.contactMuted, fontSize: type.small },
-  replyTo: { color: colors.contactFg, fontWeight: 500, overflowWrap: "anywhere" },
+  error: { color: colors.signInk, fontWeight: 600, fontSize: type.small },
+  receipt: { display: "grid", gap: space.s4, justifyItems: "start" },
+  receiptTitle: { margin: 0, fontFamily: fonts.sign, fontSize: type.h3, fontWeight: 800 },
+  ticket: { margin: 0, fontFamily: fonts.sign, fontSize: "40px", fontWeight: 800 },
 });

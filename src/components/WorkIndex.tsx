@@ -1,213 +1,144 @@
 import * as stylex from "@stylexjs/stylex";
-import { parts } from "../content/parts";
-import { caseIds, cases, clientLabel, type CaseId } from "../content/work";
+import { brand } from "../content/brand";
+import { partDomId } from "../content/parts";
+import { caseIds, cases, clientLabel } from "../content/work";
 import { media } from "../design/media.stylex";
 import { ui } from "../design/primitives";
-import { colors, fonts, layout, motion, space, type } from "../design/tokens.stylex";
+import { colors, fonts, space, type } from "../design/tokens.stylex";
 import { useLang } from "../i18n/useLang";
-import { SectionHead } from "./SectionHead";
+import { SignArrow } from "./SignArrow";
 
-/** §2: an index of builds. Each row is a native <details>, so it opens with Enter/Space for free. */
+/** Recent work as a trip log. Each entry carries the small sign of the route it took, linking back to it. */
 export function WorkIndex() {
   const { t } = useLang();
   return (
-    <section id="verk" aria-labelledby="h-verk" tabIndex={-1} {...stylex.props(ui.anchor, styles.section)}>
-      <SectionHead id="h-verk" index="§2" label={t.sections.verk} title={t.work.title} aside={t.work.hint} />
-      <div {...stylex.props(styles.flush)}>
-        <div aria-hidden="true" {...stylex.props(styles.grid, styles.head)}>
-          <span {...stylex.props(ui.label)}>{t.work.cols.project}</span>
-          <span {...stylex.props(ui.label)}>{t.work.cols.part}</span>
-          <span {...stylex.props(ui.label, styles.wide)}>{t.work.cols.client}</span>
-          <span {...stylex.props(ui.label, styles.wide)}>{t.work.cols.stack}</span>
-          <span />
+    <section id="verk" aria-labelledby="h-work" tabIndex={-1} {...stylex.props(ui.anchor, ui.section)}>
+      <div {...stylex.props(ui.wrap)}>
+        <div {...stylex.props(styles.head)}>
+          <h2 id="h-work" {...stylex.props(ui.h2)}>
+            {t.work.title}
+          </h2>
+          <p {...stylex.props(styles.intro)}>
+            {t.work.intro}{" "}
+            <a href={brand.ownerSite} {...stylex.props(ui.link, ui.focusRing)}>
+              {brand.ownerSite.replace(/^https:\/\//, "")}
+            </a>
+            .
+          </p>
         </div>
-        {caseIds.map((id, i) => (
-          <CaseRow key={id} id={id} open={i === 0} />
-        ))}
+        <ul {...stylex.props(styles.log)}>
+          {caseIds.map((id) => {
+            const c = t.work.cases[id];
+            const { part, url } = cases[id];
+            return (
+              <li key={id} {...stylex.props(styles.entry)}>
+                <div>
+                  <a href={`#${partDomId(part)}`} {...stylex.props(styles.chip, ui.focusRing)}>
+                    <span {...stylex.props(styles.chipIn)}>
+                      <SignArrow part={part} size="chip" />
+                      {t.parts[part].sign}
+                    </span>
+                  </a>
+                  <h3 {...stylex.props(styles.name)}>{c.name}</h3>
+                  <p {...stylex.props(styles.who)}>{clientLabel(id, t.work.engagements)}</p>
+                </div>
+                <p {...stylex.props(styles.what)}>
+                  {c.outcome}{" "}
+                  <a href={url} {...stylex.props(ui.link, ui.focusRing, styles.story)}>
+                    {t.work.story}
+                    <span {...stylex.props(ui.srOnly)}>{`: ${c.name}`}</span>
+                  </a>
+                </p>
+                <p {...stylex.props(styles.num, ui.tabular)}>
+                  {c.metric}
+                  <small {...stylex.props(styles.numNote)}>{c.metricNote}</small>
+                </p>
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </section>
   );
 }
 
-function CaseRow({ id, open }: { id: CaseId; open: boolean }) {
-  const { t } = useLang();
-  const copy = t.work.cases[id];
-  const { part, url, gain } = cases[id];
-  const unknown = !parts[part].defined;
-  const sep = <span {...stylex.props(ui.srOnly)}>, </span>;
-  return (
-    <details open={open} {...stylex.props(styles.row, stylex.defaultMarker())}>
-      <summary {...stylex.props(styles.grid, styles.summary, ui.focusRing)}>
-        <span {...stylex.props(styles.name)}>{copy.name}</span>
-        {sep}
-        <span {...stylex.props(styles.kind, unknown && styles.kindUnknown)}>
-          <span aria-hidden="true">{`${part} · ${parts[part].code}`}</span>
-          <span {...stylex.props(ui.srOnly)}>{`${t.a11y.partWord} ${part}, ${t.parts[part].short}`}</span>
-        </span>
-        {sep}
-        <span {...stylex.props(ui.label, styles.ink, styles.client)}>
-          {clientLabel(id, t.work.engagements)}
-        </span>
-        {sep}
-        <span {...stylex.props(ui.label, styles.wide)}>{copy.stack}</span>
-        <span aria-hidden="true" {...stylex.props(styles.plus)}>
-          +
-        </span>
-      </summary>
-      <div {...stylex.props(styles.case)}>
-        <div {...stylex.props(styles.cell)}>
-          <span {...stylex.props(ui.label)}>{t.work.problem}</span>
-          <p {...stylex.props(styles.text)}>{copy.problem}</p>
-        </div>
-        <div {...stylex.props(styles.cell)}>
-          <span {...stylex.props(ui.label)}>{t.work.built}</span>
-          <p {...stylex.props(styles.text)}>{copy.built}</p>
-        </div>
-        <div {...stylex.props(styles.cell)}>
-          <span {...stylex.props(ui.label)}>
-            {t.work.result} · <b {...stylex.props(styles.gain)}>{t.work.gains[gain]}</b>
-          </span>
-          <p {...stylex.props(styles.outcome)}>{copy.outcome}</p>
-          <p {...stylex.props(styles.text, styles.muted)}>
-            <b {...stylex.props(styles.metric)}>{copy.metric}</b> {copy.metricNote}
-          </p>
-          <a href={url} {...stylex.props(styles.more, ui.focusRing)}>
-            {t.work.readMore}
-            <span aria-hidden="true"> →</span>
-          </a>
-        </div>
-      </div>
-    </details>
-  );
-}
-
 const styles = stylex.create({
-  section: {
-    borderBottomWidth: layout.rule,
-    borderBottomStyle: "solid",
-    borderBottomColor: colors.ruleStrong,
+  head: {
+    display: "grid",
+    gridTemplateColumns: { default: "minmax(0, 1fr) minmax(0, 1.4fr)", [media.tablet]: "minmax(0, 1fr)" },
+    gap: { default: space.s8, [media.tablet]: space.s3 },
+    alignItems: "end",
+    marginBottom: space.s7,
   },
-  flush: { maxWidth: layout.max, marginInline: "auto" },
-  more: {
-    justifySelf: "start",
-    marginTop: space.s2,
-    paddingBlock: space.s1,
-    fontFamily: fonts.mono,
-    fontSize: "12px",
-    fontWeight: 500,
-    color: colors.ink,
-    textDecorationLine: "underline",
-    textDecorationThickness: { default: "1px", ":hover": "2px" },
-    textUnderlineOffset: "3px",
-  },
-  grid: {
+  intro: { margin: 0, color: colors.muted, maxWidth: "34em" },
+  log: { listStyle: "none", margin: 0, padding: 0 },
+  entry: {
     display: "grid",
     gridTemplateColumns: {
-      default: "minmax(0, 5fr) minmax(0, 1.5fr) minmax(0, 1.8fr) minmax(0, 2.4fr) 32px",
-      [media.tablet]: "minmax(0, 1fr) auto 24px",
-      [media.phone]: "minmax(0, 1fr) 24px",
+      default: "minmax(0, 1.25fr) minmax(0, 1.5fr) minmax(0, 0.8fr)",
+      [media.phone]: "minmax(0, 1fr)",
     },
-    columnGap: { default: space.s4, [media.phone]: space.s3 },
-    rowGap: space.s2,
-    alignItems: "baseline",
-    paddingInline: { default: space.s5, [media.phone]: space.s4 },
-  },
-  head: {
-    display: { default: "grid", [media.phone]: "none" },
-    paddingBlock: space.s3,
-    borderBottomWidth: layout.rule,
+    gap: { default: space.s7, [media.phone]: space.s3 },
+    alignItems: "start",
+    paddingBlock: { default: space.s6, [media.phone]: space.s5 },
+    borderTopWidth: "1px",
+    borderTopStyle: "solid",
+    borderTopColor: colors.line,
+    borderBottomWidth: { default: 0, ":last-child": "1px" },
     borderBottomStyle: "solid",
-    borderBottomColor: colors.ruleStrong,
+    borderBottomColor: colors.line,
   },
-  wide: { display: { default: null, [media.tablet]: "none" } },
-  // Narrow screens drop the column but keep who it was for on its own line: own and in-house work must not read as client work.
-  client: { gridColumn: { default: null, [media.tablet]: "1 / 2" } },
-  row: { borderBottomWidth: layout.rule, borderBottomStyle: "solid", borderBottomColor: colors.rule },
-  summary: {
-    position: "relative",
-    listStyle: "none",
-    cursor: "pointer",
-    paddingBlock: { default: space.s5, [media.phone]: space.s4 },
-    outlineOffset: "-3px",
-    backgroundColor: {
-      default: "transparent",
-      ":active": colors.surface2,
-      [stylex.when.ancestor("[open]")]: colors.surface2,
-    },
-    transitionProperty: "background-color",
-    transitionDuration: motion.fast,
-    transitionTimingFunction: motion.step,
-    "::-webkit-details-marker": { display: "none" },
+  chip: {
+    display: "inline-flex",
+    backgroundColor: colors.sign,
+    color: colors.signInk,
+    borderRadius: "6px",
+    padding: space.s0,
+    textDecoration: "none",
+  },
+  chipIn: {
+    display: "inline-flex",
+    alignItems: "center",
+    gap: space.s2,
+    borderWidth: "1.5px",
+    borderStyle: "solid",
+    borderColor: colors.signInk,
+    borderRadius: "4px",
+    paddingTop: space.s1,
+    paddingBottom: space.s0,
+    paddingInline: space.s2,
+    fontFamily: fonts.sign,
+    fontWeight: 700,
+    fontSize: "14px",
+    lineHeight: 1,
   },
   name: {
-    fontSize: { default: "22px", [media.phone]: "20px" },
+    marginTop: space.s3,
+    marginBottom: 0,
+    fontFamily: fonts.sign,
+    fontSize: type.h3,
     fontWeight: 700,
-    letterSpacing: "-0.02em",
-    lineHeight: 1.15,
+    lineHeight: 1.2,
+    textWrap: "balance",
   },
-  kind: {
-    position: "relative",
-    fontFamily: fonts.mono,
-    fontSize: "10px",
-    fontWeight: 700,
-    letterSpacing: type.trackLabel,
-    textTransform: "uppercase",
-    borderWidth: layout.rule,
-    borderStyle: "solid",
-    borderColor: colors.ruleStrong,
-    paddingBlock: space.s1,
-    paddingInline: space.s2,
-    whiteSpace: "nowrap",
-    justifySelf: "start",
-    gridRow: { default: null, [media.phone]: 2 },
-    gridColumn: { default: null, [media.phone]: 1 },
-  },
-  kindUnknown: { borderStyle: "dashed" },
-  ink: { color: colors.ink },
-  plus: {
-    fontFamily: fonts.mono,
-    fontSize: "20px",
-    lineHeight: 1,
-    justifySelf: "end",
-    gridRow: { default: null, [media.phone]: "1 / span 2" },
-    gridColumn: { default: null, [media.phone]: 2 },
-    alignSelf: { default: null, [media.phone]: "center" },
-    transform: { default: null, [stylex.when.ancestor("[open]")]: "rotate(45deg)" },
-    transitionProperty: "transform",
-    transitionDuration: motion.base,
-    transitionTimingFunction: motion.step,
-  },
-  case: {
-    display: "grid",
-    gridTemplateColumns: { default: "repeat(3, minmax(0, 1fr))", [media.tablet]: "1fr" },
-    borderTopWidth: layout.rule,
-    borderTopStyle: "solid",
-    borderTopColor: colors.rule,
-    backgroundColor: colors.surface2,
-  },
-  cell: {
-    display: "grid",
-    gap: space.s2,
-    alignContent: "start",
-    paddingTop: { default: space.s4, [media.phone]: space.s3 },
-    paddingInline: { default: space.s5, [media.phone]: space.s4 },
-    paddingBottom: { default: space.s5, [media.phone]: space.s4 },
-    borderWidth: 0,
-    borderLeftWidth: { default: 0, ":not(:first-child)": layout.rule, [media.tablet]: 0 },
-    borderTopWidth: { default: 0, [media.tablet]: { default: 0, ":not(:first-child)": layout.rule } },
-    borderStyle: "solid",
-    borderColor: colors.rule,
-  },
-  text: { margin: 0, fontSize: type.small, textWrap: "pretty" },
-  gain: { color: colors.accentInk, fontWeight: 700 },
-  outcome: {
+  who: { marginTop: space.s2, marginBottom: 0, color: colors.muted, fontSize: type.fine },
+  what: { margin: 0, fontSize: "17px", textWrap: "pretty" },
+  story: { whiteSpace: "nowrap" },
+  num: {
     margin: 0,
-    fontSize: { default: "20px", [media.phone]: "18px" },
-    fontWeight: 700,
-    letterSpacing: "-0.015em",
-    lineHeight: 1.25,
-    textWrap: "pretty",
+    fontFamily: fonts.sign,
+    fontWeight: 800,
+    fontSize: { default: "44px", [media.phone]: "34px" },
+    lineHeight: 1,
+    textAlign: { default: "right", [media.phone]: "left" },
   },
-  muted: { color: colors.muted },
-  metric: { color: colors.ink, fontWeight: 800 },
+  numNote: {
+    display: "block",
+    marginTop: space.s2,
+    fontFamily: fonts.text,
+    fontWeight: 400,
+    fontSize: type.fine,
+    lineHeight: 1.35,
+    color: colors.muted,
+  },
 });

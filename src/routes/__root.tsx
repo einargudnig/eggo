@@ -3,7 +3,6 @@ import { HeadContent, Outlet, Scripts, createRootRoute, useParams } from "@tanst
 import type { ReactNode } from "react";
 import { NotFound } from "../components/NotFound";
 import { brand } from "../content/brand";
-import { media } from "../design/media.stylex";
 import { colors, fonts, motion, type } from "../design/tokens.stylex";
 import { getDict, langFromParam } from "../i18n";
 import appCss from "../styles/global.css?url";
@@ -33,8 +32,8 @@ export const Route = createRootRoute({
       ...notFoundMeta(matches),
     ],
     links: [
-      // The hero headline and its labels: fetch them alongside the CSS instead of after it (src/styles/fonts.css).
-      ...["schibsted-grotesk", "jetbrains-mono"].map((font) => ({
+      // The hero headline and body text: fetch them alongside the CSS instead of after it (src/styles/fonts.css).
+      ...["overpass", "public-sans"].map((font) => ({
         rel: "preload",
         href: `/fonts/${font}-latin.woff2`,
         as: "font",
@@ -51,13 +50,11 @@ export const Route = createRootRoute({
 
 const styles = stylex.create({
   body: {
-    backgroundColor: colors.surface,
+    backgroundColor: colors.page,
     color: colors.ink,
-    fontFamily: fonts.display,
+    fontFamily: fonts.text,
     fontSize: type.body,
-    lineHeight: 1.5,
-    // room for the phone thumb bar, so the back cover isn't hidden under it
-    paddingBottom: { default: 0, [media.phone]: "calc(76px + env(safe-area-inset-bottom, 0px))" },
+    lineHeight: 1.55,
     transitionProperty: "background-color, color",
     transitionDuration: motion.base,
     transitionTimingFunction: motion.step,

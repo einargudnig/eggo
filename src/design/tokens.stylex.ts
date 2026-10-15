@@ -4,48 +4,51 @@ import * as stylex from "@stylexjs/stylex";
  * Colour tokens. Every value is `light-dark(light, dark)`: the active scheme comes from
  * `color-scheme` on <html> (OS preference, or data-theme set by the theme switch).
  * Contrast for every pair is checked by `bun run contrast`. See docs/DESIGN-SYSTEM.md §3.
+ *
+ * The page is calm white and asphalt grey; road-sign blue is the identity and appears only on signs,
+ * buttons and links. Warning yellow is for "you are here" and ticked symptoms, never for text.
  */
 export const colors = stylex.defineVars({
-  surface: "light-dark(#F2F1EC, #121211)",
-  surface2: "light-dark(#E9E7E0, #1B1B19)",
-  ink: "light-dark(#111110, #E6E4DC)",
-  muted: "light-dark(#5F5D57, #9D9B93)",
-  rule: "light-dark(rgb(17 17 16 / 0.13), rgb(237 236 230 / 0.11))",
-  ruleStrong: "light-dark(rgb(17 17 16 / 0.55), rgb(237 236 230 / 0.42))",
-  grid: "light-dark(rgb(17 17 16 / 0.1), rgb(237 236 230 / 0.055))",
-  accent: "light-dark(#E8501A, #F2622B)",
-  onAccent: "light-dark(#111110, #121211)",
-  accentInk: "light-dark(#B83A0C, #F47A4A)",
-  signal: "light-dark(#E8D600, #CDBE12)",
-  contactBg: "light-dark(#111110, #1C1B18)",
-  contactFg: "light-dark(#F2F1EC, #E6E4DC)",
-  contactRule: "light-dark(rgb(242 241 236 / 0.42), rgb(230 228 220 / 0.42))",
-  contactMuted: "light-dark(rgb(242 241 236 / 0.66), rgb(230 228 220 / 0.62))",
+  page: "light-dark(#FFFFFF, #17191B)",
+  page2: "light-dark(#EEF0F1, #202326)",
+  ink: "light-dark(#16191C, #E9ECEE)",
+  muted: "light-dark(#545B62, #A3AAB1)",
+  line: "light-dark(#D5D9DC, #34393E)",
+  link: "light-dark(#0B4F9C, #8DB8EC)",
+  sign: "light-dark(#0B4F9C, #0E5AAE)",
+  signInk: "light-dark(#FFFFFF, #FFFFFF)",
+  signSoft: "light-dark(#C9DBF0, #D3E2F4)",
+  signHighlight: "light-dark(rgb(255 255 255 / 0.12), rgb(255 255 255 / 0.12))",
+  warn: "light-dark(#FFD200, #FFD200)",
+  warnEdge: "light-dark(#C8102E, #E0243F)",
+  warnInk: "light-dark(#16191C, #16191C)",
+  field: "light-dark(#FFFFFF, #FFFFFF)",
+  fieldInk: "light-dark(#16191C, #16191C)",
 });
 
 export const fonts = stylex.defineVars({
-  display: '"Schibsted Grotesk", "Schibsted Grotesk Fallback", "Helvetica Neue", Arial, sans-serif',
-  mono: '"JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace',
-  hand: '"Reenie Beanie", "Bradley Hand", cursive',
+  sign: '"Overpass", "Overpass Fallback", "Helvetica Neue", Arial, sans-serif',
+  text: '"Public Sans", "Public Sans Fallback", "Helvetica Neue", Arial, sans-serif',
 });
 
 const PHONE = "@media (max-width: 760px)";
 
 export const type = stylex.defineVars({
-  display: { default: "clamp(46px, 7.4vw, 104px)", [PHONE]: "clamp(46px, 14.2vw, 72px)" },
-  h2: { default: "clamp(28px, 3.8vw, 52px)", [PHONE]: "clamp(28px, 8.4vw, 38px)" },
-  h3: { default: "clamp(30px, 3vw, 40px)", [PHONE]: "34px" },
-  lead: { default: "18px", [PHONE]: "17px" },
-  body: "17px",
-  small: "15px",
-  label: "11px",
-  trackDisplay: "-0.045em",
-  trackHead: "-0.035em",
-  trackLabel: "0.08em",
+  display: { default: "clamp(42px, 5.2vw, 72px)", [PHONE]: "clamp(38px, 11vw, 48px)" },
+  h2: { default: "clamp(32px, 3.8vw, 52px)", [PHONE]: "clamp(30px, 8.4vw, 38px)" },
+  signName: { default: "clamp(28px, 2.8vw, 38px)", [PHONE]: "26px" },
+  h3: { default: "24px", [PHONE]: "22px" },
+  lead: { default: "20px", [PHONE]: "18px" },
+  body: "18px",
+  small: "16px",
+  fine: "15px",
+  trackDisplay: "-0.02em",
+  trackHead: "-0.015em",
 });
 
-/** Spacing scale: 4 · 8 · 12 · 16 · 22 · 28 · 36 · 56 · 72. Lint rejects raw spacing values outside this folder. */
+/** Spacing scale: 2 · 4 · 8 · 12 · 16 · 22 · 28 · 36 · 56 · 72 · 96. Lint rejects raw spacing values outside this folder. */
 export const space = stylex.defineVars({
+  s0: "2px",
   s1: "4px",
   s2: "8px",
   s3: "12px",
@@ -55,18 +58,22 @@ export const space = stylex.defineVars({
   s7: "36px",
   s8: "56px",
   s9: "72px",
-  gutter: { default: "24px", [PHONE]: "16px" },
+  s10: "96px",
+  gutter: { default: "28px", [PHONE]: "16px" },
+  section: { default: "96px", [PHONE]: "64px" },
 });
 
 export const layout = stylex.defineVars({
-  max: "1240px",
-  barHeight: { default: "60px", [PHONE]: "56px" },
-  rule: "1px",
+  max: "1180px",
+  /** The sign plate: an outer blue rim, then a white inset border, like a real road sign. */
+  signRim: { default: "10px", [PHONE]: "6px" },
+  signBorder: { default: "4px", [PHONE]: "3px" },
+  signRadius: { default: "22px", [PHONE]: "16px" },
+  signInnerRadius: { default: "15px", [PHONE]: "11px" },
 });
 
 export const motion = stylex.defineVars({
-  step: "cubic-bezier(0.7, 0, 0.3, 1)",
+  step: "cubic-bezier(0.6, 0, 0.3, 1)",
   fast: "120ms",
   base: "160ms",
-  slow: "220ms",
 });

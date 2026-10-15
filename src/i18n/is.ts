@@ -23,7 +23,10 @@ type PartCopy = {
   short: string;
   lead: string;
   specs: readonly SpecRow[];
-  diagramDetail: string;
+  /** Name on the direction sign and the junction arm. */
+  sign: string;
+  time: string;
+  owns: string;
 };
 
 /** Icelandic is the source language. `en.ts` must match this shape exactly (see `Dict`). */
@@ -36,43 +39,57 @@ export const is = {
   a11y: {
     skip: "Fara í efni",
     mainNav: "Aðalvalmynd",
-    language: "Tungumál",
     darkMode: "Myrkur hamur",
-    partsNav: "Hlutar",
-    partsRegion: "Hlutar 01–05",
-    seePart: "sjá lýsingu",
-    partWord: "hluti",
+    home: "Eggó, forsíða",
   },
   notFound: {
-    title: "Síða fannst ekki",
-    body: "Þessi slóð er ekki til. Kannski var hún færð.",
+    title: "Tapast hefur: þessi síða",
+    body: "Síðast sást hún á þessari slóð. Kannski var hún færð.",
     home: "Á forsíðuna",
   },
-  bar: { light: "Ljós", dark: "Myrkur", otherLang: "English", otherLangShort: "EN" },
+  bar: { dark: "Myrkur", otherLang: "English" },
   hero: {
     eyebrow: "Hugbúnaðarlausnir",
     status: "Laus fyrir ný verkefni",
-    titleStart: "Frá vandamáli að ",
-    titleEm: "lausn sem virkar.",
+    titleStart: "Þú veist að eitthvað þarf að breytast. ",
+    titleEm: "Ég rata.",
     sub: "Það sem tekur tíma í dag gengur sjálft á morgun.",
-    lead: "Vefsíður, innri kerfi, AI agents og tengingar, og líka vandamál sem passa ekki enn í neinn flokk. Fast verð, vikulegar afhendingar, og þú átt lausnina.",
+    lead: "Ég heiti Einar og smíða vefsíður, innri kerfi, AI agents og tengingar fyrir lítil og meðalstór fyrirtæki. Fast verð, eitthvað nothæft í hverri viku, og þú átt lausnina.",
     cta: "Hafa samband",
-    price: `Frá ${isk("is", Math.min(...Object.values(priceFrom)))} án VSK · fast verð`,
-    figure: "Mynd 1 — dæmigerð smíði",
-    figureCount: "05 hlutar",
-    duration: "≈ 1–8 vikur",
-    wires: { post: "POST", webhook: "webhook", api: "API" },
+  },
+  ask: {
+    legend: "Hvar ertu?",
+    hint: "Hakaðu við það sem þú kannast við. Skiltið sýnir leiðina.",
+  },
+  junction: {
+    here: "Þú ert hér:",
+    nowhere: "einhvers staðar",
+    many: "á {n} stöðum",
+    mapping: "1 vika að kortleggja",
+  },
+  trip: {
+    title: "Leiðarlýsing",
+    empty:
+      "Hakaðu við eitt eða fleira og þá sérðu hvað ég myndi smíða, hvað það tekur langan tíma og hvað það kostar.",
+    from: "frá",
+    mapping: "Kortlagning",
+    noteMany:
+      "Oft leysir eitt verkefni tvennt, til dæmis tenging og kerfi saman. Við finnum það út í fyrsta samtali.",
+    noteUnknown:
+      "Þegar þú veist ekki hvað er að byrjum við á kortlagningunni. Út úr henni kemur kort sem segir hvað er rétt að smíða.",
+    send: "Senda Einari",
+    reply: "Svar innan eins vinnudags.",
   },
   partsSection: {
-    label: "Lausnir",
-    title: "Fimm hlutar. Fjórir eru vel skilgreindir. Sá fimmti er það sem þú þarft.",
-    swipe: "Strjúktu fyrir fleiri hluta",
+    title: "Hvert viltu komast?",
+    body: "Fjórar leiðir sem ég þekki vel, og ein fyrir þegar þú veist ekki enn hvert þú ert að fara. Verðið er upphafspunktur; hvert verk fær sitt fasta verð áður en ég byrja.",
+    note: `Öll verð án vsk. Eftir afhendingu er valfrjálst að ég hýsi og haldi við fyrir ${isk("is", monthlyFee)} á mánuði.`,
   },
   parts: {
     "01": {
       name: "Vefsíður",
       short: "Vefsíða",
-      lead: "Hröð vefsíða á íslensku og ensku sem þú getur uppfært sjálf/ur.",
+      lead: "Hraður vefur á íslensku og ensku sem þú uppfærir sjálf/ur.",
       specs: [
         { term: "Inntak", detail: "Hugmynd, efni, vörumerki" },
         { term: "Tími", detail: "2–4 vikur" },
@@ -80,12 +97,14 @@ export const is = {
         { term: "Tækni", detail: "React · Cloudflare" },
         { term: "Þú átt", detail: "Kóða, hönnun, lén", own: true },
       ],
-      diagramDetail: "eggo.is/samband",
+      sign: "Vefsíða",
+      time: "2–4 vikur",
+      owns: "Þú átt kóðann, hönnunina og lénið.",
     },
     "02": {
       name: "Kerfi",
       short: "Kerfi",
-      lead: "Excel-skjalið sem varð of stórt, orðið að almennilegu innra kerfi.",
+      lead: "Excel-skjalið sem varð of stórt, orðið að almennilegu kerfi með réttindum.",
       specs: [
         { term: "Inntak", detail: "Töflureiknar, handvirk ferli" },
         { term: "Tími", detail: "4–8 vikur" },
@@ -93,12 +112,14 @@ export const is = {
         { term: "Tækni", detail: "TypeScript · Postgres" },
         { term: "Þú átt", detail: "Kóða, gögn, hýsingu", own: true },
       ],
-      diagramDetail: "Pantanir · 1.284 færslur",
+      sign: "Innra kerfi",
+      time: "4–8 vikur",
+      owns: "Þú átt kóðann, gögnin og hýsinguna.",
     },
     "03": {
       name: "AI agents",
       short: "AI agent",
-      lead: "Agent sem vinnur endurteknu verkin og spyr þig þegar hann er óviss.",
+      lead: "Sér um endurtekna vinnu, eins og reikninga og fyrirspurnir, og spyr þig þegar hann er ekki viss.",
       specs: [
         { term: "Inntak", detail: "Tölvupóstar, PDF-reikningar, fyrirspurnir" },
         { term: "Tími", detail: "2–6 vikur" },
@@ -106,7 +127,9 @@ export const is = {
         { term: "Tækni", detail: "Claude · MCP" },
         { term: "Þú átt", detail: "Kóða, fyrirmæli, mælingar", own: true },
       ],
-      diagramDetail: "Flokkar reikninga → DK",
+      sign: "AI agent",
+      time: "2–6 vikur",
+      owns: "Þú átt kóðann, fyrirmælin og prófin.",
     },
     "04": {
       name: "Tengingar",
@@ -119,12 +142,14 @@ export const is = {
         { term: "Tækni", detail: "API · webhooks · Workers" },
         { term: "Þú átt", detail: "Kóða, skjölun", own: true },
       ],
-      diagramDetail: "Slack · Asana · DK",
+      sign: "Tengingar",
+      time: "1–3 vikur",
+      owns: "Þú átt kóðann og skjölunina.",
     },
     "05": {
       name: "Óskilgreint",
       short: "Óskilgreint",
-      lead: "Eitthvað er hægt, handvirkt eða pirrandi og þú getur ekki alveg sagt hvað þú þarft. Við byrjum á að kortleggja það.",
+      lead: "Eitthvað er hægt eða pirrandi en þú getur ekki alveg sagt hvað. Við byrjum á viku kortlagningu: hver gerir hvað og hvert tíminn fer.",
       specs: [
         { term: "Inntak", detail: "Vandamál sem þú getur ekki alveg lýst" },
         { term: "Skref 1", detail: "Kortlagning: hver gerir hvað, hvert tíminn fer" },
@@ -132,33 +157,21 @@ export const is = {
         { term: "Verð", detail: `${isk("is", priceFrom["05"])} fyrir kortlagninguna` },
         { term: "Þú átt", detail: "Kortið, jafnvel þótt einhver annar smíði", own: true },
       ],
-      diagramDetail: "Óljóst",
+      sign: "Veit ekki enn",
+      time: "1 vika",
+      owns: "Þú átt kortið, líka ef einhver annar smíðar.",
     },
   } satisfies Record<PartId, PartCopy>,
-  mapflow: {
-    label: "Frá óljósu vandamáli að korti að lausn",
-    before: "Fyrir",
-    map: "Kort",
-    after: "Svo",
-    notes: ["excel??", "3 tölvupóstar", "Gunna veit", "á föstudögum"],
-    outcomes: [
-      { mark: "01", text: "vefsíða" },
-      { mark: "02", text: "kerfi" },
-      { mark: "03", text: "agent" },
-      { mark: "04", text: "tenging" },
-      { mark: "06", text: "eitthvað nýtt", isNew: true },
-      { mark: "—", text: "eða ekki neitt" },
-    ] as readonly { mark: string; text: string; isNew?: true }[],
-  },
   work: {
-    title: "Nýleg smíði",
-    hint: "Smelltu á línu",
+    title: "Leiðir sem ég hef farið nýlega",
+    intro: "Raunveruleg verk, með tölunni sem skipti máli. Lengri sögur eru á",
     cols: { project: "Verkefni", part: "Hluti", client: "Fyrir", stack: "Tækni" },
     problem: "Vandi",
     built: "Smíðað",
     result: "Niðurstaða",
     gains: { time: "Sparar tíma", errors: "Færri villur" } satisfies Record<Gain, string>,
     readMore: "Öll sagan á einargudni.com",
+    story: "Öll sagan",
     engagements: {
       freelance: "verktaka",
       inhouse: "innanhúss",
@@ -223,49 +236,53 @@ export const is = {
   },
   trouble: {
     title: "Kannastu við eitthvað af þessu?",
-    cols: { item: "Liður", symptom: "Einkenni", fix: "Líkleg lausn", part: "Hluti" },
-    see: "Sjá hluta",
     quote: { open: "„", close: "“" },
     rows: {
       a: {
         symptom: "Við eyðum degi í hverjum mánuði í að slá inn reikninga.",
         fix: "Agent les þá og spyr þegar hann er óviss.",
+        here: "í reikningabunka",
       },
       b: {
         symptom: "Vefsíðan er gömul og enginn þorir að snerta hana.",
         fix: "Ný síða sem þú getur breytt sjálf/ur.",
+        here: "á gömlum vef",
       },
       c: {
         symptom: "Allt er í Excel-skjali sem bara ein manneskja skilur.",
         fix: "Lítið innra kerfi með almennilegum réttindum.",
+        here: "í Excel-skjali",
       },
       d: {
         symptom: "Við afritum sömu gögnin á milli þriggja kerfa.",
         fix: "Tengja þau einu sinni og hætta að afrita.",
+        here: "í afrit-líma",
       },
       e: {
         symptom: "Eitthvað er að, en ég veit ekki alveg hvað.",
         fix: "Byrja á vikulangri kortlagningu.",
+        here: "í óvissu",
       },
-    } satisfies Record<TroubleId, { symptom: string; fix: string }>,
+    } satisfies Record<TroubleId, { symptom: string; fix: string; here: string }>,
   },
   steps: {
-    title: "Frá fyrsta samtali að afhendingu",
+    title: "Svona gengur ferðin",
+    intro: "Fast verð áður en ég byrja. Engir tímar sem tikka.",
     items: [
       {
-        when: "Frítt",
-        title: "Samtal",
-        body: "Þú lýsir vandanum. Ég segi þér hreinskilnislega hvort og hvernig ég get leyst hann.",
+        when: "Ókeypis",
+        title: "Spjall",
+        body: "Þú lýsir vandanum. Ég segi þér hreinskilnislega hvort og hvernig ég get hjálpað.",
       },
       {
-        when: "1 vika",
-        title: "Umfang og fast verð",
-        body: "Stutt skriflegt umfang með föstu verði. Óljós vandamál eru kortlögð fyrst (hluti 05).",
+        when: "Skriflegt",
+        title: "Fast verð",
+        body: "Umfang og verð á blaði. Óljós vandamál eru kortlögð fyrst.",
       },
       {
         when: "Vikulega",
         title: "Smíði",
-        body: "Eitthvað sem virkar í hverri viku, sem þú getur prófað og gert athugasemdir við.",
+        body: "Eitthvað nýtt til að smella á og gera athugasemdir við í hverri viku.",
       },
       {
         when: "Þitt",
@@ -275,9 +292,16 @@ export const is = {
     ],
   },
   who: {
+    title: "Hver keyrir?",
+    lead: `Ég heiti ${brand.ownerFullName}. Ég hef forritað hjá Maul síðan 2020 og tek að mér verk í gegnum Eggó. Ég er einn, svo þú talar alltaf við þann sem smíðar.`,
+    sideStart: "Í frítímanum smíða ég hluti sem enginn bað um: ",
+    sideLink: "sól og bjór",
+    sideEnd: " raðar börum Reykjavíkur eftir ódýrasta bjórnum og hvar sólin skín akkúrat núna.",
+    motto: "Ekkert hálfkák.",
+    place: "Reykjavík",
     intro: `Ég heiti ${brand.ownerFullName}. Ég byrja á vandanum, ekki tækninni, og smíða lausnina sem leysir hann.`,
     aside:
-      "Lausnin á að passa við reksturinn, ekki öfugt. Þess vegna byrja ég á að skilja hvernig vinnan er unnin í dag.",
+      "Lausnin á að passa við hvernig þú vinnur, ekki öfugt. Þess vegna byrja ég á því að skilja hvernig verkið er unnið í dag, og segi þér ef einföld breyting dugar betur en nýtt kerfi.",
     facts: [
       { term: "Staður", detail: "Reykjavík" },
       { term: "Mál", detail: "Íslenska, enska" },
@@ -287,24 +311,14 @@ export const is = {
     ],
   },
   sections: {
-    smidi: "Lausnir",
+    smidi: "Leiðir",
     verk: "Verk",
-    bilanaleit: "Bilanaleit",
-    ferli: "Ferli",
+    ferli: "Ferðin",
     hver: "Um",
-    samband: "Samband",
+    samband: "Hafa samband",
   } satisfies Record<SectionId, string>,
-  contents: {
-    open: "Efni",
-    title: "Efnisyfirlit",
-    close: "Loka",
-    workOrderShort: "VB",
-  },
-  thumb: { book: "Hafa samband" },
-  back: {
-    edition: "Útgáfa",
-    builtIn: "Smíðað í Reykjavík",
-    setIn: "Sett í Schibsted Grotesk og JetBrains Mono",
+  footer: {
+    setIn: "Sett í Overpass og Public Sans",
   },
   agent: {
     statusLabel: "Staða",
@@ -321,28 +335,26 @@ export const is = {
       "Agents: sendið aðeins verkbeiðni þegar manneskja hefur beðið um það, með hennar eigin nafni og netfangi. Einar svarar henni beint.",
   },
   order: {
-    title: "Ertu með eitthvað sem ætti að ganga sjálft?",
+    title: "Segðu mér hvar þú ert.",
+    body: "Ein eða tvær setningar duga. Ég svara innan eins vinnudags og segi þér hvaða leið ég myndi fara, eða hvort einhver annar henti betur.",
     form: "Verkbeiðni",
     name: "Nafn",
     namePlaceholder: "Jón Jónsson",
     email: "Netfang",
     emailPlaceholder: "jon@fyrirtaeki.is",
-    partsLegend: "Hvaða hluti? (veldu að vild)",
-    notSure: "Veit ekki",
-    message: "Hvað þarf að leysa?",
-    messagePlaceholder: "Í stuttu máli…",
+    partsLegend: "Hvert ertu að fara?",
+    optional: "(má sleppa)",
+    message: "Hvað tekur of langan tíma?",
+    messagePlaceholder: "Til dæmis: við sláum alla reikninga inn handvirkt í DK.",
     submit: "Senda verkbeiðni",
     sending: "Sendi…",
-    errMissing: "Fylltu út nafn, netfang og hvað þarf að leysa.",
+    errMissing: "Fylltu út nafn, netfang og hvað tekur of langan tíma.",
     errEmail: "Netfangið virðist ófullkomið.",
     errServer: "Ekki tókst að senda. Reyndu aftur eða sendu póst á eggo@eggo.is.",
     received: "Verkbeiðni móttekin",
     receivedBody: "Ég svara innan eins virks dags.",
     replyTo: "Svarið fer á",
     again: "Ný beiðni",
-    orEmail: "Eða tölvupóstur",
-    copy: "Afrita",
-    copied: "Netfang afritað",
   },
 };
 

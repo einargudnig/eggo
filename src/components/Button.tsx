@@ -4,15 +4,15 @@ import { media } from "../design/media.stylex";
 import { ui } from "../design/primitives";
 import { colors, fonts, motion, space } from "../design/tokens.stylex";
 
-type Variant = "primary" | "ghost";
-type Common = { variant: Variant; children: ReactNode; stretchOnPhone?: boolean; inverted?: boolean };
+/** `sign`: a small blue sign on the page. `onSign`: a white sign on a blue sign. */
+type Variant = "sign" | "onSign";
+type Common = { variant?: Variant | undefined; children: ReactNode; stretchOnPhone?: boolean | undefined };
 
-const buttonStyle = ({ variant, stretchOnPhone, inverted }: Omit<Common, "children">) =>
+const buttonStyle = ({ variant = "sign", stretchOnPhone = false }: Omit<Common, "children">) =>
   stylex.props(
     styles.base,
-    ui.focusRing,
     styles[variant],
-    inverted && styles.inverted,
+    variant === "sign" ? ui.focusRing : ui.focusRingOnSign,
     stretchOnPhone && styles.stretch,
   );
 
@@ -24,10 +24,15 @@ const Label = ({ children }: { children: ReactNode }) => (
   </>
 );
 
-export function ButtonLink({ href, ...common }: Common & { href: string }) {
+export function ButtonLink({
+  variant,
+  stretchOnPhone,
+  children,
+  ...rest
+}: Common & Omit<ComponentProps<"a">, "className" | "style">) {
   return (
-    <a href={href} {...buttonStyle(common)}>
-      <Label>{common.children}</Label>
+    <a {...rest} {...buttonStyle({ variant, stretchOnPhone })}>
+      <Label>{children}</Label>
     </a>
   );
 }
@@ -35,15 +40,11 @@ export function ButtonLink({ href, ...common }: Common & { href: string }) {
 export function Button({
   variant,
   stretchOnPhone,
-  inverted,
   children,
   ...rest
 }: Common & Omit<ComponentProps<"button">, "className" | "style">) {
   return (
-    <button
-      {...rest}
-      {...buttonStyle({ variant, stretchOnPhone: stretchOnPhone ?? false, inverted: inverted ?? false })}
-    >
+    <button {...rest} {...buttonStyle({ variant, stretchOnPhone })}>
       <Label>{children}</Label>
     </button>
   );
@@ -56,39 +57,32 @@ const styles = stylex.create({
     justifyContent: "center",
     gap: space.s3,
     textDecoration: "none",
-    fontFamily: fonts.mono,
-    fontSize: "13px",
+    fontFamily: fonts.sign,
+    fontSize: "18px",
     fontWeight: 700,
     lineHeight: 1,
-    letterSpacing: "0.06em",
-    textTransform: "uppercase",
-    minHeight: "48px",
-    paddingInline: space.s4,
-    borderWidth: "1px",
-    borderStyle: "solid",
+    minHeight: "52px",
+    paddingTop: space.s1,
+    paddingInline: space.s5,
+    borderWidth: 0,
+    borderRadius: "10px",
     cursor: "pointer",
-    transitionProperty: "background-color, color, transform",
+    transitionProperty: "filter, transform",
     transitionDuration: motion.fast,
     transitionTimingFunction: motion.step,
     transform: { default: null, ":active": "translateY(1px)" },
+    filter: { default: null, [media.hover]: { default: null, ":hover": "brightness(1.12)" } },
   },
-  primary: {
-    backgroundColor: { default: colors.accent, [media.hover]: { default: null, ":hover": colors.ink } },
-    color: { default: colors.onAccent, [media.hover]: { default: null, ":hover": colors.surface } },
-    borderColor: { default: colors.accent, [media.hover]: { default: null, ":hover": colors.ink } },
+  sign: {
+    backgroundColor: colors.sign,
+    color: colors.signInk,
+    boxShadow: `inset 0 0 0 3px ${colors.sign}, inset 0 0 0 5px ${colors.signInk}`,
   },
-  ghost: {
-    backgroundColor: { default: "transparent", [media.hover]: { default: null, ":hover": colors.ink } },
-    color: { default: colors.ink, [media.hover]: { default: null, ":hover": colors.surface } },
-    borderColor: colors.ink,
+  onSign: {
+    backgroundColor: colors.signInk,
+    color: colors.sign,
+    boxShadow: `inset 0 0 0 3px ${colors.signInk}, inset 0 0 0 5px ${colors.sign}`,
+    filter: { default: null, [media.hover]: { default: null, ":hover": "brightness(0.94)" } },
   },
-  inverted: {
-    backgroundColor: { default: colors.accent, [media.hover]: { default: null, ":hover": colors.contactFg } },
-    color: { default: colors.onAccent, [media.hover]: { default: null, ":hover": colors.contactBg } },
-    borderColor: { default: colors.accent, [media.hover]: { default: null, ":hover": colors.contactFg } },
-  },
-  stretch: {
-    width: { default: null, [media.phone]: "100%" },
-    justifyContent: { default: null, [media.phone]: "space-between" },
-  },
+  stretch: { width: { default: null, [media.phone]: "100%" } },
 });

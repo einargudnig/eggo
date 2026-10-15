@@ -1,90 +1,124 @@
 import * as stylex from "@stylexjs/stylex";
 import { media } from "../design/media.stylex";
 import { ui } from "../design/primitives";
-import { colors, fonts, layout, space, type } from "../design/tokens.stylex";
+import { colors, fonts, space, type } from "../design/tokens.stylex";
 import { useLang } from "../i18n/useLang";
-import { SectionHead } from "./SectionHead";
 
-/** §4: the process. Step titles are h3 under the section h2 (ACCESSIBILITY.md #4). */
+/** How a project runs, drawn as one road with four stops. The last stop is blue: it's yours. */
 export function Steps() {
   const { t } = useLang();
   return (
-    <section id="ferli" aria-labelledby="h-ferli" tabIndex={-1} {...stylex.props(ui.anchor, styles.section)}>
-      <SectionHead id="h-ferli" index="§4" label={t.sections.ferli} title={t.steps.title} />
-      <ol {...stylex.props(styles.steps)}>
-        {t.steps.items.map((step, i) => (
-          <li key={step.title} {...stylex.props(styles.step)}>
-            <span aria-hidden="true" {...stylex.props(styles.n)}>
-              {i + 1}
-            </span>
-            <span {...stylex.props(ui.label, styles.when, styles.col2)}>{step.when}</span>
-            <h3 {...stylex.props(styles.title, styles.col2)}>{step.title}</h3>
-            <p {...stylex.props(styles.body, styles.col2)}>{step.body}</p>
-          </li>
-        ))}
-      </ol>
+    <section
+      id="ferli"
+      aria-labelledby="h-steps"
+      tabIndex={-1}
+      {...stylex.props(ui.anchor, ui.section, ui.band)}
+    >
+      <div {...stylex.props(ui.wrap)}>
+        <div {...stylex.props(styles.head)}>
+          <h2 id="h-steps" {...stylex.props(ui.h2)}>
+            {t.steps.title}
+          </h2>
+          <p {...stylex.props(styles.intro)}>{t.steps.intro}</p>
+        </div>
+        <div {...stylex.props(styles.track)}>
+          <span aria-hidden="true" {...stylex.props(styles.asphalt)} />
+          <ol {...stylex.props(styles.road)}>
+            {t.steps.items.map((step, i) => (
+              <li key={step.title} {...stylex.props(styles.stop)}>
+                <span
+                  aria-hidden="true"
+                  {...stylex.props(styles.pin, i === t.steps.items.length - 1 && styles.pinEnd)}
+                />
+                <h3 {...stylex.props(styles.title)}>{step.title}</h3>
+                <p {...stylex.props(styles.when)}>{step.when}</p>
+                <p {...stylex.props(styles.body)}>{step.body}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </div>
     </section>
   );
 }
 
 const styles = stylex.create({
-  section: {
-    borderBottomWidth: layout.rule,
-    borderBottomStyle: "solid",
-    borderBottomColor: colors.ruleStrong,
+  head: {
+    display: "grid",
+    gridTemplateColumns: { default: "minmax(0, 1fr) minmax(0, 1.4fr)", [media.tablet]: "minmax(0, 1fr)" },
+    gap: { default: space.s8, [media.tablet]: space.s3 },
+    alignItems: "end",
+    marginBottom: space.s7,
   },
-  steps: {
+  intro: { margin: 0, color: colors.muted, maxWidth: "34em" },
+  track: { position: "relative" },
+  /** The road behind the stops, with a dashed centre line painted in the band colour. */
+  asphalt: {
+    position: "absolute",
+    left: { default: 0, [media.phone]: "13px" },
+    right: { default: 0, [media.phone]: "auto" },
+    top: { default: "13px", [media.phone]: 0 },
+    bottom: { default: "auto", [media.phone]: 0 },
+    width: { default: "auto", [media.phone]: "18px" },
+    height: { default: "18px", [media.phone]: "auto" },
+    backgroundColor: colors.ink,
+    backgroundImage: {
+      default: `repeating-linear-gradient(90deg, ${colors.page2} 0 22px, transparent 22px 44px)`,
+      [media.phone]: `repeating-linear-gradient(180deg, ${colors.page2} 0 22px, transparent 22px 44px)`,
+    },
+    backgroundSize: { default: "100% 3px", [media.phone]: "3px 100%" },
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+  },
+  road: {
     listStyle: "none",
-    marginBlock: 0,
-    marginInline: "auto",
-    paddingInline: 0,
-    maxWidth: layout.max,
+    margin: 0,
+    padding: 0,
+    position: "relative",
     display: "grid",
-    gridTemplateColumns: {
-      default: "repeat(4, minmax(0, 1fr))",
-      [media.tablet]: "repeat(2, minmax(0, 1fr))",
-      [media.phone]: "1fr",
-    },
-    borderTopWidth: layout.rule,
-    borderTopStyle: "solid",
-    borderTopColor: colors.ruleStrong,
+    gridTemplateColumns: { default: "repeat(4, minmax(0, 1fr))", [media.phone]: "minmax(0, 1fr)" },
+    gap: { default: 0, [media.phone]: space.s6 },
   },
-  step: {
-    display: "grid",
-    gridTemplateColumns: { default: null, [media.phone]: "56px minmax(0, 1fr)" },
-    columnGap: space.s3,
-    rowGap: { default: space.s3, [media.phone]: space.s1 },
-    alignContent: "start",
-    paddingTop: { default: space.s5, [media.phone]: space.s4 },
-    paddingInline: { default: space.s5, [media.phone]: space.s4 },
-    paddingBottom: { default: space.s7, [media.phone]: space.s5 },
+  stop: {
+    position: "relative",
+    display: { default: "block", [media.phone]: "grid" },
+    gridTemplateColumns: "44px minmax(0, 1fr)",
+    columnGap: space.s5,
+    paddingRight: { default: space.s6, [media.phone]: 0 },
+  },
+  pin: {
+    display: "block",
+    gridRow: "1 / span 3",
+    width: "44px",
+    height: "44px",
+    borderRadius: "50%",
+    backgroundColor: colors.page2,
+    borderWidth: "6px",
     borderStyle: "solid",
-    borderColor: colors.ruleStrong,
-    borderWidth: 0,
-    borderRightWidth: {
-      default: layout.rule,
-      ":last-child": 0,
-      [media.tablet]: { default: layout.rule, ":nth-child(even)": 0 },
-      [media.phone]: 0,
-    },
-    borderBottomWidth: {
-      default: 0,
-      [media.tablet]: { default: 0, ":nth-child(-n+2)": layout.rule },
-      [media.phone]: { default: layout.rule, ":last-child": 0 },
-    },
+    borderColor: colors.ink,
+    position: "relative",
   },
-  n: {
-    fontFamily: fonts.display,
-    fontSize: { default: "56px", [media.phone]: "44px" },
+  pinEnd: { backgroundColor: colors.sign, borderColor: colors.sign },
+  title: {
+    marginTop: { default: space.s5, [media.phone]: space.s2 },
+    marginBottom: 0,
+    fontFamily: fonts.sign,
+    fontSize: type.h3,
     fontWeight: 800,
-    lineHeight: 1,
-    letterSpacing: "-0.05em",
-    color: "transparent",
-    WebkitTextStroke: `1px ${colors.ink}`,
-    gridRow: { default: null, [media.phone]: "1 / span 3" },
   },
-  col2: { gridColumn: { default: null, [media.phone]: 2 } },
-  when: { color: colors.accentInk },
-  title: { margin: 0, fontSize: "20px", fontWeight: 700, letterSpacing: "-0.02em" },
-  body: { margin: 0, color: colors.muted, fontSize: type.small, textWrap: "pretty" },
+  when: {
+    marginTop: space.s2,
+    marginBottom: 0,
+    fontFamily: fonts.sign,
+    fontWeight: 600,
+    fontSize: type.fine,
+    color: colors.muted,
+  },
+  body: {
+    marginTop: space.s2,
+    marginBottom: 0,
+    fontSize: type.small,
+    color: colors.muted,
+    textWrap: "pretty",
+  },
 });

@@ -5,8 +5,8 @@
 import { readFileSync } from "node:fs";
 
 const pages: Record<string, { lang: string; h1: string }> = {
-  "dist/client/index.html": { lang: "is", h1: "Frá vandamáli að" },
-  "dist/client/en/index.html": { lang: "en", h1: "From problem to" },
+  "dist/client/index.html": { lang: "is", h1: "Þú veist að eitthvað" },
+  "dist/client/en/index.html": { lang: "en", h1: "You know something" },
 };
 
 let failed = false;
