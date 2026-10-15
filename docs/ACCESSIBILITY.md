@@ -12,7 +12,7 @@ Audit: 2026-10-11, mockup v7. Re-checked 2026-10-15 for the Vegvísir redesign (
 |---|---|---|
 | Automated rules (wcag2a/aa, 2.1, 2.2, best-practice) | axe-core 4.10 in headless Chromium, 1280 + 390px × light/dark × IS/EN (8 runs) | **0 violations** (before: 3 rules, 13 hits; see §2) |
 | Colour contrast, every token pair | `bun run contrast` | all pass AA (see DESIGN-SYSTEM §3) |
-| Keyboard | `tests/keyboard.spec.ts`: skip link, symptom picker, "Senda Einari", form errors, language, theme | as described in §3 |
+| Keyboard | `tests/keyboard.spec.ts`: skip link, symptom picker, "Fá fast verð", form errors, language, theme | as described in §3 |
 | Forced colours / reduced motion | manual CSS review | §4 |
 
 What axe leaves "incomplete" and why that's fine:
