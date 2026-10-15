@@ -13,7 +13,7 @@ import { partIds, type PartId } from "../../content/parts";
 import { troubleIds, troubles, type TroubleId } from "../../content/work";
 import { media } from "../../design/media.stylex";
 import { ui } from "../../design/primitives";
-import { colors, fonts, space, type } from "../../design/tokens.stylex";
+import { colors, space, type } from "../../design/tokens.stylex";
 import { useLang } from "../../i18n/useLang";
 
 export const Route = createFileRoute("/{-$lang}/")({
@@ -84,15 +84,15 @@ const styles = stylex.create({
     top: space.s2,
     zIndex: 100,
     transform: { default: "translateY(-160%)", ":focus": "none" },
-    backgroundColor: colors.sign,
-    color: colors.signInk,
+    backgroundColor: colors.accent,
+    color: colors.accentInk,
     paddingBlock: space.s3,
     paddingInline: space.s4,
     borderRadius: "8px",
-    fontFamily: fonts.sign,
-    fontWeight: 700,
+    fontWeight: 600,
     textDecoration: "none",
-    outline: { default: "none", ":focus-visible": `3px solid ${colors.warn}` },
+    outline: { default: "none", ":focus-visible": `2px solid ${colors.ink}` },
+    outlineOffset: "2px",
   },
   main: { outline: "none" },
   footer: {

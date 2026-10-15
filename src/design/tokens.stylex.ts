@@ -5,75 +5,64 @@ import * as stylex from "@stylexjs/stylex";
  * `color-scheme` on <html> (OS preference, or data-theme set by the theme switch).
  * Contrast for every pair is checked by `bun run contrast`. See docs/DESIGN-SYSTEM.md §3.
  *
- * The page is calm white and asphalt grey; road-sign blue is the identity and appears only on signs,
- * buttons and links. Warning yellow is for "you are here" and ticked symptoms, never for text.
+ * Neutral greys with a faint green cast (never cream), and one muted pine accent for links, buttons
+ * and ticked boxes. Nothing else is coloured.
  */
 export const colors = stylex.defineVars({
-  page: "light-dark(#FFFFFF, #17191B)",
-  page2: "light-dark(#EEF0F1, #202326)",
-  ink: "light-dark(#16191C, #E9ECEE)",
-  muted: "light-dark(#545B62, #A3AAB1)",
-  line: "light-dark(#D5D9DC, #34393E)",
-  link: "light-dark(#0B4F9C, #8DB8EC)",
-  sign: "light-dark(#0B4F9C, #0E5AAE)",
-  signInk: "light-dark(#FFFFFF, #FFFFFF)",
-  signSoft: "light-dark(#C9DBF0, #D3E2F4)",
-  signHighlight: "light-dark(rgb(255 255 255 / 0.12), rgb(255 255 255 / 0.12))",
-  warn: "light-dark(#FFD200, #FFD200)",
-  warnEdge: "light-dark(#C8102E, #E0243F)",
-  warnInk: "light-dark(#16191C, #16191C)",
-  field: "light-dark(#FFFFFF, #FFFFFF)",
-  fieldInk: "light-dark(#16191C, #16191C)",
+  page: "light-dark(#FFFFFF, #121413)",
+  page2: "light-dark(#F3F4F2, #1A1D1C)",
+  ink: "light-dark(#1A1D1C, #E4E7E5)",
+  muted: "light-dark(#5E6562, #9BA29F)",
+  line: "light-dark(#E2E5E2, #2B2F2D)",
+  /** Form field and checkbox borders: 3:1 against the page (WCAG 1.4.11). */
+  control: "light-dark(#878F8B, #6E7672)",
+  accent: "light-dark(#2F5D50, #8FBFAE)",
+  accentInk: "light-dark(#FFFFFF, #121413)",
 });
 
 export const fonts = stylex.defineVars({
-  sign: '"Overpass", "Overpass Fallback", "Helvetica Neue", Arial, sans-serif',
   text: '"Public Sans", "Public Sans Fallback", "Helvetica Neue", Arial, sans-serif',
 });
 
 const PHONE = "@media (max-width: 760px)";
 
 export const type = stylex.defineVars({
-  display: { default: "clamp(42px, 5.2vw, 72px)", [PHONE]: "clamp(38px, 11vw, 48px)" },
-  h2: { default: "clamp(32px, 3.8vw, 52px)", [PHONE]: "clamp(30px, 8.4vw, 38px)" },
-  signName: { default: "clamp(28px, 2.8vw, 38px)", [PHONE]: "26px" },
-  h3: { default: "24px", [PHONE]: "22px" },
+  display: { default: "clamp(40px, 4.6vw, 64px)", [PHONE]: "clamp(34px, 9.6vw, 42px)" },
+  h2: { default: "clamp(28px, 3vw, 40px)", [PHONE]: "28px" },
+  h3: { default: "21px", [PHONE]: "20px" },
   lead: { default: "20px", [PHONE]: "18px" },
-  body: "18px",
-  small: "16px",
-  fine: "15px",
-  trackDisplay: "-0.02em",
-  trackHead: "-0.015em",
+  body: "17px",
+  small: "15px",
+  fine: "14px",
+  trackDisplay: "-0.03em",
+  trackHead: "-0.02em",
 });
 
-/** Spacing scale: 2 · 4 · 8 · 12 · 16 · 22 · 28 · 36 · 56 · 72 · 96. Lint rejects raw spacing values outside this folder. */
+/** Spacing scale: 2 · 4 · 8 · 12 · 16 · 24 · 32 · 48 · 64 · 96 · 144. Lint rejects raw spacing values outside this folder. */
 export const space = stylex.defineVars({
   s0: "2px",
   s1: "4px",
   s2: "8px",
   s3: "12px",
   s4: "16px",
-  s5: "22px",
-  s6: "28px",
-  s7: "36px",
-  s8: "56px",
-  s9: "72px",
-  s10: "96px",
-  gutter: { default: "28px", [PHONE]: "16px" },
-  section: { default: "96px", [PHONE]: "64px" },
+  s5: "24px",
+  s6: "32px",
+  s7: "48px",
+  s8: "64px",
+  s9: "96px",
+  s10: "144px",
+  gutter: { default: "32px", [PHONE]: "20px" },
+  section: { default: "144px", [PHONE]: "88px" },
 });
 
 export const layout = stylex.defineVars({
-  max: "1180px",
-  /** The sign plate: an outer blue rim, then a white inset border, like a real road sign. */
-  signRim: { default: "10px", [PHONE]: "6px" },
-  signBorder: { default: "4px", [PHONE]: "3px" },
-  signRadius: { default: "22px", [PHONE]: "16px" },
-  signInnerRadius: { default: "15px", [PHONE]: "11px" },
+  max: "1120px",
+  radius: "12px",
+  control: "8px",
 });
 
 export const motion = stylex.defineVars({
-  step: "cubic-bezier(0.6, 0, 0.3, 1)",
+  ease: "cubic-bezier(0.2, 0, 0, 1)",
   fast: "120ms",
-  base: "160ms",
+  base: "200ms",
 });

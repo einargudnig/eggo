@@ -5,7 +5,7 @@ import { brand } from "../content/brand";
 import { partIds, type PartId } from "../content/parts";
 import { media } from "../design/media.stylex";
 import { ui } from "../design/primitives";
-import { colors, fonts, space, type } from "../design/tokens.stylex";
+import { colors, fonts, layout, space, type } from "../design/tokens.stylex";
 import { useLang } from "../i18n/useLang";
 import { sendWorkOrder } from "../server/contact";
 import { workOrderSchema, type WorkOrderField } from "../server/workOrder";
@@ -29,7 +29,7 @@ type Props = {
   onToggle: (id: PartId) => void;
 };
 
-/** "Segðu mér hvar þú ert.": the last sign on the page, with the work order form on it. */
+/** The work order: a short pitch on the left, the form on the right, on one quiet card. */
 export function WorkOrder({ chosen, onToggle }: Props) {
   const { lang, t } = useLang();
   const send = useServerFn(sendWorkOrder);
@@ -88,14 +88,14 @@ export function WorkOrder({ chosen, onToggle }: Props) {
       tabIndex={-1}
       {...stylex.props(ui.anchor, ui.wrap, styles.section)}
     >
-      <div {...stylex.props(ui.plate)}>
-        <div {...stylex.props(ui.plateIn, styles.grid)}>
+      <div {...stylex.props(ui.card)}>
+        <div {...stylex.props(styles.grid)}>
           <div>
             <h2 id="h-contact" {...stylex.props(styles.title)}>
               {t.order.title}
             </h2>
             <p {...stylex.props(styles.body)}>{t.order.body}</p>
-            <a href={`mailto:${brand.email}`} {...stylex.props(styles.mail, ui.focusRingOnSign)}>
+            <a href={`mailto:${brand.email}`} {...stylex.props(styles.mail, ui.focusRing)}>
               {brand.email}
             </a>
           </div>
@@ -110,7 +110,7 @@ export function WorkOrder({ chosen, onToggle }: Props) {
                 <p {...stylex.props(styles.body)}>
                   {t.order.receivedBody} {t.order.replyTo} <b>{state.email}</b>.
                 </p>
-                <Button type="button" variant="onSign" onClick={reset}>
+                <Button type="button" onClick={reset}>
                   {t.order.again}
                 </Button>
               </div>
@@ -185,7 +185,7 @@ export function WorkOrder({ chosen, onToggle }: Props) {
                   <span id="o-err" role="alert" {...stylex.props(styles.error)}>
                     {state.kind === "editing" ? state.error : ""}
                   </span>
-                  <Button type="submit" variant="onSign" stretchOnPhone disabled={state.kind === "sending"}>
+                  <Button type="submit" stretchOnPhone disabled={state.kind === "sending"}>
                     {state.kind === "sending" ? t.order.sending : t.order.submit}
                   </Button>
                 </div>
@@ -199,38 +199,30 @@ export function WorkOrder({ chosen, onToggle }: Props) {
 }
 
 const styles = stylex.create({
-  section: { paddingTop: space.section, paddingBottom: space.s8 },
+  section: { paddingTop: 0, paddingBottom: space.s8 },
   grid: {
     display: "grid",
-    gridTemplateColumns: { default: "minmax(0, 0.9fr) minmax(0, 1.1fr)", [media.tablet]: "minmax(0, 1fr)" },
-    gap: { default: space.s8, [media.tablet]: space.s7 },
+    gridTemplateColumns: { default: "minmax(0, 0.85fr) minmax(0, 1.15fr)", [media.tablet]: "minmax(0, 1fr)" },
+    gap: { default: space.s8, [media.tablet]: space.s6 },
     paddingBlock: { default: space.s8, [media.phone]: space.s6 },
-    paddingInline: { default: space.s8, [media.phone]: space.s4 },
+    paddingInline: { default: space.s8, [media.phone]: space.s5 },
   },
   title: {
     margin: 0,
-    fontFamily: fonts.sign,
-    fontSize: { default: "clamp(40px, 4.6vw, 64px)", [media.phone]: "clamp(36px, 10vw, 44px)" },
-    fontWeight: 800,
-    lineHeight: 1.05,
-    letterSpacing: type.trackDisplay,
+    fontFamily: fonts.text,
+    fontSize: type.h2,
+    fontWeight: 600,
+    lineHeight: 1.1,
+    letterSpacing: type.trackHead,
     textWrap: "balance",
   },
-  body: { marginTop: space.s5, marginBottom: 0, color: colors.signSoft, fontSize: "19px", maxWidth: "24em" },
+  body: { marginTop: space.s4, marginBottom: 0, color: colors.muted, maxWidth: "26em", textWrap: "pretty" },
   mail: {
     display: "inline-block",
-    marginTop: space.s6,
-    paddingBottom: space.s2,
-    fontFamily: fonts.sign,
-    fontWeight: 800,
-    fontSize: "26px",
-    lineHeight: 1.1,
-    color: colors.signInk,
-    textDecoration: "none",
-    borderBottomWidth: "3px",
-    borderBottomStyle: "solid",
-    borderBottomColor: { default: colors.signInk, ":hover": colors.warn },
-    overflowWrap: "anywhere",
+    marginTop: space.s5,
+    fontWeight: 600,
+    fontSize: type.lead,
+    color: colors.accent,
   },
   form: { display: "grid", gap: space.s5 },
   pair: {
@@ -239,64 +231,50 @@ const styles = stylex.create({
     gap: space.s5,
   },
   field: { display: "grid", gap: space.s2, minWidth: 0 },
-  label: {
-    fontFamily: fonts.sign,
-    fontWeight: 700,
-    fontSize: type.small,
-    lineHeight: 1.2,
-    color: colors.signInk,
-  },
+  label: { fontWeight: 500, fontSize: type.small, lineHeight: 1.2 },
   input: {
     fontFamily: fonts.text,
-    fontSize: "17px",
+    fontSize: "16px",
     lineHeight: 1.4,
-    color: colors.fieldInk,
-    backgroundColor: colors.field,
-    borderWidth: "3px",
+    color: colors.ink,
+    backgroundColor: colors.page,
+    borderWidth: "1px",
     borderStyle: "solid",
-    borderColor: colors.field,
-    borderRadius: "8px",
+    borderColor: colors.control,
+    borderRadius: layout.control,
     paddingBlock: space.s3,
     paddingInline: space.s3,
     width: "100%",
-    outline: { default: "none", ":focus-visible": `3px solid ${colors.warn}` },
+    outline: { default: "none", ":focus-visible": `2px solid ${colors.accent}` },
     outlineOffset: "2px",
   },
-  textarea: { minHeight: "104px", resize: "vertical" },
-  invalid: { borderColor: colors.warn },
+  textarea: { minHeight: "112px", resize: "vertical" },
+  invalid: { borderColor: colors.ink, borderWidth: "2px" },
   fieldset: { borderWidth: 0, margin: 0, padding: 0, minWidth: 0 },
   legend: { padding: 0 },
-  optional: { fontWeight: 400, color: colors.signSoft },
+  optional: { fontWeight: 400, color: colors.muted },
   dests: { display: "flex", flexWrap: "wrap", gap: space.s2, marginTop: space.s2 },
   dest: { position: "relative", cursor: "pointer" },
-  destInput: {
-    position: "absolute",
-    inset: 0,
-    margin: 0,
-    opacity: 0,
-    cursor: "pointer",
-  },
+  destInput: { position: "absolute", inset: 0, margin: 0, opacity: 0, cursor: "pointer" },
   destLabel: {
     display: "inline-block",
-    borderWidth: "2px",
+    borderWidth: "1px",
     borderStyle: "solid",
-    borderColor: { default: colors.signSoft, [stylex.when.siblingBefore(":checked")]: colors.signInk },
-    borderRadius: "7px",
-    paddingTop: space.s2,
-    paddingBottom: space.s2,
-    paddingInline: space.s3,
-    fontFamily: fonts.sign,
-    fontWeight: 700,
-    fontSize: type.fine,
-    lineHeight: 1,
-    backgroundColor: { default: "transparent", [stylex.when.siblingBefore(":checked")]: colors.signInk },
-    color: { default: colors.signInk, [stylex.when.siblingBefore(":checked")]: colors.sign },
+    borderColor: { default: colors.control, [stylex.when.siblingBefore(":checked")]: colors.accent },
+    borderRadius: "999px",
+    paddingBlock: space.s2,
+    paddingInline: space.s4,
+    fontSize: type.small,
+    fontWeight: 500,
+    lineHeight: 1.2,
+    backgroundColor: { default: colors.page, [stylex.when.siblingBefore(":checked")]: colors.accent },
+    color: { default: colors.ink, [stylex.when.siblingBefore(":checked")]: colors.accentInk },
     // Forced colours drop the fill, so a ticked destination also gets underlined.
     textDecorationLine: {
       default: "none",
       [stylex.when.siblingBefore(":checked")]: { default: "none", [media.forcedColors]: "underline" },
     },
-    outline: { default: "none", [stylex.when.siblingBefore(":focus-visible")]: `3px solid ${colors.warn}` },
+    outline: { default: "none", [stylex.when.siblingBefore(":focus-visible")]: `2px solid ${colors.accent}` },
     outlineOffset: "2px",
   },
   foot: {
@@ -306,8 +284,8 @@ const styles = stylex.create({
     justifyContent: "space-between",
     gap: space.s4,
   },
-  error: { color: colors.signInk, fontWeight: 600, fontSize: type.small },
+  error: { fontWeight: 600, fontSize: type.small },
   receipt: { display: "grid", gap: space.s4, justifyItems: "start" },
-  receiptTitle: { margin: 0, fontFamily: fonts.sign, fontSize: type.h3, fontWeight: 800 },
-  ticket: { margin: 0, fontFamily: fonts.sign, fontSize: "40px", fontWeight: 800 },
+  receiptTitle: { margin: 0, fontSize: type.h3, fontWeight: 600 },
+  ticket: { margin: 0, fontSize: "36px", fontWeight: 600, letterSpacing: type.trackDisplay },
 });

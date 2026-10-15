@@ -12,11 +12,6 @@ export function NotFound() {
   const t = getDict(lang);
   return (
     <main lang={lang} {...stylex.props(ui.wrap, styles.main)}>
-      <svg viewBox="0 0 50 44" aria-hidden="true" {...stylex.props(styles.tri)}>
-        <path d="M25 0 50 44H0z" {...stylex.props(styles.edge)} />
-        <path d="M25 9 42 39H8z" {...stylex.props(styles.fill)} />
-        <path d="M23 17h4l-.6 12h-2.8zM25 31.5a2 2 0 1 1 0 4 2 2 0 0 1 0-4z" {...stylex.props(styles.mark)} />
-      </svg>
       <h1 {...stylex.props(styles.title)}>{t.notFound.title}</h1>
       <p {...stylex.props(styles.body)}>{t.notFound.body}</p>
       <Link
@@ -39,19 +34,15 @@ const styles = stylex.create({
     paddingTop: { default: space.s10, [media.phone]: space.s8 },
     paddingBottom: space.s10,
   },
-  tri: { width: "72px", height: "64px" },
-  edge: { fill: colors.warnEdge },
-  fill: { fill: colors.warn },
-  mark: { fill: colors.warnInk },
   title: {
     margin: 0,
-    fontFamily: fonts.sign,
+    fontFamily: fonts.text,
     fontSize: type.display,
-    fontWeight: 800,
+    fontWeight: 600,
     lineHeight: 1.05,
     letterSpacing: type.trackDisplay,
     textWrap: "balance",
   },
   body: { margin: 0, fontSize: type.lead, color: colors.muted, maxWidth: "36ch" },
-  home: { marginTop: space.s3, paddingBlock: space.s2, fontFamily: fonts.sign, fontWeight: 700 },
+  home: { marginTop: space.s3, paddingBlock: space.s2, fontWeight: 600 },
 });

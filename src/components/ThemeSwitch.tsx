@@ -66,10 +66,10 @@ const styles = stylex.create({
     paddingBlock: space.s3,
     paddingInline: 0,
     cursor: "pointer",
-    fontFamily: fonts.sign,
-    fontWeight: 600,
+    fontFamily: fonts.text,
+    fontWeight: 500,
     fontSize: type.small,
-    color: { default: colors.ink, ":hover": colors.link },
+    color: { default: colors.muted, ":hover": colors.ink },
   },
   disc: {
     display: "block",

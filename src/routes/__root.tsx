@@ -32,14 +32,14 @@ export const Route = createRootRoute({
       ...notFoundMeta(matches),
     ],
     links: [
-      // The hero headline and body text: fetch them alongside the CSS instead of after it (src/styles/fonts.css).
-      ...["overpass", "public-sans"].map((font) => ({
+      // The only face: fetch it alongside the CSS instead of after it (src/styles/fonts.css).
+      {
         rel: "preload",
-        href: `/fonts/${font}-latin.woff2`,
+        href: "/fonts/public-sans-latin.woff2",
         as: "font",
         type: "font/woff2",
         crossOrigin: "anonymous" as const,
-      })),
+      },
       { rel: "stylesheet", href: appCss },
       { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
     ],
@@ -57,7 +57,7 @@ const styles = stylex.create({
     lineHeight: 1.55,
     transitionProperty: "background-color, color",
     transitionDuration: motion.base,
-    transitionTimingFunction: motion.step,
+    transitionTimingFunction: motion.ease,
   },
 });
 

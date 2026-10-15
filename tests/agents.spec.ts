@@ -90,8 +90,8 @@ test("MCP server initializes and lists its tools", async ({ request }) => {
 });
 
 for (const [path, title] of [
-  ["/nope", "Tapast hefur: þessi síða · Eggó"],
-  ["/en/nope", "Lost: this page · Eggó"],
+  ["/nope", "Þessi síða fannst ekki · Eggó"],
+  ["/en/nope", "Page not found · Eggó"],
 ] as const) {
   test(`unknown URL ${path} is a 404 that search engines skip`, async ({ request }) => {
     const res = await request.get(path);

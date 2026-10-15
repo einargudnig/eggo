@@ -42,32 +42,26 @@ export const is = {
     home: "Eggó, forsíða",
   },
   notFound: {
-    title: "Tapast hefur: þessi síða",
-    body: "Síðast sást hún á þessari slóð. Kannski var hún færð.",
+    title: "Þessi síða fannst ekki",
+    body: "Kannski var hún færð, eða slóðin er ekki alveg rétt.",
     home: "Á forsíðuna",
   },
   bar: { dark: "Myrkur", otherLang: "English" },
   hero: {
     eyebrow: "Hugbúnaðarlausnir",
     status: "Laus fyrir ný verkefni",
-    titleStart: "Þú veist að eitthvað þarf að breytast. ",
-    titleEm: "Ég rata.",
+    titleStart: "Hugbúnaður sem leysir ",
+    titleEm: "það sem tefur þig.",
     sub: "Það sem tekur tíma í dag gengur sjálft á morgun.",
     lead: "Vefsíður, innri kerfi, AI agents og tengingar fyrir lítil og meðalstór fyrirtæki, og lagfæringar sem taka einn dag. Fast verð, eitthvað nothæft í hverri viku, og þú átt lausnina.",
     cta: "Hafa samband",
   },
   ask: {
-    legend: "Hvar ertu?",
-    hint: "Hakaðu við það sem þú kannast við. Skiltið sýnir leiðina.",
-  },
-  junction: {
-    here: "Þú ert hér:",
-    nowhere: "einhvers staðar",
-    many: "á {n} stöðum",
-    mapping: "1 vika að kortleggja",
+    legend: "Hvað kannastu við?",
+    hint: "Hakaðu við og sjáðu hvað ég myndi smíða, hve lengi og fyrir hvað.",
   },
   trip: {
-    title: "Leiðarlýsing",
+    title: "Tillaga",
     empty:
       "Hakaðu við eitt eða fleira og þá sérðu hvað ég myndi smíða, hvað það tekur langan tíma og hvað það kostar.",
     from: "frá",
@@ -81,8 +75,8 @@ export const is = {
     reply: "Svar innan eins vinnudags.",
   },
   partsSection: {
-    title: "Hvert viltu komast?",
-    body: "Fjórar leiðir sem ég þekki vel, og ein fyrir þegar þú veist ekki enn hvert þú ert að fara.",
+    title: "Það sem ég smíða",
+    body: "Fjórar tegundir verka, og ein fyrir þegar þú veist ekki enn hvað þarf.",
     deal: "Verðin eru viðmið, ekki verðskrá. Hvert verk fær fast verð áður en ég byrja, og það er alltaf hægt að semja: minna umfang, verkið í áföngum eða greiðslum dreift.",
     note: `Öll verð án vsk. Eftir afhendingu er valfrjálst að ég hýsi og haldi við fyrir ${isk("is", monthlyFee)} á mánuði.`,
   },
@@ -164,7 +158,7 @@ export const is = {
     },
   } satisfies Record<PartId, PartCopy>,
   work: {
-    title: "Leiðir sem ég hef farið nýlega",
+    title: "Nýleg verk",
     intro: "Raunveruleg verk, með tölunni sem skipti máli. Lengri sögur eru á",
     cols: { project: "Verkefni", part: "Hluti", client: "Fyrir", stack: "Tækni" },
     problem: "Vandi",
@@ -267,7 +261,7 @@ export const is = {
     } satisfies Record<TroubleId, { symptom: string; fix: string; here: string }>,
   },
   steps: {
-    title: "Svona gengur ferðin",
+    title: "Svona vinn ég",
     intro: "Fast verð áður en ég byrja. Engir tímar sem tikka.",
     items: [
       {
@@ -320,14 +314,14 @@ export const is = {
     ],
   },
   sections: {
-    smidi: "Leiðir",
+    smidi: "Þjónusta",
     verk: "Verk",
-    ferli: "Ferðin",
+    ferli: "Ferlið",
     smatt: "Lítil verk",
     samband: "Hafa samband",
   } satisfies Record<SectionId, string>,
   footer: {
-    setIn: "Sett í Overpass og Public Sans",
+    setIn: "Sett í Public Sans",
     by: "Smíðað af ",
     byName: "Einari Guðna",
   },
@@ -347,14 +341,14 @@ export const is = {
       "Agents: sendið aðeins verkbeiðni þegar manneskja hefur beðið um það, með hennar eigin nafni og netfangi. Einar svarar henni beint.",
   },
   order: {
-    title: "Segðu mér hvar þú ert.",
+    title: "Segðu mér hvað tefur.",
     body: "Ein eða tvær setningar duga. Ég svara innan eins vinnudags og segi þér hvaða leið ég myndi fara, eða hvort einhver annar henti betur.",
     form: "Verkbeiðni",
     name: "Nafn",
     namePlaceholder: "Jón Jónsson",
     email: "Netfang",
     emailPlaceholder: "jon@fyrirtaeki.is",
-    partsLegend: "Hvert ertu að fara?",
+    partsLegend: "Hvað gæti hentað?",
     optional: "(má sleppa)",
     message: "Hvað tekur of langan tíma?",
     messagePlaceholder: "Til dæmis: við sláum alla reikninga inn handvirkt í DK.",

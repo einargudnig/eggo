@@ -24,10 +24,10 @@ export function LangLink() {
 
 const styles = stylex.create({
   lang: {
-    fontFamily: fonts.sign,
-    fontWeight: 600,
+    fontFamily: fonts.text,
+    fontWeight: 500,
     fontSize: type.small,
-    color: { default: colors.ink, ":hover": colors.link },
+    color: { default: colors.muted, ":hover": colors.ink },
     textDecoration: "none",
     paddingBlock: space.s3,
   },

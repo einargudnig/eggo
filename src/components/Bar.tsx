@@ -10,7 +10,7 @@ import { useLang } from "../i18n/useLang";
 import { LangLink } from "./LangLink";
 import { ThemeSwitch } from "./ThemeSwitch";
 
-/** Top of the page: the wordmark on a small sign plate, section links, language and theme. Not sticky. */
+/** Top of the page: wordmark, section links, language and theme. Not sticky. */
 export function Bar() {
   const { lang, t } = useLang();
   return (
@@ -19,9 +19,9 @@ export function Bar() {
         to="/{-$lang}"
         params={{ lang: paramFromLang(lang) }}
         aria-label={t.a11y.home}
-        {...stylex.props(styles.plate, ui.focusRing)}
+        {...stylex.props(styles.mark, ui.focusRing)}
       >
-        <span {...stylex.props(styles.plateIn)}>{brand.wordmark}</span>
+        {brand.wordmark}
       </Link>
       <nav aria-label={t.a11y.mainNav} {...stylex.props(styles.nav)}>
         {navSections.map((id) => (
@@ -45,38 +45,22 @@ const styles = stylex.create({
     gap: { default: space.s6, [media.phone]: space.s4 },
     paddingBlock: space.s5,
   },
-  plate: {
-    display: "inline-block",
-    backgroundColor: colors.sign,
-    color: colors.signInk,
-    textDecoration: "none",
-    borderRadius: "9px",
-    padding: space.s1,
+  mark: {
     marginRight: "auto",
+    fontFamily: fonts.text,
+    fontWeight: 700,
+    fontSize: "22px",
+    letterSpacing: type.trackDisplay,
+    color: colors.ink,
+    textDecoration: "none",
+    paddingBlock: space.s1,
   },
-  plateIn: {
-    display: "block",
-    borderWidth: "2.5px",
-    borderStyle: "solid",
-    borderColor: colors.signInk,
-    borderRadius: "6px",
-    fontFamily: fonts.sign,
-    fontWeight: 800,
-    fontSize: "23px",
-    lineHeight: 1,
-    paddingTop: space.s2,
-    paddingBottom: space.s1,
-    paddingInline: space.s3,
-  },
-  nav: {
-    display: { default: "flex", [media.tablet]: "none" },
-    gap: space.s6,
-  },
+  nav: { display: { default: "flex", [media.tablet]: "none" }, gap: space.s6 },
   link: {
-    fontFamily: fonts.sign,
-    fontWeight: 600,
+    fontFamily: fonts.text,
+    fontWeight: 500,
     fontSize: type.small,
-    color: { default: colors.ink, ":hover": colors.link },
+    color: { default: colors.muted, ":hover": colors.ink },
     textDecoration: "none",
     paddingBlock: space.s1,
   },

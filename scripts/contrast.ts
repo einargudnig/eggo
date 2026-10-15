@@ -55,19 +55,15 @@ const ratio = (fg: Rgba, bg: Rgba) => {
 /** [label, foreground token, background token, minimum ratio]. 4.5 = text, 3 = UI boundaries. */
 const pairs: readonly [string, string, string, number][] = [
   ["ink / page", "ink", "page", 4.5],
-  ["ink / page-2 (bands)", "ink", "page2", 4.5],
+  ["ink / page-2 (cards)", "ink", "page2", 4.5],
   ["muted / page", "muted", "page", 4.5],
   ["muted / page-2", "muted", "page2", 4.5],
-  ["link / page", "link", "page", 4.5],
-  ["link / page-2", "link", "page2", 4.5],
-  ["sign ink / sign", "signInk", "sign", 4.5],
-  ["sign soft / sign", "signSoft", "sign", 4.5],
-  ["sign / sign ink (white buttons)", "sign", "signInk", 4.5],
-  ["field ink / field", "fieldInk", "field", 4.5],
-  ["warn ink / warn (ticked triangle)", "warnInk", "warn", 4.5],
-  ["warn / sign (focus ring on signs)", "warn", "sign", 3],
-  ["warn edge / page (ticked triangle)", "warnEdge", "page", 3],
-  ["muted / page (unticked triangle)", "muted", "page", 3],
+  ["accent / page (links)", "accent", "page", 4.5],
+  ["accent / page-2", "accent", "page2", 4.5],
+  ["accent ink / accent (buttons, ticked chips)", "accentInk", "accent", 4.5],
+  ["control / page (field and checkbox borders)", "control", "page", 3],
+  ["control / page-2", "control", "page2", 3],
+  ["accent / page-2 (focus ring on cards)", "accent", "page2", 3],
 ];
 
 let failed = 0;

@@ -1,3 +1,16 @@
+# Eggó design system: "Minimal" (branch `minimal`)
+
+This branch is the plain fallback for the Vegvísir design on `vegvisir`: same content, structure, symptom picker and accessibility, without the road-sign theme. Switch to it by merging this branch instead of `vegvisir`. The Vegvísir spec below is kept for reference; where it talks about signs, plates, arrows, the junction, the road or yellow, this branch has none of them.
+
+- **Colour:** neutral greys with a faint green cast (never cream) and one muted pine accent, `#2F5D50` light / `#8FBFAE` dark, for links, buttons, ticked boxes and focus rings. Tokens: `page`, `page2`, `ink`, `muted`, `line`, `control` (field borders, 3:1), `accent`, `accentInk`.
+- **Type:** Public Sans only, headings 600 with tight tracking. Display `clamp(40px, 4.6vw, 64px)`, h2 `clamp(28px, 3vw, 40px)`, body 17.
+- **Space:** 2 · 4 · 8 · 12 · 16 · 24 · 32 · 48 · 64 · 96 · 144; sections 144px apart (88 on phone). Max width 1120.
+- **Shape:** one container, `ui.card` (grey panel, 12px radius). Everything else is text and 1px dividers.
+- **Copy:** the road metaphors are swapped for plain words ("Hugbúnaður sem leysir það sem tefur þig.", "Það sem ég smíða", "Svona vinn ég", "Tillaga").
+- **Still to do:** OG and social images still show the Vegvísir sign; the favicon is a plain "e" on the accent.
+
+---
+
 # Eggó design system: "Vegvísir"
 
 Status: **chosen 2026-10-15** (branch `vegvisir`). It replaces A1 "Verkstæði / Pappír", whose look (paper grey, orange accent, mono caps labels, numbered parts, hairline grid, spec tables) had become the documented 2026 "Claude look". See `DESIGN.md` §0 for the research and the alternatives.

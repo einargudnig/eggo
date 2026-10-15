@@ -16,7 +16,7 @@ test("ticking a symptom prices the route and pre-ticks the work order", async ({
   await symptom.focus();
   await page.keyboard.press("Space");
   await expect(symptom).toBeChecked();
-  const trip = page.getByRole("region", { name: "Leiðarlýsing" });
+  const trip = page.getByRole("region", { name: "Tillaga" });
   await expect(trip).toContainText("Innra kerfi");
   await expect(trip).toContainText("frá 399.900 kr.");
   await expect(page.getByRole("checkbox", { name: "Innra kerfi" })).toBeChecked();
@@ -62,7 +62,7 @@ test("language switch keeps every label in the new language", async ({ page }) =
   await page.getByRole("link", { name: "English" }).click();
   await expect(page).toHaveURL(/\/en$/);
   await expect(page.getByRole("switch", { name: "Dark mode" })).toBeAttached();
-  await expect(page.getByRole("region", { name: "Directions" })).toBeAttached();
+  await expect(page.getByRole("region", { name: "Suggestion" })).toBeAttached();
 });
 
 test("theme switch persists across reloads", async ({ page }) => {

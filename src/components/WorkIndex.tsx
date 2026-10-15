@@ -6,19 +6,18 @@ import { media } from "../design/media.stylex";
 import { ui } from "../design/primitives";
 import { colors, fonts, space, type } from "../design/tokens.stylex";
 import { useLang } from "../i18n/useLang";
-import { SignArrow } from "./SignArrow";
 
-/** Recent work as a trip log. Each entry carries the small sign of the route it took, linking back to it. */
+/** Recent work. Each entry names the kind of work it was, linking back to that row of the services list. */
 export function WorkIndex() {
   const { t } = useLang();
   return (
     <section id="verk" aria-labelledby="h-work" tabIndex={-1} {...stylex.props(ui.anchor, ui.section)}>
       <div {...stylex.props(ui.wrap)}>
-        <div {...stylex.props(styles.head)}>
+        <div {...stylex.props(ui.head)}>
           <h2 id="h-work" {...stylex.props(ui.h2)}>
             {t.work.title}
           </h2>
-          <p {...stylex.props(styles.intro)}>
+          <p {...stylex.props(ui.headBody)}>
             {t.work.intro}{" "}
             <a href={brand.ownerSite} {...stylex.props(ui.link, ui.focusRing)}>
               {brand.ownerSite.replace(/^https:\/\//, "")}
@@ -33,11 +32,8 @@ export function WorkIndex() {
             return (
               <li key={id} {...stylex.props(styles.entry)}>
                 <div>
-                  <a href={`#${partDomId(part)}`} {...stylex.props(styles.chip, ui.focusRing)}>
-                    <span {...stylex.props(styles.chipIn)}>
-                      <SignArrow part={part} size="chip" />
-                      {t.parts[part].sign}
-                    </span>
+                  <a href={`#${partDomId(part)}`} {...stylex.props(styles.kind, ui.focusRing)}>
+                    {t.parts[part].name}
                   </a>
                   <h3 {...stylex.props(styles.name)}>{c.name}</h3>
                   <p {...stylex.props(styles.who)}>{clientLabel(id, t.work.engagements)}</p>
@@ -63,82 +59,54 @@ export function WorkIndex() {
 }
 
 const styles = stylex.create({
-  head: {
-    display: "grid",
-    gridTemplateColumns: { default: "minmax(0, 1fr) minmax(0, 1.4fr)", [media.tablet]: "minmax(0, 1fr)" },
-    gap: { default: space.s8, [media.tablet]: space.s3 },
-    alignItems: "end",
-    marginBottom: space.s7,
-  },
-  intro: { margin: 0, color: colors.muted, maxWidth: "34em" },
   log: { listStyle: "none", margin: 0, padding: 0 },
   entry: {
     display: "grid",
     gridTemplateColumns: {
-      default: "minmax(0, 1.25fr) minmax(0, 1.5fr) minmax(0, 0.8fr)",
+      default: "minmax(0, 1.2fr) minmax(0, 1.5fr) minmax(0, 0.8fr)",
       [media.phone]: "minmax(0, 1fr)",
     },
-    gap: { default: space.s7, [media.phone]: space.s3 },
+    gap: { default: space.s6, [media.phone]: space.s3 },
     alignItems: "start",
     paddingBlock: { default: space.s6, [media.phone]: space.s5 },
     borderTopWidth: "1px",
     borderTopStyle: "solid",
     borderTopColor: colors.line,
-    borderBottomWidth: { default: 0, ":last-child": "1px" },
-    borderBottomStyle: "solid",
-    borderBottomColor: colors.line,
   },
-  chip: {
-    display: "inline-flex",
-    backgroundColor: colors.sign,
-    color: colors.signInk,
-    borderRadius: "6px",
-    padding: space.s0,
+  kind: {
+    fontSize: type.fine,
+    fontWeight: 500,
+    color: { default: colors.muted, ":hover": colors.accent },
     textDecoration: "none",
   },
-  chipIn: {
-    display: "inline-flex",
-    alignItems: "center",
-    gap: space.s2,
-    borderWidth: "1.5px",
-    borderStyle: "solid",
-    borderColor: colors.signInk,
-    borderRadius: "4px",
-    paddingTop: space.s1,
-    paddingBottom: space.s0,
-    paddingInline: space.s2,
-    fontFamily: fonts.sign,
-    fontWeight: 700,
-    fontSize: "14px",
-    lineHeight: 1,
-  },
   name: {
-    marginTop: space.s3,
+    marginTop: space.s1,
     marginBottom: 0,
-    fontFamily: fonts.sign,
+    fontFamily: fonts.text,
     fontSize: type.h3,
-    fontWeight: 700,
-    lineHeight: 1.2,
+    fontWeight: 600,
+    lineHeight: 1.25,
+    letterSpacing: type.trackHead,
     textWrap: "balance",
   },
-  who: { marginTop: space.s2, marginBottom: 0, color: colors.muted, fontSize: type.fine },
-  what: { margin: 0, fontSize: "17px", textWrap: "pretty" },
+  who: { marginTop: space.s1, marginBottom: 0, color: colors.muted, fontSize: type.fine },
+  what: { margin: 0, textWrap: "pretty" },
   story: { whiteSpace: "nowrap" },
   num: {
     margin: 0,
-    fontFamily: fonts.sign,
-    fontWeight: 800,
-    fontSize: { default: "44px", [media.phone]: "34px" },
+    fontWeight: 600,
+    fontSize: { default: "36px", [media.phone]: "30px" },
+    letterSpacing: type.trackDisplay,
     lineHeight: 1,
     textAlign: { default: "right", [media.phone]: "left" },
   },
   numNote: {
     display: "block",
     marginTop: space.s2,
-    fontFamily: fonts.text,
     fontWeight: 400,
     fontSize: type.fine,
-    lineHeight: 1.35,
+    lineHeight: 1.4,
+    letterSpacing: 0,
     color: colors.muted,
   },
 });
