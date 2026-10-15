@@ -2,14 +2,16 @@ import type { PartId } from "../content/parts";
 import { brand } from "../content/brand";
 import { isk, monthlyFee, priceFrom } from "../content/pricing";
 import type { SectionId } from "../content/sections";
-import type { CaseId, Engagement, TroubleId } from "../content/work";
+import type { CaseId, Engagement, Gain, TroubleId } from "../content/work";
 
 type CaseCopy = {
   name: string;
   stack: string;
   problem: string;
   built: string;
-  /** Big number in the result column. */
+  /** What the client got, in their terms. Leads the result column; the metric backs it up. */
+  outcome: string;
+  /** Supporting number in the result column. */
   metric: string;
   metricNote: string;
 };
@@ -150,6 +152,7 @@ export const is = {
     problem: "Vandi",
     built: "Smíðað",
     result: "Niðurstaða",
+    gains: { time: "Sparar tíma", errors: "Færri villur" } satisfies Record<Gain, string>,
     readMore: "Öll sagan á einargudni.com",
     engagements: {
       freelance: "verktaka",
@@ -164,6 +167,7 @@ export const is = {
           "Gigover vildi aðstoðarmann inni í kerfinu sínu. Upphaflega planið kallaði á breytingar á bakenda sem enginn hafði tíma í.",
         built:
           "Aðstoðarmaður sem svarar spurningum um kerfið, ber saman tilboð og skrifar drög að verkbeiðnum út frá myndum af verkstað. Kostnaður er takmarkaður á hvern notanda.",
+        outcome: "Verkbeiðni verður til úr mynd af verkstað, í stað þess að vera skrifuð frá grunni.",
         metric: "22/22",
         metricNote: "prófdæmi sem þurfa að standast áður en ný útgáfa fer í loftið",
       },
@@ -174,6 +178,7 @@ export const is = {
           "Þjálfari sem þjálfar pabba þurfti síðu sem breytir heimsóknum í kynningarspjall, og lokað svæði fyrir áskrifendur.",
         built:
           "Forsíða sem hann uppfærir sjálfur í vefumsjón, og app með æfingaplani, næringarmarkmiðum og aðstoðarmanni sem svarar aðeins út frá hans efni.",
+        outcome: "Hann uppfærir síðuna sjálfur, án þess að bíða eftir forritara.",
         metric: "0 KB",
         metricNote: "af JavaScript á forsíðunni, svo hún opnast strax",
       },
@@ -184,6 +189,7 @@ export const is = {
           "Bakendinn faldi villur inni í svörum sem litu út fyrir að hafa tekist. Bjóðandi sá „hlaðið upp“ en verkkaupinn fékk ekkert.",
         built:
           "Ein sameiginleg villumeðhöndlun fyrir allar 55 aðgerðir sem breyta gögnum, án þess að snerta bakendann. Og léttari vefur.",
+        outcome: "Upphleðsla sem mistekst segir það núna, í stað þess að sýnast hafa tekist.",
         metric: "−42%",
         metricNote: "minni aðalpakki, svo kerfið opnast hraðar",
       },
@@ -194,6 +200,7 @@ export const is = {
           "Svefn, æfingar, fundir, verkefni og kóði lágu hvert í sínu appi. Ekkert þeirra gat svarað spurningu þvert á hin.",
         built:
           "Safnari sem samstillir allt í einn SQLite-gagnagrunn sem agents lesa um MCP og öpp um API. Agents fá aðeins lesaðgang.",
+        outcome: "Ein spurning fær svar þvert á ellefu öpp, í stað þess að fletta í hverju fyrir sig.",
         metric: "14",
         metricNote: "tengingar við 11 kerfi",
       },
@@ -203,6 +210,7 @@ export const is = {
         problem: "Agents sögðu að breyting virkaði. Prófin stóðust, en enginn hafði opnað síðuna.",
         built:
           "Tól sem lætur agent nota innra kerfi Maul í vafra eins og manneskja og skila sönnunum, ásamt korti af öllum aðgerðum kerfisins. Unnið í teymi.",
+        outcome: "Breyting telst ekki tilbúin fyrr en agent hefur sýnt hana virka í vafranum.",
         metric: "5 villur",
         metricNote: "fundust þegar kortið var skrifað, áður en nokkurt próf var til",
       },

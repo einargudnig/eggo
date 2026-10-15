@@ -127,6 +127,7 @@ export const en: Dict = {
     problem: "Problem",
     built: "Built",
     result: "Result",
+    gains: { time: "Saves time", errors: "Fewer errors" },
     readMore: "Full story on einargudni.com",
     engagements: { freelance: "freelance", inhouse: "in-house", personal: "own project" },
     cases: {
@@ -137,6 +138,7 @@ export const en: Dict = {
           "Gigover wanted an assistant inside its app. The original plan needed backend changes nobody had time for.",
         built:
           "An assistant that answers product questions, compares bids and drafts work orders from site photos. Spend is capped per user.",
+        outcome: "A work order starts from a photo of the site instead of a blank page.",
         metric: "22/22",
         metricNote: "eval cases that must pass before a release ships",
       },
@@ -147,6 +149,7 @@ export const en: Dict = {
           "A coach who trains dads needed a page that turns visits into intro chats, and a paid members' area.",
         built:
           "A landing page he edits himself in a CMS, and an app with training plans, macro targets and an assistant that answers only from his material.",
+        outcome: "He updates the site himself, without waiting on a developer.",
         metric: "0 KB",
         metricNote: "of JavaScript on the landing page, so it opens instantly",
       },
@@ -157,6 +160,7 @@ export const en: Dict = {
           "The backend hid errors inside responses that looked like success. A bidder saw “uploaded” while the tender owner got nothing.",
         built:
           "One checked error contract across all 55 write operations, without touching the backend. And a lighter app.",
+        outcome: "A failed upload now says so, instead of looking like it worked.",
         metric: "−42%",
         metricNote: "smaller main bundle, so the app opens faster",
       },
@@ -167,6 +171,7 @@ export const en: Dict = {
           "Sleep, runs, meetings, tasks and code each lived in their own app. None could answer a question across the others.",
         built:
           "A collector that syncs everything into one SQLite database that agents read over MCP and apps over an API. Agents only get read access.",
+        outcome: "One question gets answered across eleven apps, instead of checking each one.",
         metric: "14",
         metricNote: "connectors across 11 sources",
       },
@@ -176,6 +181,7 @@ export const en: Dict = {
         problem: "Agents said a change worked. Tests passed, but nobody had opened the page.",
         built:
           "A harness that lets an agent use Maul's admin app in a browser like a person and come back with evidence, plus a map of every feature. A team effort.",
+        outcome: "A change isn't done until an agent has shown it working in the browser.",
         metric: "5 bugs",
         metricNote: "found while writing the map, before any test existed",
       },

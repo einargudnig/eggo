@@ -10,12 +10,16 @@ export const caseIds = [
 ] as const;
 export type CaseId = (typeof caseIds)[number];
 
+/** What the client gets out of it, in their terms: time back or fewer mistakes (`work.gains`). */
+export type Gain = "time" | "errors";
+
 /** Freelance work names the client; in-house and personal work are labelled as such (`work.engagements`). */
 export type Engagement = "freelance" | "inhouse" | "personal";
 
 type Case = {
   part: PartId;
   engagement: Engagement;
+  gain: Gain;
   /** Proper noun, so it isn't translated. */
   client: string;
   /** The long write-up on Einar's own site. */
@@ -28,25 +32,35 @@ export const cases = {
   "gigover-assistant": {
     part: "03",
     engagement: "freelance",
+    gain: "time",
     client: "Gigover",
     url: writeUp("gigover-assistant"),
   },
   "sterkir-pabbar": {
     part: "01",
     engagement: "freelance",
+    gain: "time",
     client: "Sterkir pabbar",
     url: writeUp("sterkir-pabbar"),
   },
   "gigover-product": {
     part: "02",
     engagement: "freelance",
+    gain: "errors",
     client: "Gigover",
     url: writeUp("gigover-product"),
   },
-  "life-os": { part: "04", engagement: "personal", client: "life-os", url: writeUp("life-os") },
+  "life-os": {
+    part: "04",
+    engagement: "personal",
+    gain: "time",
+    client: "life-os",
+    url: writeUp("life-os"),
+  },
   "maul-verification": {
     part: "03",
     engagement: "inhouse",
+    gain: "errors",
     client: "Maul",
     url: writeUp("maul-admin-verification"),
   },

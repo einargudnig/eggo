@@ -36,7 +36,7 @@ export const siteMarkdown = (lang: Lang) => {
         `${t.work.cols.stack}: ${c.stack}`,
         `${t.work.problem}: ${c.problem}`,
         `${t.work.built}: ${c.built}`,
-        `${t.work.result}: ${c.metric} (${c.metricNote})`,
+        `${t.work.result}: ${t.work.gains[cases[id].gain]}. ${c.outcome} (${c.metric} ${c.metricNote})`,
         `${t.work.readMore}: ${cases[id].url}`,
       ]),
     ].join("\n");

@@ -32,7 +32,7 @@ export function WorkIndex() {
 function CaseRow({ id, open }: { id: CaseId; open: boolean }) {
   const { t } = useLang();
   const copy = t.work.cases[id];
-  const { part, url } = cases[id];
+  const { part, url, gain } = cases[id];
   const unknown = !parts[part].defined;
   const sep = <span {...stylex.props(ui.srOnly)}>, </span>;
   return (
@@ -64,9 +64,13 @@ function CaseRow({ id, open }: { id: CaseId; open: boolean }) {
           <p {...stylex.props(styles.text)}>{copy.built}</p>
         </div>
         <div {...stylex.props(styles.cell)}>
-          <span {...stylex.props(ui.label)}>{t.work.result}</span>
-          <span {...stylex.props(styles.metric)}>{copy.metric}</span>
-          <p {...stylex.props(styles.text)}>{copy.metricNote}</p>
+          <span {...stylex.props(ui.label)}>
+            {t.work.result} · <b {...stylex.props(styles.gain)}>{t.work.gains[gain]}</b>
+          </span>
+          <p {...stylex.props(styles.outcome)}>{copy.outcome}</p>
+          <p {...stylex.props(styles.text, styles.muted)}>
+            <b {...stylex.props(styles.metric)}>{copy.metric}</b> {copy.metricNote}
+          </p>
           <a href={url} {...stylex.props(styles.more, ui.focusRing)}>
             {t.work.readMore}
             <span aria-hidden="true"> →</span>
@@ -195,10 +199,15 @@ const styles = stylex.create({
     borderColor: colors.rule,
   },
   text: { margin: 0, fontSize: type.small, textWrap: "pretty" },
-  metric: {
-    fontSize: { default: "34px", [media.phone]: "30px" },
-    fontWeight: 800,
-    letterSpacing: "-0.03em",
-    lineHeight: 1,
+  gain: { color: colors.accentInk, fontWeight: 700 },
+  outcome: {
+    margin: 0,
+    fontSize: { default: "20px", [media.phone]: "18px" },
+    fontWeight: 700,
+    letterSpacing: "-0.015em",
+    lineHeight: 1.25,
+    textWrap: "pretty",
   },
+  muted: { color: colors.muted },
+  metric: { color: colors.ink, fontWeight: 800 },
 });
