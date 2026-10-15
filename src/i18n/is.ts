@@ -52,7 +52,7 @@ export const is = {
     sub: "Það sem tekur tíma í dag gengur sjálft á morgun.",
     lead: "Vefsíður, innri kerfi, AI agents og tengingar, og líka vandamál sem passa ekki enn í neinn flokk. Fast verð, vikulegar afhendingar, og þú átt lausnina.",
     cta: "Hafa samband",
-    price: `Frá ${isk("is", Math.min(...Object.values(priceFrom)))} · fast verð`,
+    price: `Frá ${isk("is", Math.min(...Object.values(priceFrom)))} án VSK · fast verð`,
     figure: "Mynd 1 — dæmigerð smíði",
     figureCount: "05 hlutar",
     duration: "≈ 1–8 vikur",
@@ -276,7 +276,7 @@ export const is = {
     facts: [
       { term: "Staður", detail: "Reykjavík" },
       { term: "Mál", detail: "Íslenska, enska" },
-      { term: "Verð", detail: "Fast, samið fyrirfram. Viðmiðin eru umsemjanleg" },
+      { term: "Verð", detail: "Fast, samið fyrirfram, án VSK. Viðmiðin eru umsemjanleg" },
       { term: "Rekstur", detail: `Valfrjáls, ${isk("is", monthlyFee)} á mánuði` },
       { term: "Svar", detail: "Innan eins virks dags" },
     ],

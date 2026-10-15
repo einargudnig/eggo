@@ -27,7 +27,7 @@ export const en: Dict = {
     sub: "What takes time today runs itself tomorrow.",
     lead: "Websites, internal systems, AI agents and integrations, and the problems that don't fit any of those yet. Fixed price, something working every week, and you own the solution.",
     cta: "Get in touch",
-    price: `From ${isk("en", Math.min(...Object.values(priceFrom)))} · fixed price`,
+    price: `From ${isk("en", Math.min(...Object.values(priceFrom)))} excl. VAT · fixed price`,
     figure: "Fig. 1 — a typical build",
     figureCount: "05 parts",
     duration: "≈ 1–8 weeks",
@@ -244,7 +244,7 @@ export const en: Dict = {
     facts: [
       { term: "Based", detail: "Reykjavík" },
       { term: "Languages", detail: "Icelandic, English" },
-      { term: "Price", detail: "Fixed, agreed up front. The starting points are negotiable" },
+      { term: "Price", detail: "Fixed, agreed up front, excl. VAT. The starting points are negotiable" },
       { term: "Upkeep", detail: `Optional, ${isk("en", monthlyFee)} a month` },
       { term: "Reply", detail: "Within one working day" },
     ],
