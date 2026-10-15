@@ -34,14 +34,14 @@ PLAYWRIGHT_BASE_URL=<url> bun x playwright test     # run the suite against a de
 |---|---|---|
 | Colour, type size, spacing, motion | `src/design/tokens.stylex.ts` | Only place raw values are allowed. Colours are `light-dark(light, dark)` pairs. `bun run contrast` checks every pair. |
 | Breakpoints | `src/design/media.stylex.ts` | Use `media.phone` etc. as style keys. |
-| Shared styles (label, focus ring, sr-only) | `src/design/primitives.ts` | Compose `ui.*` instead of re-declaring. |
+| Shared styles (sign plate, focus rings, link, sr-only) | `src/design/primitives.ts` | Compose `ui.*` instead of re-declaring. |
 | Any visible or screen-reader text | `src/i18n/is.ts` then `src/i18n/en.ts` | Icelandic is the source. A missing English key is a type error. Proper nouns go in `src/content/brand.ts`. |
 | The five parts (01–05) | `src/content/parts.ts` | Per-part data is `Record<PartId, …>`; adding a part errors everywhere it's missing. |
 | Server-side work | `src/server/*` via `createServerFn` + a `zod/mini` schema | Validate input with the same schema on client and server. Read env from `cloudflare:workers`, never `process.env` at module scope. |
 | Agent-facing output (llms.txt, `.md` mirrors, sitemap, JSON-LD, MCP at `/mcp`, `/api/work-order`) | `src/content/agent.ts`, `src/server/mcp.ts` | Generated from the dictionaries and prerendered (`pages` in `vite.config.ts`). New page content shows up there automatically; new pages need a sitemap entry. |
 | Work orders → outreach | `src/server/outreachIntake.ts` | After the email is sent, `deliverWorkOrder` posts the order to outreach (`/api/intake/work-order`) through `waitUntil`. Best-effort: it never fails the visitor's order, and outreach also picks the order up from the inbox email. Prod only (`OUTREACH_INTAKE_TOKEN` in `.env`). |
 | Inbox push alerts | `inbox/` (own Worker `eggo-inbox`, cron every 10 minutes) | Reads Spacemail over IMAP, pushes unread mail to ntfy, tags it `EggoNotified` so it's announced once. Read-only apart from that keyword. Deployed only when `SPACEMAIL_PASSWORD` and `NTFY_TOPIC` are in `.env`. Failures push a warning at most hourly. |
-| Social videos (Remotion, `video/` workspace) | `video/src/` · `bun run video` (Studio) · `bun run video:render [-- <id filter>]` → `video/out/` | Copy comes from the dictionaries and `src/content`; only video-only lines live in `video/src/copy.ts`. Colours mirror the light tokens in `video/src/theme.ts` (StyleX vars can't be imported outside the compiler), so keep them in step. Motion is the `--step` wipe, no springs. |
+| Social videos (Remotion, `video/` workspace) | `video/src/` · `bun run video` (Studio) · `bun run video:render [-- <id filter>]` → `video/out/` | Copy comes from the dictionaries and `src/content`; only video-only lines live in `video/src/copy.ts`. `video/src/theme.ts` still mirrors the pre-Vegvísir tokens and fonts (StyleX vars can't be imported outside the compiler); bring it in step when the videos are redone. Motion is the `--step` wipe, no springs. |
 | Routes | `src/routes/`, language via `/{-$lang}` | `src/routeTree.gen.ts` is generated; don't edit. |
 
 ## House lint rules (`lint/eggo-plugin.ts`, tests beside it)

@@ -2,7 +2,7 @@
 
 Target: **WCAG 2.2 AA** in both languages and both themes, at desktop and phone widths. This file records what the A1 mockup ([Verkstæði](https://claude.ai/artifact/PKLNUy7Xx82Y8a97m2oQbY)) does and why, so the real build copies the decisions, not just the markup.
 
-Audit: 2026-10-11, mockup v7.
+Audit: 2026-10-11, mockup v7. Re-checked 2026-10-15 for the Vegvísir redesign (§2b, §3); findings 1–6, 13–16 in §2 describe components that no longer exist and are kept as history.
 
 ---
 
@@ -12,7 +12,7 @@ Audit: 2026-10-11, mockup v7.
 |---|---|---|
 | Automated rules (wcag2a/aa, 2.1, 2.2, best-practice) | axe-core 4.10 in headless Chromium, 1280 + 390px × light/dark × IS/EN (8 runs) | **0 violations** (before: 3 rules, 13 hits; see §2) |
 | Colour contrast, every token pair | `bun run contrast` | all pass AA (see DESIGN-SYSTEM §3) |
-| Keyboard | scripted Playwright pass: tab order, sheet, part nav, diagram, form | as described in §3 |
+| Keyboard | `tests/keyboard.spec.ts`: skip link, symptom picker, "Senda Einari", form errors, language, theme | as described in §3 |
 | Forced colours / reduced motion | manual CSS review | §4 |
 
 What axe leaves "incomplete" and why that's fine:
@@ -43,37 +43,45 @@ Not yet tested: real VoiceOver (macOS + iOS) and TalkBack runs. They're needed b
 | 15 | The troubleshooting table goes `display:block` on phone, and Safari then drops table semantics. | moderate | Explicit `role="table/rowgroup/row/columnheader/cell"`. The `#` header gets a hidden "Liður". |
 | 16 | `.mapflow` had an aria-label on a role-less div (ignored by most screen readers). | minor | `role="group"` + bilingual label. |
 
+## 2b. Vegvísir (2026-10-15)
+
+| Component | Decision |
+|---|---|
+| Symptom picker | Real checkboxes inside `<label>`s, visually hidden but focusable; the warning triangle is `aria-hidden`. Ticked state is shown by fill *and* shape (the triangle fills), with an underline in forced colours. |
+| Junction sign | `aria-hidden` SVG. The route summary next to it says the same thing in words and is `aria-live="polite"`, so ticking a symptom announces the new route. |
+| Direction sign arrows, route-chip arrows, button "→" | `aria-hidden`. The part name carries the meaning. |
+| Destination chips (work order) | Checkboxes in a `<fieldset>` with a `<legend>`; pre-ticked from the hero, changeable. |
+| Focus on blue | Yellow `warn` ring on signs, link-blue ring on the page (yellow fails 3:1 on white). |
+
 ## 3. Keyboard: the verified paths
 
-**Desktop tab order:** skip link → logo → 4 nav links → IS / EN → theme switch → hero CTA → diagram nodes 01–05 → 5 work rows (`<summary>`) → 5 troubleshooting buttons → contact CTA → copy → form.
+**Tab order (desktop):** skip link → wordmark → 4 section links → other language → theme switch → 5 symptom checkboxes → "Senda Einari" → work log links → note links → work order (email link, Nafn, Netfang, 5 destinations, message, send).
 
-**Phone tab order:** skip link → logo → Efni → hero CTA → diagram nodes → part nav 01–05 → carousel region → same as desktop from the work rows on.
+**Phone:** the section links are hidden; otherwise the same.
 
 | Path | Expected | Verified |
 |---|---|---|
-| Diagram node, Enter or Space | highlight, scroll to part card, focus card | ✅ |
-| Phone part nav, Enter | carousel scrolls, `aria-current` moves, focus on card | ✅ |
-| Efni → sheet | focus on "Loka". Tab cycles inside the sheet and browser chrome only, never the page behind. | ✅ |
-| Esc in sheet | closes, focus back on Efni, `aria-expanded="false"` | ✅ |
-| TOC link | sheet closes, focus on the section heading area | ✅ |
+| Space on a symptom | ticks it, the route summary updates and is announced, the matching destination is pre-ticked in the work order | ✅ |
+| "Senda Einari" | scrolls to the work order, focus on Nafn | ✅ |
 | Submit empty form | 3 fields `aria-invalid`, focus on Nafn, error announced | ✅ |
 | Submit bad email | only email invalid, focus on email | ✅ |
 | Submit valid | focus on "Verkbeiðni móttekin" | ✅ |
-| Switch to EN | all aria-labels switch ("Dark mode", "Main menu", "05 Not sure yet, see details") | ✅ |
+| Language link | same page in the other language, `<html lang>` follows | ✅ |
+| Theme switch | `role="switch"`, choice persists across reloads | ✅ |
 
 ## 4. Rules for the real build
 
 1. **Every focusable thing has a name in the current language.** No "IS / EN" double labels. Labels live in the same dictionary as the visible strings.
 2. **Don't borrow ARIA patterns half-way.** Tabs, menus and listboxes come with keyboard contracts. If you're not going to implement arrow keys and panels, use buttons + `aria-current`.
-3. **Decoration is `aria-hidden`:** wires, ticks, dimension lines, the clock, the signature, the big footer mark, the "Strjúktu" hint and the line drawings. If it's only there to look like a manual page, hide it.
-4. **Off-screen means `inert`.** This applies to anything translated out of view: the thumb bar, and later any drawer.
-5. **Focus follows intent.** Any action that moves the viewport moves focus with it (part nav, diagram, TOC, form result).
-6. **Part codes are visual.** Codes like "03 · AGT" stay visible but are spoken as words ("hluti 03, AI agent").
-7. **Heading outline:** one `h1` (hero), `h2` per § section, `h3` inside. Labels styled as small caps can still be headings.
-8. **Forced colours:** states shown only by fill (active part, pressed language, checked part chip, switch knob) get an outline in `@media (forced-colors: active)`.
-9. **Motion:** the packet animation is removed under `prefers-reduced-motion`. Scrolling goes instant. No animation conveys information on its own.
-10. **Touch targets** ≥ 44×44 on phone (already in DESIGN-SYSTEM §8), and never under the 24×24 minimum (2.5.8) on desktop. The nav links and IS/EN buttons are the ones to measure.
-11. **`lang` attributes:** the build sets `<html lang>` per route (`/` = is, `/en` = en) instead of swapping text in place. Mixed-language strings (e.g. "AI agent" in Icelandic copy) are fine untagged. The mockup's in-place swap is a prototype shortcut.
+3. **Decoration is `aria-hidden`:** the junction drawing, sign arrows, the road band and its dashes, warning triangles. If a drawing says something, say it in text next to it.
+4. **Off-screen means `inert`.** Anything translated out of view (a future drawer or sticky bar) leaves the tab order.
+5. **Focus follows intent.** Any action that moves the viewport moves focus with it ("Senda Einari", form errors, form result).
+6. **Part codes are visual.** Where numbers like "03" show, they're spoken as the part's name.
+7. **Heading outline:** one `h1` (hero), `h2` per section, `h3` inside.
+8. **Forced colours:** states shown only by fill (ticked symptom, ticked destination, switch knob) get an outline or underline in `@media (forced-colors: active)`.
+9. **Motion:** the junction draw-in and arrow nudges are removed under `prefers-reduced-motion`. Scrolling goes instant. No animation conveys information on its own.
+10. **Touch targets** ≥ 44×44 on phone, and never under the 24×24 minimum (2.5.8) on desktop.
+11. **`lang` attributes:** `<html lang>` per route (`/` = is, `/en` = en). Mixed-language strings (e.g. "AI agent" in Icelandic copy) are fine untagged.
 
 ## 5. Not covered by the mockup (build-time items)
 
@@ -86,7 +94,7 @@ Not yet tested: real VoiceOver (macOS + iOS) and TalkBack runs. They're needed b
 ## 6. Before launch
 
 - [ ] VoiceOver macOS (Safari) + iOS: full read-through in IS and EN
-- [ ] TalkBack (Chrome Android): carousel + sheet
+- [ ] TalkBack (Chrome Android): symptom picker + work order
 - [ ] Windows High Contrast (forced colours) screenshot pass
 - [ ] axe in CI on built pages (`@axe-core/playwright`), failing on any violation
 - [ ] Lighthouse accessibility = 100 on `/` and `/en`

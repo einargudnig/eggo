@@ -1,8 +1,19 @@
 # Eggó redesign: design plan
 
-Status: **decided 2026-10-11.** Direction A, variant A1 "Pappír". The locked system lives in [`DESIGN-SYSTEM.md`](DESIGN-SYSTEM.md), and the accessibility audit in [`ACCESSIBILITY.md`](ACCESSIBILITY.md). This file keeps the brief, the alternatives and the reasoning behind the choice.
+Status: **redecided 2026-10-15.** "Vegvísir" (road signs) with the Tilboð symptom picker replaces A1 "Pappír" (§0). The system lives in [`DESIGN-SYSTEM.md`](DESIGN-SYSTEM.md), and the accessibility audit in [`ACCESSIBILITY.md`](ACCESSIBILITY.md). This file keeps the brief, the alternatives and the reasoning behind each choice.
 
 ---
+
+## 0. Why A1 was replaced (2026-10-15)
+
+A1 shipped and looked good, but it read as generated: another developer's portfolio had the same look. Research confirmed it was a named style by then:
+
+- Kyle Chayka, *The New Yorker* (June 2026), "The A.I.-Design Aesthetic That's Taking over the Internet": cream or beige, a rusty orange accent, tracked small-caps subheads.
+- [avoid-ai-design](https://github.com/funboy322/avoid-ai-design) and Charlie Hills' "29 tells" list the rest of A1 almost item by item: "cream + terracotta (the Claude look)", mono caps labels, decorative 01/02/03, "A · B · C" meta strings, broadsheet hairlines, one accented word in the headline. A1's paper `#F2F1EC` sat next to Anthropic's own parchment `#f5f4ed`.
+
+Four new directions were mocked up: **Auglýsing** (newsprint classifieds), **Bréf** (a letter), **Vegvísir** (Icelandic road signs) and **Tilboð** (a quote builder). The choice was Vegvísir as the base with Tilboð's symptom picker in the hero: a borrowed public visual language (Vegagerðin's blue signs) that no template uses, and a hero that does something (tick what's wrong, see the route, time and price) instead of describing it. Auglýsing is worth keeping for the 404 or social videos.
+
+What would make it more unmistakably Einar's, in order: a licensed Transport-style face, his handwriting for the sign-off, and real screenshots in the work log. A photo was ruled out (decision 2026-10-15: About is name and links only).
 
 ## 1. Brief
 
