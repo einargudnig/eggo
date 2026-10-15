@@ -4,8 +4,8 @@ import { useState } from "react";
 import { Bar } from "../../components/Bar";
 import { Hero } from "../../components/Hero";
 import { Parts } from "../../components/Parts";
+import { Small } from "../../components/Small";
 import { Steps } from "../../components/Steps";
-import { Who } from "../../components/Who";
 import { WorkIndex } from "../../components/WorkIndex";
 import { WorkOrder, fieldIds } from "../../components/WorkOrder";
 import { brand } from "../../content/brand";
@@ -27,7 +27,7 @@ const toggle = <T,>(list: readonly T[], item: T) =>
 const routeFor = (picked: readonly TroubleId[]): PartId[] =>
   partIds.filter((id) => picked.some((trouble) => troubles[trouble] === id));
 
-/** "Senda Einari": scroll to the work order and put the cursor in the first field (ACCESSIBILITY.md: focus follows). */
+/** "Fá fast verð": scroll to the work order and put the cursor in the first field (ACCESSIBILITY.md: focus follows). */
 const onSend = () => {
   const name = document.getElementById(fieldIds.name);
   const instant = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -56,16 +56,21 @@ function HomePage() {
       <main id="top" tabIndex={-1} {...stylex.props(styles.main)}>
         <Hero picked={picked} route={routeFor(picked)} onToggle={onToggleSymptom} onSend={onSend} />
         <Parts />
+        <Small />
         <WorkIndex />
         <Steps />
-        <Who />
         <WorkOrder
           chosen={chosen}
           onToggle={(id) => setChosen(partIds.filter((x) => toggle(chosen, id).includes(x)))}
         />
       </main>
       <footer {...stylex.props(ui.wrap, styles.footer)}>
-        <span>{`${brand.name} · ${brand.ownerFullName} · ${t.who.place}`}</span>
+        <span>
+          {`${brand.name} · ${t.about.place} · ${t.footer.by}`}
+          <a href={brand.ownerSite} {...stylex.props(ui.link, ui.focusRing)}>
+            {t.footer.byName}
+          </a>
+        </span>
         <span>{t.footer.setIn}</span>
       </footer>
     </>

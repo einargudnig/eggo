@@ -57,12 +57,13 @@ Blue is the brand. Yellow is never text and never decoration: it marks *you* (wh
 | **Theme switch** | half-filled disc + "Myrkur" | `role="switch"`. The visible word stays inside the accessible name. |
 | **Symptom picker** ("Hvar ertu?") | five „quotes“ in the customer's words, each with a warning-triangle checkbox | Real checkboxes, visually hidden. Unticked: outline. Ticked: yellow with a red edge. Maps symptom → part through `troubles` in `src/content/work.ts`. |
 | **Junction sign** | five roads leave a yellow dot; name and time per arm; "Þú ert hér:" + where you are | Ticked routes stay white, the rest dim to 22%. `aria-hidden`: the route summary says it in words. Arms draw in once on load. |
-| **Route summary** ("Leiðarlýsing") | one leg per part: name, time, starting price; a note when there are several or "veit ekki"; "Senda Einari" | `aria-live="polite"`. The button scrolls to the work order and focuses Nafn. |
+| **Route summary** ("Leiðarlýsing") | one leg per part: name, time, starting price; a note when there are several or "veit ekki"; "guide prices, always negotiable"; "Fá fast verð" | `aria-live="polite"`. The button scrolls to the work order and focuses Nafn. |
 | **Direction sign** ("Hvert viltu komast?") | one tall plate, a row per part: arrow, name, lead, what you own, time, price | Arrows point the way the junction's roads do (`parts[id].arrow`) and nudge that way on hover. Part 05 has a "?" and a dashed gravel divider. Rows are jump targets (`#leid-01`). |
 | **Route chip** | tiny sign: arrow + part name | Tags each work entry with the route it took; links to that row of the direction sign. |
 | **Work log** | chip, name, client · engagement / outcome + "Öll sagan" / the number that mattered | The metric is the one big number per row. |
 | **Road** ("Svona gengur ferðin") | an asphalt band with a dashed centre line and four stops | The last stop is a blue dot: "Þitt". Vertical on phones. |
-| **Note** ("Hver keyrir?") | first-person lead, two paragraphs, "Ekkert hálfkák." sign-off, links | No photo (decided 2026-10-15). |
+| **Small jobs** ("Ekkert er of lítið.") | six one-line example fixes on supplementary plates (`ui.subPlate`), a note that small jobs get a fixed price too | The site is about the work, not the person: there's no bio section (decided 2026-10-15). The footer links to einargudni.com. |
+| **Supplementary plate** (`ui.subPlate`) | white plate, 3px ink border | Hangs under the direction sign with "prices are a guide, always negotiable"; also the small-jobs cards. |
 | **End sign** ("Segðu mér hvar þú ert.") | the work order form on a blue plate: name, email, destination chips, message | Chips arrive pre-ticked from the hero and can be changed. White fields; errors and focus in yellow. |
 | **Button** | sign-style: blue with a white inset line (`sign`), or white with a blue inset line on signs (`onSign`) | Always ends in →, which is hidden from screen readers. |
 | **404** ("Tapast hefur: þessi síða") | a warning sign, a lost-and-found line, a link home | |
@@ -82,7 +83,7 @@ No scroll-triggered reveals, no perpetual motion, no smooth-scroll library. `pre
 
 - **Hover** is gated behind `(hover: hover) and (pointer: fine)`.
 - **Focus:** 3px link-blue ring on the page, 3px yellow ring on signs (blue backgrounds).
-- **Focus follows the viewport:** "Senda Einari" focuses the first form field; the receipt heading takes focus after sending.
+- **Focus follows the viewport:** "Fá fast verð" focuses the first form field; the receipt heading takes focus after sending.
 - **Errors** say what's missing in plain words, with no apology.
 - **Language** links to the same page in the other language. No auto-redirect.
 - **Theme:** follows the OS until the visitor chooses, then persists.
@@ -90,6 +91,5 @@ No scroll-triggered reveals, no perpetual motion, no smooth-scroll library. `pre
 ## 8. Still to do
 
 1. **Licence a road-sign face** to replace Overpass (a Transport-style face, or ask Or Type in Reykjavík).
-2. **Einar's real handwriting** for the "Ekkert hálfkák." sign-off, if he wants a human mark there.
-3. **Social videos** (`video/`) still use the old palette and fonts.
-4. **A sticky route bar on phones**, if analytics show people tick symptoms and then lose the summary below the sign.
+2. **Social videos** (`video/`) still use the old palette and fonts.
+3. **A sticky route bar on phones**, if analytics show people tick symptoms and then lose the summary below the sign.

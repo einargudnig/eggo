@@ -50,7 +50,7 @@ export const siteMarkdown = (lang: Lang) => {
   });
 
   const steps = t.steps.items.map((s, i) => `${i + 1}. **${s.title}** (${s.when}): ${s.body}`);
-  const facts = t.who.facts.map((f) => `${f.term}: ${f.detail}`);
+  const facts = t.about.facts.map((f) => `${f.term}: ${f.detail}`);
 
   return [
     `# ${t.meta.title}`,
@@ -70,7 +70,17 @@ export const siteMarkdown = (lang: Lang) => {
     "",
     t.partsSection.title,
     "",
+    t.partsSection.deal,
+    "",
     parts.join("\n\n"),
+    "",
+    `## ${t.small.title}`,
+    "",
+    t.small.body,
+    "",
+    list(t.small.items),
+    "",
+    t.small.note,
     "",
     `## ${t.work.title}`,
     "",
@@ -84,9 +94,9 @@ export const siteMarkdown = (lang: Lang) => {
     "",
     steps.join("\n"),
     "",
-    `## ${t.sections.hver}`,
+    `## ${t.agent.aboutTitle}`,
     "",
-    `${t.who.intro} ${t.who.aside}`,
+    `${t.about.intro} ${t.about.aside}`,
     "",
     `## ${t.agent.contactTitle}`,
     "",
@@ -115,7 +125,7 @@ export const llmsTxt = () => {
     list([
       `${t.agent.statusLabel}: ${t.hero.status}`,
       `${t.agent.emailLabel}: ${brand.email}`,
-      ...t.who.facts.map((f) => `${f.term}: ${f.detail}`),
+      ...t.about.facts.map((f) => `${f.term}: ${f.detail}`),
       `Services (prices excl. VAT): ${partIds
         .map(
           (id) =>

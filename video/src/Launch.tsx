@@ -62,14 +62,14 @@ export const launchScenes = (lang: Lang): Scene[] => {
     },
     {
       name: "who",
-      frames: readFrames(`${t.who.intro} ${t.who.aside}`),
+      frames: readFrames(`${t.about.intro} ${t.about.aside}`),
       node: (
         <Page t={t} tag={<Label>{brand.ownerFullName}</Label>}>
           <Reveal>
-            <Title size={72}>{t.who.intro}</Title>
+            <Title size={72}>{t.about.intro}</Title>
           </Reveal>
           <Reveal at={FPS}>
-            <Body>{t.who.aside}</Body>
+            <Body>{t.about.aside}</Body>
           </Reveal>
         </Page>
       ),

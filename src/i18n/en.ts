@@ -1,4 +1,3 @@
-import { brand } from "../content/brand";
 import { isk, monthlyFee, priceFrom } from "../content/pricing";
 import type { Dict } from "./is";
 
@@ -26,7 +25,7 @@ export const en: Dict = {
     titleStart: "You know something has to change. ",
     titleEm: "I know the way.",
     sub: "What takes time today runs itself tomorrow.",
-    lead: "I'm Einar, and I build websites, internal systems, AI agents and integrations for small and medium businesses. Fixed price, something usable every week, and you own the solution.",
+    lead: "Websites, internal systems, AI agents and integrations for small and medium businesses, and fixes that take a day. Fixed price, something usable every week, and you own the solution.",
     cta: "Get in touch",
   },
   ask: {
@@ -48,12 +47,14 @@ export const en: Dict = {
       "One project often solves two, for example an integration and a system together. We work that out in the first conversation.",
     noteUnknown:
       "When you don't know what's wrong, we start with the mapping. It ends with a map that says what is worth building.",
-    send: "Send to Einar",
+    send: "Get a fixed price",
+    priceNote: "Guide prices excl. VAT. There's always room to negotiate.",
     reply: "Reply within one working day.",
   },
   partsSection: {
     title: "Where do you want to go?",
-    body: "Four routes I know well, and one for when you don't know yet where you're going. The price is a starting point; every job gets its own fixed price before I start.",
+    body: "Four routes I know well, and one for when you don't know yet where you're going.",
+    deal: "These prices are a guide, not a rate card. Every job gets a fixed price before I start, and there's always room to negotiate: a smaller scope, the work in stages, or payments spread out.",
     note: `All prices excl. VAT. After handover I can host and maintain it for ${isk("en", monthlyFee)} a month if you want. That's optional.`,
   },
   parts: {
@@ -244,7 +245,7 @@ export const en: Dict = {
       {
         when: "In writing",
         title: "Fixed price",
-        body: "Scope and price on paper. Unclear problems get mapped first.",
+        body: "Scope and price on paper, agreed together. Unclear problems get mapped first.",
       },
       {
         when: "Weekly",
@@ -258,21 +259,29 @@ export const en: Dict = {
       },
     ],
   },
-  who: {
-    title: "Who's driving?",
-    lead: `I'm ${brand.ownerFullName}. I've been a developer at Maul since 2020 and take on work through Eggó. It's just me, so you always talk to the person who builds.`,
-    sideStart: "In my spare time I build things nobody asked for: ",
-    sideLink: "sól og bjór",
-    sideEnd: " ranks Reykjavík bars by the cheapest beer and where the sun is shining right now.",
-    motto: "Don't half-ass it.",
-    place: "Reykjavík",
-    intro: `I'm ${brand.ownerFullName}. I start with the problem, not the technology, and build the solution that fixes it.`,
+  small: {
+    title: "Nothing is too small.",
+    body: "If it solves a problem, it's worth building. Some of the best jobs take a day or two. For example:",
+    items: [
+      "A reminder that goes out by itself when an invoice is overdue.",
+      "A form on your site that lands straight in the sheet you already use.",
+      "The week's summary in your inbox on Monday morning, without anyone putting it together.",
+      "Web shop orders that find their own way into the books.",
+      "A booking button on your site that fills your calendar.",
+      "A quote built from a template in seconds.",
+    ],
+    note: "Small jobs get a fixed price too, in proportion to their size.",
+  },
+  about: {
+    intro: "I start with the problem, not the technology, and build the solution that fixes it.",
     aside:
       "The solution should fit how you work, not the other way round. So I start by understanding how the work gets done today, and I'll tell you if a simple change beats a new system.",
+    place: "Reykjavík",
     facts: [
       { term: "Based", detail: "Reykjavík" },
       { term: "Languages", detail: "Icelandic, English" },
-      { term: "Price", detail: "Fixed, agreed up front, excl. VAT. The starting points are negotiable" },
+      { term: "Size", detail: "From a one-day fix to a whole system" },
+      { term: "Price", detail: "Fixed, agreed up front, excl. VAT. Always open to negotiation" },
       { term: "Upkeep", detail: `Optional, ${isk("en", monthlyFee)} a month` },
       { term: "Reply", detail: "Within one working day" },
     ],
@@ -281,14 +290,17 @@ export const en: Dict = {
     smidi: "Routes",
     verk: "Work",
     ferli: "The trip",
-    hver: "About",
+    smatt: "Small jobs",
     samband: "Get in touch",
   },
   footer: {
     setIn: "Set in Overpass and Public Sans",
+    by: "Built by ",
+    byName: "Einar Guðni",
   },
   agent: {
     statusLabel: "Status",
+    aboutTitle: "About Eggó",
     emailLabel: "Email",
     otherLang: "Same content in Icelandic",
     contactTitle: "Get in touch",

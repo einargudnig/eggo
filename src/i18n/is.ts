@@ -1,5 +1,4 @@
 import type { PartId } from "../content/parts";
-import { brand } from "../content/brand";
 import { isk, monthlyFee, priceFrom } from "../content/pricing";
 import type { SectionId } from "../content/sections";
 import type { CaseId, Engagement, Gain, TroubleId } from "../content/work";
@@ -54,7 +53,7 @@ export const is = {
     titleStart: "Þú veist að eitthvað þarf að breytast. ",
     titleEm: "Ég rata.",
     sub: "Það sem tekur tíma í dag gengur sjálft á morgun.",
-    lead: "Ég heiti Einar og smíða vefsíður, innri kerfi, AI agents og tengingar fyrir lítil og meðalstór fyrirtæki. Fast verð, eitthvað nothæft í hverri viku, og þú átt lausnina.",
+    lead: "Vefsíður, innri kerfi, AI agents og tengingar fyrir lítil og meðalstór fyrirtæki, og lagfæringar sem taka einn dag. Fast verð, eitthvað nothæft í hverri viku, og þú átt lausnina.",
     cta: "Hafa samband",
   },
   ask: {
@@ -77,12 +76,14 @@ export const is = {
       "Oft leysir eitt verkefni tvennt, til dæmis tenging og kerfi saman. Við finnum það út í fyrsta samtali.",
     noteUnknown:
       "Þegar þú veist ekki hvað er að byrjum við á kortlagningunni. Út úr henni kemur kort sem segir hvað er rétt að smíða.",
-    send: "Senda Einari",
+    send: "Fá fast verð",
+    priceNote: "Viðmiðunarverð án vsk. Það er alltaf hægt að semja.",
     reply: "Svar innan eins vinnudags.",
   },
   partsSection: {
     title: "Hvert viltu komast?",
-    body: "Fjórar leiðir sem ég þekki vel, og ein fyrir þegar þú veist ekki enn hvert þú ert að fara. Verðið er upphafspunktur; hvert verk fær sitt fasta verð áður en ég byrja.",
+    body: "Fjórar leiðir sem ég þekki vel, og ein fyrir þegar þú veist ekki enn hvert þú ert að fara.",
+    deal: "Verðin eru viðmið, ekki verðskrá. Hvert verk fær fast verð áður en ég byrja, og það er alltaf hægt að semja: minna umfang, verkið í áföngum eða greiðslum dreift.",
     note: `Öll verð án vsk. Eftir afhendingu er valfrjálst að ég hýsi og haldi við fyrir ${isk("is", monthlyFee)} á mánuði.`,
   },
   parts: {
@@ -277,7 +278,7 @@ export const is = {
       {
         when: "Skriflegt",
         title: "Fast verð",
-        body: "Umfang og verð á blaði. Óljós vandamál eru kortlögð fyrst.",
+        body: "Umfang og verð á blaði, sem við semjum um saman. Óljós vandamál eru kortlögð fyrst.",
       },
       {
         when: "Vikulega",
@@ -291,21 +292,29 @@ export const is = {
       },
     ],
   },
-  who: {
-    title: "Hver keyrir?",
-    lead: `Ég heiti ${brand.ownerFullName}. Ég hef forritað hjá Maul síðan 2020 og tek að mér verk í gegnum Eggó. Ég er einn, svo þú talar alltaf við þann sem smíðar.`,
-    sideStart: "Í frítímanum smíða ég hluti sem enginn bað um: ",
-    sideLink: "sól og bjór",
-    sideEnd: " raðar börum Reykjavíkur eftir ódýrasta bjórnum og hvar sólin skín akkúrat núna.",
-    motto: "Ekkert hálfkák.",
-    place: "Reykjavík",
-    intro: `Ég heiti ${brand.ownerFullName}. Ég byrja á vandanum, ekki tækninni, og smíða lausnina sem leysir hann.`,
+  small: {
+    title: "Ekkert er of lítið.",
+    body: "Ef það leysir vandamál er það þess virði að smíða. Sum bestu verkin taka einn eða tvo daga. Til dæmis:",
+    items: [
+      "Áminning sem fer sjálf út þegar reikningur er kominn á eindaga.",
+      "Eyðublað á vefnum sem skilar sér beint í skjalið sem þú notar nú þegar.",
+      "Samantekt vikunnar í pósthólfinu á mánudagsmorgni, án þess að neinn taki hana saman.",
+      "Pantanir úr vefversluninni sem rata sjálfar í bókhaldið.",
+      "Bókunarhnappur á vefnum sem fyllir dagatalið þitt.",
+      "Tilboð sem verður til úr sniðmáti á nokkrum sekúndum.",
+    ],
+    note: "Lítil verk fá líka fast verð, í hlutfalli við stærðina.",
+  },
+  about: {
+    intro: "Ég byrja á vandanum, ekki tækninni, og smíða lausnina sem leysir hann.",
     aside:
       "Lausnin á að passa við hvernig þú vinnur, ekki öfugt. Þess vegna byrja ég á því að skilja hvernig verkið er unnið í dag, og segi þér ef einföld breyting dugar betur en nýtt kerfi.",
+    place: "Reykjavík",
     facts: [
       { term: "Staður", detail: "Reykjavík" },
       { term: "Mál", detail: "Íslenska, enska" },
-      { term: "Verð", detail: "Fast, samið fyrirfram, án VSK. Viðmiðin eru umsemjanleg" },
+      { term: "Stærð", detail: "Frá lagfæringu sem tekur dag upp í heilt kerfi" },
+      { term: "Verð", detail: "Fast, samið fyrirfram, án VSK. Alltaf hægt að semja" },
       { term: "Rekstur", detail: `Valfrjáls, ${isk("is", monthlyFee)} á mánuði` },
       { term: "Svar", detail: "Innan eins virks dags" },
     ],
@@ -314,14 +323,17 @@ export const is = {
     smidi: "Leiðir",
     verk: "Verk",
     ferli: "Ferðin",
-    hver: "Um",
+    smatt: "Lítil verk",
     samband: "Hafa samband",
   } satisfies Record<SectionId, string>,
   footer: {
     setIn: "Sett í Overpass og Public Sans",
+    by: "Smíðað af ",
+    byName: "Einari Guðna",
   },
   agent: {
     statusLabel: "Staða",
+    aboutTitle: "Um Eggó",
     emailLabel: "Netfang",
     otherLang: "Sama efni á ensku",
     contactTitle: "Hafa samband",

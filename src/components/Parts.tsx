@@ -55,6 +55,7 @@ export function Parts() {
             })}
           </ul>
         </div>
+        <p {...stylex.props(ui.subPlate, styles.deal)}>{t.partsSection.deal}</p>
         <p {...stylex.props(styles.note)}>{t.partsSection.note}</p>
       </div>
     </section>
@@ -118,6 +119,18 @@ const styles = stylex.create({
     fontSize: type.small,
     color: colors.signSoft,
     whiteSpace: "nowrap",
+  },
+  deal: {
+    marginTop: space.s3,
+    marginBottom: 0,
+    marginInline: { default: space.s7, [media.phone]: 0 },
+    paddingBlock: space.s4,
+    paddingInline: { default: space.s6, [media.phone]: space.s4 },
+    fontFamily: fonts.sign,
+    fontWeight: 700,
+    fontSize: { default: "20px", [media.phone]: "18px" },
+    lineHeight: 1.35,
+    textWrap: "pretty",
   },
   note: { marginTop: space.s5, marginBottom: 0, color: colors.muted, fontSize: type.small, maxWidth: "46em" },
 });

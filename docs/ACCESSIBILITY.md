@@ -55,14 +55,14 @@ Not yet tested: real VoiceOver (macOS + iOS) and TalkBack runs. They're needed b
 
 ## 3. Keyboard: the verified paths
 
-**Tab order (desktop):** skip link → wordmark → 4 section links → other language → theme switch → 5 symptom checkboxes → "Senda Einari" → work log links → note links → work order (email link, Nafn, Netfang, 5 destinations, message, send).
+**Tab order (desktop):** skip link → wordmark → 4 section links → other language → theme switch → 5 symptom checkboxes → "Fá fast verð" → work log links → work order (email link, Nafn, Netfang, 5 destinations, message, send).
 
 **Phone:** the section links are hidden; otherwise the same.
 
 | Path | Expected | Verified |
 |---|---|---|
 | Space on a symptom | ticks it, the route summary updates and is announced, the matching destination is pre-ticked in the work order | ✅ |
-| "Senda Einari" | scrolls to the work order, focus on Nafn | ✅ |
+| "Fá fast verð" | scrolls to the work order, focus on Nafn | ✅ |
 | Submit empty form | 3 fields `aria-invalid`, focus on Nafn, error announced | ✅ |
 | Submit bad email | only email invalid, focus on email | ✅ |
 | Submit valid | focus on "Verkbeiðni móttekin" | ✅ |
@@ -75,7 +75,7 @@ Not yet tested: real VoiceOver (macOS + iOS) and TalkBack runs. They're needed b
 2. **Don't borrow ARIA patterns half-way.** Tabs, menus and listboxes come with keyboard contracts. If you're not going to implement arrow keys and panels, use buttons + `aria-current`.
 3. **Decoration is `aria-hidden`:** the junction drawing, sign arrows, the road band and its dashes, warning triangles. If a drawing says something, say it in text next to it.
 4. **Off-screen means `inert`.** Anything translated out of view (a future drawer or sticky bar) leaves the tab order.
-5. **Focus follows intent.** Any action that moves the viewport moves focus with it ("Senda Einari", form errors, form result).
+5. **Focus follows intent.** Any action that moves the viewport moves focus with it ("Fá fast verð", form errors, form result).
 6. **Part codes are visual.** Where numbers like "03" show, they're spoken as the part's name.
 7. **Heading outline:** one `h1` (hero), `h2` per section, `h3` inside.
 8. **Forced colours:** states shown only by fill (ticked symptom, ticked destination, switch knob) get an outline or underline in `@media (forced-colors: active)`.

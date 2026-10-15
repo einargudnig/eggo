@@ -6,7 +6,6 @@ export const brand = {
   ownerFullName: "Einar Guðni",
   ownerSite: "https://einargudni.com",
   github: "https://github.com/einargudnig",
-  sideProject: "https://sologbjor.einargudni.com",
   email: "eggo@eggo.is",
   url: "https://eggo.is",
   city: "RVK",

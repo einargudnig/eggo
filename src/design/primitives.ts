@@ -62,4 +62,13 @@ export const ui = stylex.create({
     borderColor: colors.signInk,
     borderRadius: layout.signInnerRadius,
   },
+  /** A supplementary plate (undirmerki): white with a dark border. Small print that matters, and small jobs. */
+  subPlate: {
+    backgroundColor: colors.page,
+    color: colors.ink,
+    borderWidth: "3px",
+    borderStyle: "solid",
+    borderColor: colors.ink,
+    borderRadius: "10px",
+  },
 });

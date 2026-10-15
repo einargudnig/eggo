@@ -17,7 +17,7 @@ type Props = {
   onSend: () => void;
 };
 
-/** The hero: who, what, and "where are you?" — tick symptoms, the sign lights the way and the summary prices it. */
+/** The hero: what, and "where are you?" — tick symptoms, the sign lights the way and the summary prices it. */
 export function Hero({ picked, route, onToggle, onSend }: Props) {
   const { t } = useLang();
   const first = picked[0];
@@ -115,6 +115,7 @@ function Trip({ route, onSend }: { route: readonly PartId[]; onSend: () => void 
           </ul>
         )}
         {note ? <p {...stylex.props(styles.note)}>{note}</p> : null}
+        {route.length > 0 ? <p {...stylex.props(styles.priceNote)}>{t.trip.priceNote}</p> : null}
       </div>
       <div {...stylex.props(styles.go)}>
         <ButtonLink
@@ -252,6 +253,13 @@ const styles = stylex.create({
     whiteSpace: "nowrap",
   },
   note: { marginTop: space.s3, marginBottom: 0, color: colors.muted, fontSize: type.fine },
+  priceNote: {
+    marginTop: space.s3,
+    marginBottom: 0,
+    fontFamily: fonts.sign,
+    fontWeight: 700,
+    fontSize: type.fine,
+  },
   go: {
     marginTop: space.s5,
     display: "flex",

@@ -22,9 +22,9 @@ test("ticking a symptom prices the route and pre-ticks the work order", async ({
   await expect(page.getByRole("checkbox", { name: "Innra kerfi" })).toBeChecked();
 });
 
-test("send to Einar moves focus to the work order", async ({ page }) => {
+test("get a fixed price moves focus to the work order", async ({ page }) => {
   await page.goto("/");
-  await page.getByRole("link", { name: "Senda Einari" }).click();
+  await page.getByRole("link", { name: "Fá fast verð" }).click();
   await expect(page.getByLabel("Nafn")).toBeFocused();
 });
 

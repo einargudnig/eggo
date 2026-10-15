@@ -13,7 +13,9 @@ A1 shipped and looked good, but it read as generated: another developer's portfo
 
 Four new directions were mocked up: **Auglýsing** (newsprint classifieds), **Bréf** (a letter), **Vegvísir** (Icelandic road signs) and **Tilboð** (a quote builder). The choice was Vegvísir as the base with Tilboð's symptom picker in the hero: a borrowed public visual language (Vegagerðin's blue signs) that no template uses, and a hero that does something (tick what's wrong, see the route, time and price) instead of describing it. Auglýsing is worth keeping for the 404 or social videos.
 
-What would make it more unmistakably Einar's, in order: a licensed Transport-style face, his handwriting for the sign-off, and real screenshots in the work log. A photo was ruled out (decision 2026-10-15: About is name and links only).
+Second pass, same day: the site is about the work and the possible solutions, not about Einar. The bio section went; a "nothing is too small" section and a visible "prices are a guide, always negotiable" plate came in. A plain fallback design lives on the `minimal` branch.
+
+What would make it more distinctive, in order: a licensed Transport-style face and real screenshots in the work log.
 
 ## 1. Brief
 
