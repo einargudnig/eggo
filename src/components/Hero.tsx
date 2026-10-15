@@ -6,6 +6,7 @@ import { media } from "../design/media.stylex";
 import { ui } from "../design/primitives";
 import { colors, fonts, layout, motion, space, type } from "../design/tokens.stylex";
 import { useLang } from "../i18n/useLang";
+import { BuildFigure } from "./BuildFigure";
 import { ButtonLink } from "./Button";
 
 type Props = {
@@ -21,12 +22,15 @@ export function Hero({ picked, route, onToggle, onSend }: Props) {
   const { t } = useLang();
   return (
     <div {...stylex.props(ui.wrap, styles.hero)}>
-      <div>
-        <h1 {...stylex.props(styles.title)}>
-          {t.hero.titleStart}
-          {t.hero.titleEm}
-        </h1>
-        <p {...stylex.props(styles.lead)}>{t.hero.lead}</p>
+      <div {...stylex.props(styles.top)}>
+        <div>
+          <h1 {...stylex.props(styles.title)}>
+            {t.hero.titleStart}
+            {t.hero.titleEm}
+          </h1>
+          <p {...stylex.props(styles.lead)}>{t.hero.lead}</p>
+        </div>
+        <BuildFigure lit={route} />
       </div>
 
       <div {...stylex.props(styles.tool)}>
@@ -142,6 +146,12 @@ const styles = stylex.create({
   hero: {
     paddingTop: { default: space.s9, [media.phone]: space.s7 },
     paddingBottom: { default: space.s9, [media.phone]: space.s8 },
+  },
+  top: {
+    display: "grid",
+    gridTemplateColumns: { default: "minmax(0, 1fr) minmax(0, 1fr)", [media.tablet]: "minmax(0, 1fr)" },
+    gap: { default: space.s8, [media.tablet]: space.s7 },
+    alignItems: "center",
   },
   title: {
     margin: 0,

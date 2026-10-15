@@ -28,6 +28,11 @@ export const en: Dict = {
     lead: "Websites, internal systems, AI agents and integrations for small and medium businesses, and fixes that take a day. Fixed price, something usable every week, and you own the solution.",
     cta: "Get in touch",
   },
+  figure: {
+    caption: "Fig. 1 — a typical build",
+    count: "05 parts",
+    wires: { post: "POST", webhook: "webhook", api: "API" },
+  },
   ask: {
     legend: "What sounds familiar?",
     hint: "Tick what applies to see what I'd build, how long it takes and what it costs.",
@@ -66,6 +71,7 @@ export const en: Dict = {
       sign: "Website",
       time: "2–4 weeks",
       owns: "You own the code, the design and the domain.",
+      detail: "eggo.is/contact",
     },
     "02": {
       name: "Systems",
@@ -81,6 +87,7 @@ export const en: Dict = {
       sign: "Internal system",
       time: "4–8 weeks",
       owns: "You own the code, the data and the hosting.",
+      detail: "Orders · 1,284 rows",
     },
     "03": {
       name: "AI agents",
@@ -96,6 +103,7 @@ export const en: Dict = {
       sign: "AI agent",
       time: "2–6 weeks",
       owns: "You own the code, the prompts and the evals.",
+      detail: "Sorts invoices → DK",
     },
     "04": {
       name: "Integrations",
@@ -111,6 +119,7 @@ export const en: Dict = {
       sign: "Integrations",
       time: "1–3 weeks",
       owns: "You own the code and the documentation.",
+      detail: "Slack · Asana · DK",
     },
     "05": {
       name: "Not sure yet",
@@ -126,6 +135,7 @@ export const en: Dict = {
       sign: "Not sure yet",
       time: "1 week",
       owns: "You own the map, even if someone else builds it.",
+      detail: "TBD",
     },
   },
   work: {

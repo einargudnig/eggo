@@ -26,6 +26,8 @@ type PartCopy = {
   sign: string;
   time: string;
   owns: string;
+  /** One example line inside the part's box in the hero figure. */
+  detail: string;
 };
 
 /** Icelandic is the source language. `en.ts` must match this shape exactly (see `Dict`). */
@@ -55,6 +57,11 @@ export const is = {
     sub: "Það sem tekur tíma í dag gengur sjálft á morgun.",
     lead: "Vefsíður, innri kerfi, AI agents og tengingar fyrir lítil og meðalstór fyrirtæki, og lagfæringar sem taka einn dag. Fast verð, eitthvað nothæft í hverri viku, og þú átt lausnina.",
     cta: "Hafa samband",
+  },
+  figure: {
+    caption: "Mynd 1 — dæmigerð smíði",
+    count: "05 hlutar",
+    wires: { post: "POST", webhook: "webhook", api: "API" },
   },
   ask: {
     legend: "Hvað kannastu við?",
@@ -95,6 +102,7 @@ export const is = {
       sign: "Vefsíða",
       time: "2–4 vikur",
       owns: "Þú átt kóðann, hönnunina og lénið.",
+      detail: "eggo.is/samband",
     },
     "02": {
       name: "Kerfi",
@@ -110,6 +118,7 @@ export const is = {
       sign: "Innra kerfi",
       time: "4–8 vikur",
       owns: "Þú átt kóðann, gögnin og hýsinguna.",
+      detail: "Pantanir · 1.284 færslur",
     },
     "03": {
       name: "AI agents",
@@ -125,6 +134,7 @@ export const is = {
       sign: "AI agent",
       time: "2–6 vikur",
       owns: "Þú átt kóðann, fyrirmælin og prófin.",
+      detail: "Flokkar reikninga → DK",
     },
     "04": {
       name: "Tengingar",
@@ -140,6 +150,7 @@ export const is = {
       sign: "Tengingar",
       time: "1–3 vikur",
       owns: "Þú átt kóðann og skjölunina.",
+      detail: "Slack · Asana · DK",
     },
     "05": {
       name: "Óskilgreint",
@@ -155,6 +166,7 @@ export const is = {
       sign: "Veit ekki enn",
       time: "1 vika",
       owns: "Þú átt kortið, líka ef einhver annar smíðar.",
+      detail: "Óljóst",
     },
   } satisfies Record<PartId, PartCopy>,
   work: {
