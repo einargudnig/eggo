@@ -12,6 +12,7 @@ export const en: Dict = {
     mainNav: "Main menu",
     darkMode: "Dark mode",
     home: "Eggó, front page",
+    tripBar: "Suggestion at a glance",
   },
   notFound: {
     title: "Page not found",
@@ -47,6 +48,7 @@ export const en: Dict = {
     noteUnknown:
       "When you don't know what's wrong, we start with the mapping. It ends with a map that says what is worth building.",
     send: "Get a fixed price",
+    sendShort: "Get a price",
     priceNote: "Guide prices excl. VAT. There's always room to negotiate.",
     reply: "Reply within one working day.",
   },

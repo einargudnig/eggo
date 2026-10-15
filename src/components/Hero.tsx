@@ -8,6 +8,7 @@ import { colors, fonts, layout, motion, space, type } from "../design/tokens.sty
 import { useLang } from "../i18n/useLang";
 import { BuildFigure } from "./BuildFigure";
 import { ButtonLink } from "./Button";
+import { PhoneBar } from "./PhoneBar";
 
 type Props = {
   picked: readonly TroubleId[];
@@ -69,6 +70,7 @@ export function Hero({ picked, route, onToggle, onSend }: Props) {
           </ul>
         </fieldset>
         <Summary route={route} onSend={onSend} />
+        <PhoneBar route={route} onSend={onSend} />
       </div>
     </div>
   );
@@ -82,7 +84,7 @@ function Summary({ route, onSend }: { route: readonly PartId[]; onSend: () => vo
   const note = unknown ? t.trip.noteUnknown : builds.length > 1 ? t.trip.noteMany : null;
 
   return (
-    <section aria-labelledby="h-trip" {...stylex.props(ui.card, styles.summary)}>
+    <section id="tillaga" aria-labelledby="h-trip" {...stylex.props(ui.card, ui.anchor, styles.summary)}>
       <h2 id="h-trip" {...stylex.props(styles.summaryTitle)}>
         {t.trip.title}
       </h2>

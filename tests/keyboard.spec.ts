@@ -28,6 +28,18 @@ test("get a fixed price moves focus to the work order", async ({ page }) => {
   await expect(page.getByLabel("Nafn")).toBeFocused();
 });
 
+test("phone: the suggestion bar follows the reader and leads to the work order", async ({ page }) => {
+  test.skip((page.viewportSize()?.width ?? 0) > 760, "the bar is phone-only");
+  await page.goto("/");
+  const bar = page.getByRole("complementary", { name: "Tillaga í stuttu máli" });
+  await page.getByRole("checkbox", { name: /Excel-skjali/ }).check();
+  await page.locator("#ferli").scrollIntoViewIfNeeded();
+  await expect(bar).toContainText("Innra kerfi");
+  await bar.getByRole("button", { name: /Fá verð/ }).click();
+  await expect(page.getByLabel("Nafn")).toBeFocused();
+  await expect(bar).toHaveCount(0);
+});
+
 test("work order: errors are tied to fields, receipt takes focus", async ({ page }) => {
   test.skip(Boolean(process.env["PLAYWRIGHT_BASE_URL"]), "a deployed copy would send a real email");
   await page.goto("/");

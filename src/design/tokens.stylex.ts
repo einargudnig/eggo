@@ -18,6 +18,8 @@ export const colors = stylex.defineVars({
   control: "light-dark(#878F8B, #6E7672)",
   accent: "light-dark(#2F5D50, #8FBFAE)",
   accentInk: "light-dark(#FFFFFF, #121413)",
+  /** Soft lift for the one floating element, the phone suggestion bar. */
+  shadow: "light-dark(rgb(0 0 0 / 0.06), rgb(0 0 0 / 0.4))",
 });
 
 export const fonts = stylex.defineVars({

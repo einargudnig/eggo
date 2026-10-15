@@ -42,6 +42,7 @@ export const is = {
     mainNav: "Aðalvalmynd",
     darkMode: "Myrkur hamur",
     home: "Eggó, forsíða",
+    tripBar: "Tillaga í stuttu máli",
   },
   notFound: {
     title: "Þessi síða fannst ekki",
@@ -78,6 +79,7 @@ export const is = {
     noteUnknown:
       "Þegar þú veist ekki hvað er að byrjum við á kortlagningunni. Út úr henni kemur kort sem segir hvað er rétt að smíða.",
     send: "Fá fast verð",
+    sendShort: "Fá verð",
     priceNote: "Viðmiðunarverð án vsk. Það er alltaf hægt að semja.",
     reply: "Svar innan eins vinnudags.",
   },

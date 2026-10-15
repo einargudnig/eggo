@@ -11,7 +11,8 @@ This branch is the plain fallback for the Vegvísir design on `vegvisir`: same c
 - **Motion** (one thread, expo-out `cubic-bezier(.16,1,.3,1)`): ticking a symptom draws the tick (180ms), unrolls the new line into the summary from its top edge (320ms, clip-path + 6px), and lights that part's square in its drawing down the page (400ms), so the picker, the summary and the services list read as one thing. Buttons nudge their arrow 3px on hover. The theme switch reveals the new theme as a circle from the switch (View Transitions, 520ms). Reduced motion removes all of it.
 - **Browser surfaces:** selection, caret, native controls and scrollbars take the palette (`--selection` on body feeds `::selection` in global.css).
 - **Copy:** the road metaphors are swapped for plain words ("Hugbúnaður sem leysir það sem tefur þig.", "Það sem ég smíða", "Svona vinn ég", "Tillaga").
-- **Still to do:** OG and social images still show the Vegvísir sign; the favicon is a plain "e" on the accent.
+- **Phone suggestion bar** (`PhoneBar`): once something is ticked, a bar at the bottom shows "Tillaga · n", the part names and "Fá verð →" while neither the summary card nor the work order is on screen. Unmounted, not hidden, when not needed.
+- **Share images and icons:** `bun scripts/brand-images.ts` renders the OG images (headline plus the four parts as boxes, 03 in the accent), the social logo and the touch icon from the dictionaries, light tokens and self-hosted fonts. The favicon is the same 2×2 of boxes with one filled, and follows the OS theme.
 
 ---
 
