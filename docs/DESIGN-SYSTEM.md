@@ -12,6 +12,7 @@ Shipped 2026-10-15. Same content, structure, symptom picker and accessibility as
 - **Browser surfaces:** selection, caret, native controls and scrollbars take the palette (`--selection` on body feeds `::selection` in global.css).
 - **Copy:** the road metaphors are swapped for plain words ("Hugbúnaður sem leysir það sem tefur þig.", "Það sem ég smíða", "Svona vinn ég", "Tillaga").
 - **Phone suggestion bar** (`PhoneBar`): once something is ticked, a bar at the bottom shows "Tillaga · n", the part names and "Fá verð →" while neither the summary card nor the work order is on screen. Unmounted, not hidden, when not needed.
+- **Wordmark** (`Wordmark`, geometry in `src/design/wordmark.ts`): "eggo" drawn from Public Sans Bold outlines, tracked in by 70 units, with the ó's accent replaced by a slanted block in the accent colour (chosen 2026-10-15 over plain, tight, boxed and mark-plus-word versions). Letters take `currentColor`; the block goes `currentColor` in forced colours. 26px tall in the top bar, 24 on phones. No separate symbol: the favicon's 2×2 of boxes does that job. The geometry is generated with fontTools; regenerate it if the font file changes.
 - **Share images and icons:** `bun scripts/brand-images.ts` renders the OG images (headline plus the four parts as boxes, 03 in the accent), the social logo and the touch icon from the dictionaries, light tokens and self-hosted fonts. The favicon is the same 2×2 of boxes with one filled, and follows the OS theme.
 
 ---

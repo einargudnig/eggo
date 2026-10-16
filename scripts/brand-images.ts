@@ -43,7 +43,7 @@ body { background: ${c.page}; color: ${c.ink}; font-family: "Public Sans", sans-
   text-rendering: geometricPrecision; }
 .label { font: 500 22px "JetBrains Mono", monospace; letter-spacing: .06em; text-transform: uppercase; color: ${c.muted}; }
 .label b { color: ${c.ink}; font-weight: 700; }
-.mark { display: block; flex: none; align-self: flex-start; overflow: visible; }
+.mark { display: block; flex: none; align-self: flex-start; overflow: visible; shape-rendering: geometricPrecision; }
 `;
 
 /** The hero figure's four parts as a 2×2 of outlined boxes; `lit` gets the accent outline, like a ticked symptom. */
@@ -78,7 +78,7 @@ const square = (size: number, scale: number) => `<style>${css}
 .dots i { height: ${28 * scale}px; border: ${Math.max(2, 4 * scale)}px solid ${c.ink}; }
 .dots i:last-child { background: ${c.accent}; border-color: ${c.accent}; }
 </style>
-<div class="sq"><div class="in">${mark(300 * scale)}<div class="dots"><i></i><i></i><i></i><i></i></div></div></div>`;
+<div class="sq"><div class="in">${mark(Math.round(size * 0.28))}<div class="dots"><i></i><i></i><i></i><i></i></div></div></div>`;
 
 const shots: { file: string; html: string; w: number; h: number }[] = [
   { file: "og-is.png", html: og(is), w: 1200, h: 630 },
