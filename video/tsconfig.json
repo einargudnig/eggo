@@ -14,5 +14,5 @@
     "noEmit": true,
     "types": ["node"]
   },
-  "include": ["src", "render.ts", "../src/i18n", "../src/content"]
+  "include": ["src", "render.ts", "../src/i18n", "../src/content", "../src/design/wordmark.ts"]
 }

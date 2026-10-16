@@ -1,7 +1,7 @@
 import { cases, clientLabel, type CaseId } from "../../src/content/work";
 import { getDict, type Lang } from "../../src/i18n";
 import { videoCopy } from "./copy";
-import { Body, END_FRAMES, EndCard, Label, Page, PartTag, Reveal, type Scene, Title } from "./kit";
+import { Body, END_FRAMES, EndCard, Label, Page, PartCode, Reveal, type Scene, Title } from "./kit";
 import { colors, readFrames, space } from "./theme";
 
 /** One work row as a short: the case, the problem, what was built, the number. Posts 2, 3, 5 and 7. */
@@ -11,7 +11,7 @@ export const caseScenes = (id: CaseId, lang: Lang): Scene[] => {
   const tag = (
     <div style={{ display: "flex", alignItems: "center", gap: space.small }}>
       <Label ink>{clientLabel(id, t.work.engagements)}</Label>
-      <PartTag id={cases[id].part} />
+      <PartCode id={cases[id].part} />
     </div>
   );
 
@@ -40,7 +40,7 @@ export const caseScenes = (id: CaseId, lang: Lang): Scene[] => {
             <Label>{videoCopy[lang].hookCase}</Label>
           </Reveal>
           <Reveal at={6}>
-            <Title size={104}>{c.name}</Title>
+            <Title size={100}>{c.name}</Title>
           </Reveal>
         </Page>
       ),
@@ -58,9 +58,9 @@ export const caseScenes = (id: CaseId, lang: Lang): Scene[] => {
           <Reveal at={6}>
             <div
               style={{
-                fontSize: 260,
-                fontWeight: 800,
-                lineHeight: 0.9,
+                fontSize: 240,
+                fontWeight: 600,
+                lineHeight: 0.95,
                 letterSpacing: "-0.05em",
                 color: colors.accent,
                 fontVariantNumeric: "tabular-nums",
@@ -73,7 +73,7 @@ export const caseScenes = (id: CaseId, lang: Lang): Scene[] => {
             <Title size={56}>{c.metricNote}</Title>
           </Reveal>
           <Reveal at={30}>
-            <Label>{t.work.readMore}</Label>
+            <Body muted>{c.outcome}</Body>
           </Reveal>
         </Page>
       ),

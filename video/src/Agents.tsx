@@ -40,8 +40,9 @@ const terminalFrames = clock + FPS * 2;
 const Terminal = () => (
   <div
     style={{
-      background: colors.contactBg,
-      color: colors.contactFg,
+      background: colors.darkPage,
+      color: colors.darkInk,
+      borderRadius: 18,
       fontFamily: fonts.mono,
       fontSize: 30,
       lineHeight: 1.5,
@@ -54,13 +55,13 @@ const Terminal = () => (
     {termLines.map((line) => (
       <div
         key={line.text}
-        style={{ color: line.cmd ? colors.contactFg : colors.contactMuted, whiteSpace: "pre", minHeight: 45 }}
+        style={{ color: line.cmd ? colors.darkInk : colors.darkMuted, whiteSpace: "pre", minHeight: 45 }}
       >
         {line.cmd ? (
           <Typed text={line.text} at={line.at} cps={CPS} />
         ) : (
           <Reveal at={line.at}>
-            <span style={line.text.startsWith("→") ? { color: colors.accent } : {}}>{line.text}</span>
+            <span style={line.text.startsWith("→") ? { color: colors.darkAccent } : {}}>{line.text}</span>
           </Reveal>
         )}
       </div>
@@ -80,7 +81,7 @@ export const agentsScenes = (lang: Lang): Scene[] => {
       node: (
         <Page t={t} tag={tag}>
           <Reveal>
-            <Title size={112}>{copy.agentsHook}</Title>
+            <Title size={108}>{copy.agentsHook}</Title>
           </Reveal>
         </Page>
       ),
