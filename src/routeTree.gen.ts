@@ -18,6 +18,7 @@ import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as Char123LangChar125RouteImport } from './routes/{-$lang}'
 import { Route as ApiWorkOrderRouteImport } from './routes/api/work-order'
 import { Route as Char123LangChar125IndexRouteImport } from './routes/{-$lang}/index'
+import { Route as Char123LangChar125VerkRouteImport } from './routes/{-$lang}/verk'
 
 const EnDotmdRoute = EnDotmdRouteImport.update({
   id: '/en.md',
@@ -64,6 +65,11 @@ const Char123LangChar125IndexRoute = Char123LangChar125IndexRouteImport.update({
   path: '/',
   getParentRoute: () => Char123LangChar125Route,
 } as any)
+const Char123LangChar125VerkRoute = Char123LangChar125VerkRouteImport.update({
+  id: '/verk',
+  path: '/verk',
+  getParentRoute: () => Char123LangChar125Route,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/en.md': typeof EnDotmdRoute
@@ -74,6 +80,7 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/{-$lang}': typeof Char123LangChar125RouteWithChildren
   '/api/work-order': typeof ApiWorkOrderRoute
+  '/{-$lang}/verk': typeof Char123LangChar125VerkRoute
   '/{-$lang}/': typeof Char123LangChar125IndexRoute
 }
 export interface FileRoutesByTo {
@@ -84,6 +91,7 @@ export interface FileRoutesByTo {
   '/mcp': typeof McpRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/work-order': typeof ApiWorkOrderRoute
+  '/{-$lang}/verk': typeof Char123LangChar125VerkRoute
   '/{-$lang}': typeof Char123LangChar125IndexRoute
 }
 export interface FileRoutesById {
@@ -96,6 +104,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/{-$lang}': typeof Char123LangChar125RouteWithChildren
   '/api/work-order': typeof ApiWorkOrderRoute
+  '/{-$lang}/verk': typeof Char123LangChar125VerkRoute
   '/{-$lang}/': typeof Char123LangChar125IndexRoute
 }
 export interface FileRouteTypes {
@@ -109,6 +118,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/{-$lang}'
     | '/api/work-order'
+    | '/{-$lang}/verk'
     | '/{-$lang}/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -119,6 +129,7 @@ export interface FileRouteTypes {
     | '/mcp'
     | '/sitemap.xml'
     | '/api/work-order'
+    | '/{-$lang}/verk'
     | '/{-$lang}'
   id:
     | '__root__'
@@ -130,6 +141,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/{-$lang}'
     | '/api/work-order'
+    | '/{-$lang}/verk'
     | '/{-$lang}/'
   fileRoutesById: FileRoutesById
 }
@@ -209,14 +221,23 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LangChar125IndexRouteImport
       parentRoute: typeof Char123LangChar125Route
     }
+    '/{-$lang}/verk': {
+      id: '/{-$lang}/verk'
+      path: '/verk'
+      fullPath: '/{-$lang}/verk'
+      preLoaderRoute: typeof Char123LangChar125VerkRouteImport
+      parentRoute: typeof Char123LangChar125Route
+    }
   }
 }
 
 interface Char123LangChar125RouteChildren {
+  Char123LangChar125VerkRoute: typeof Char123LangChar125VerkRoute
   Char123LangChar125IndexRoute: typeof Char123LangChar125IndexRoute
 }
 
 const Char123LangChar125RouteChildren: Char123LangChar125RouteChildren = {
+  Char123LangChar125VerkRoute: Char123LangChar125VerkRoute,
   Char123LangChar125IndexRoute: Char123LangChar125IndexRoute,
 }
 

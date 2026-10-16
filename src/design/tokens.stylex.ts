@@ -30,6 +30,8 @@ const PHONE = "@media (max-width: 760px)";
 
 export const type = stylex.defineVars({
   display: { default: "clamp(44px, 6.2vw, 88px)", [PHONE]: "clamp(34px, 9.6vw, 42px)" },
+  /** The work page's numbers: each case is led by the one figure that changed. Larger than the display headline on purpose. */
+  monument: { default: "clamp(72px, 10vw, 144px)", [PHONE]: "clamp(64px, 20vw, 88px)" },
   h2: { default: "clamp(28px, 3vw, 40px)", [PHONE]: "28px" },
   h3: "20px",
   lead: { default: "20px", [PHONE]: "18px" },

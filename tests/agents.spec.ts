@@ -32,14 +32,16 @@ test("sitemap lists both languages and robots.txt points at it", async ({ reques
   const sitemap = await (await request.get("/sitemap.xml")).text();
   expect(sitemap).toContain("<loc>https://eggo.is/</loc>");
   expect(sitemap).toContain("<loc>https://eggo.is/en</loc>");
+  expect(sitemap).toContain("<loc>https://eggo.is/verk</loc>");
+  expect(sitemap).toContain("<loc>https://eggo.is/en/verk</loc>");
   const robots = await (await request.get("/robots.txt")).text();
   expect(robots).toContain("Sitemap: https://eggo.is/sitemap.xml");
 });
 
-for (const path of ["/", "/en"]) {
+for (const path of ["/", "/en", "/verk", "/en/verk"]) {
   test(`head carries canonical, OG and valid JSON-LD: ${path}`, async ({ page }) => {
     await page.goto(path);
-    const canonical = path === "/" ? "https://eggo.is/" : "https://eggo.is/en";
+    const canonical = path === "/" ? "https://eggo.is/" : `https://eggo.is${path}`;
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", canonical);
     await expect(page.locator('meta[property="og:image"]')).toHaveAttribute("content", /og-(is|en)\.png$/);
     await expect(page.locator('link[rel="alternate"][type="text/markdown"]')).toHaveCount(1);

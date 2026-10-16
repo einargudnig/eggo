@@ -7,20 +7,13 @@ import { useLang } from "../i18n/useLang";
 
 type Box = { x: number; y: number; w: number; h: number };
 
-/** Desktop: four parts in a loop around the undefined one. Phone: a vertical chain. */
-const desk: Record<PartId, Box> = {
+/** Four parts in a loop around the undefined one. Not shown on phones: the services list says the same. */
+const boxes: Record<PartId, Box> = {
   "01": { x: 10, y: 22, w: 216, h: 96 },
   "02": { x: 294, y: 22, w: 216, h: 96 },
   "03": { x: 294, y: 212, w: 216, h: 96 },
   "04": { x: 10, y: 212, w: 216, h: 96 },
   "05": { x: 196, y: 140, w: 128, h: 50 },
-};
-const phone: Record<PartId, Box> = {
-  "01": { x: 10, y: 10, w: 320, h: 64 },
-  "02": { x: 10, y: 100, w: 320, h: 64 },
-  "03": { x: 10, y: 190, w: 320, h: 64 },
-  "04": { x: 10, y: 280, w: 320, h: 64 },
-  "05": { x: 10, y: 376, w: 320, h: 56 },
 };
 
 /**
@@ -31,7 +24,7 @@ export function BuildFigure({ lit }: { lit: readonly PartId[] }) {
   const { t } = useLang();
   const dimmed = (id: PartId) => lit.length > 0 && !lit.includes(id);
 
-  const node = (id: PartId, b: Box, compact: boolean) => {
+  const node = (id: PartId, b: Box) => {
     const unknown = !parts[id].defined;
     return (
       <g key={id} {...stylex.props(styles.node, dimmed(id) && styles.off)}>
@@ -58,15 +51,10 @@ export function BuildFigure({ lit }: { lit: readonly PartId[] }) {
           </>
         ) : (
           <>
-            <text x={b.x + 14} y={b.y + (compact ? 40 : 44)} {...stylex.props(styles.name)}>
+            <text x={b.x + 14} y={b.y + 44} {...stylex.props(styles.name)}>
               {t.parts[id].short}
             </text>
-            <text
-              x={compact ? b.x + b.w - 14 : b.x + 14}
-              y={compact ? b.y + 39 : b.y + 70}
-              textAnchor={compact ? "end" : "start"}
-              {...stylex.props(styles.detail)}
-            >
+            <text x={b.x + 14} y={b.y + 70} {...stylex.props(styles.detail)}>
               {t.parts[id].detail}
             </text>
           </>
@@ -82,7 +70,7 @@ export function BuildFigure({ lit }: { lit: readonly PartId[] }) {
         <span {...stylex.props(ui.label)}>{t.figure.count}</span>
       </figcaption>
 
-      <svg viewBox="0 0 520 330" {...stylex.props(styles.svg, styles.desk)}>
+      <svg viewBox="0 0 520 330" {...stylex.props(styles.svg)}>
         <path d="M226 70 H294" {...stylex.props(styles.wire)} />
         <path d="M398 118 V212" {...stylex.props(styles.wire, styles.wire2)} />
         <path d="M294 260 H226" {...stylex.props(styles.wire, styles.wire3)} />
@@ -99,13 +87,7 @@ export function BuildFigure({ lit }: { lit: readonly PartId[] }) {
         <text x="260" y="250" textAnchor="middle" {...stylex.props(styles.wireLabel)}>
           {t.figure.wires.api}
         </text>
-        {partIds.map((id) => node(id, desk[id], false))}
-      </svg>
-
-      <svg viewBox="0 0 340 442" {...stylex.props(styles.svg, styles.phone)}>
-        <path d="M170 74 V100 M170 164 V190 M170 254 V280" {...stylex.props(styles.wire)} />
-        <path d="M170 344 V376" {...stylex.props(styles.stub)} />
-        {partIds.map((id) => node(id, phone[id], true))}
+        {partIds.map((id) => node(id, boxes[id]))}
       </svg>
     </figure>
   );
@@ -115,7 +97,12 @@ export function BuildFigure({ lit }: { lit: readonly PartId[] }) {
 const draw = stylex.keyframes({ from: { strokeDashoffset: 120 }, to: { strokeDashoffset: 0 } });
 
 const styles = stylex.create({
-  figure: { margin: 0, width: "100%", maxWidth: { default: null, [media.tablet]: "560px" } },
+  figure: {
+    display: { default: "block", [media.phone]: "none" },
+    margin: 0,
+    width: "100%",
+    maxWidth: { default: null, [media.tablet]: "560px" },
+  },
   cap: { display: "flex", justifyContent: "space-between", gap: space.s4, marginBottom: space.s4 },
   svg: {
     display: "block",
@@ -124,8 +111,6 @@ const styles = stylex.create({
     overflow: "visible",
     shapeRendering: "geometricPrecision",
   },
-  desk: { display: { default: "block", [media.phone]: "none" } },
-  phone: { display: { default: "none", [media.phone]: "block" } },
   node: { transitionProperty: "opacity", transitionDuration: "300ms", transitionTimingFunction: motion.ease },
   off: { opacity: 0.32 },
   rect: {

@@ -150,6 +150,7 @@ export const en: Dict = {
     gains: { time: "Saves time", errors: "Fewer errors" },
     readMore: "Full story on einargudni.com",
     story: "Full story",
+    all: "All projects",
     engagements: { freelance: "freelance", inhouse: "in-house", personal: "own project" },
     cases: {
       "gigover-assistant": {
@@ -265,6 +266,17 @@ export const en: Dict = {
       },
     ],
   },
+  workPage: {
+    meta: {
+      title: "Recent work — Eggó",
+      description: "Recent work by Eggó: the problem, what was built, and the number that changed.",
+    },
+    close: {
+      title: "What's slowing you down?",
+      body: "A sentence or two is enough. I reply within one working day with a way forward and a fixed price.",
+      cta: "Get in touch",
+    },
+  },
   small: {
     title: "Nothing is too small.",
     body: "If it solves a problem, it's worth building. Some of the best jobs take a day or two. For example:",
@@ -272,9 +284,6 @@ export const en: Dict = {
       "A reminder that goes out by itself when an invoice is overdue.",
       "A form on your site that lands straight in the sheet you already use.",
       "The week's summary in your inbox on Monday morning, without anyone putting it together.",
-      "Web shop orders that find their own way into the books.",
-      "A booking button on your site that fills your calendar.",
-      "A quote built from a template in seconds.",
     ],
     note: "Small jobs get a fixed price too, in proportion to their size.",
   },

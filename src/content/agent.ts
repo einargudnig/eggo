@@ -8,7 +8,15 @@ import { partIds, parts as partData } from "./parts";
 import { isk, priceFrom } from "./pricing";
 import { caseIds, cases, clientLabel, troubleIds, troubles } from "./work";
 
-export const pageUrl = (lang: Lang) => (lang === "is" ? `${brand.url}/` : `${brand.url}/en`);
+/** Pages people read: the homepage and the full work list. Paths are the same in both languages, under `/en` for English. */
+export type Page = "home" | "verk";
+
+export const pagePath = (lang: Lang, page: Page = "home") => {
+  const prefix = lang === "is" ? "" : "/en";
+  if (page === "home") return prefix || "/";
+  return `${prefix}/${page}`;
+};
+export const pageUrl = (lang: Lang, page: Page = "home") => `${brand.url}${pagePath(lang, page)}`;
 export const markdownUrl = (lang: Lang) => `${brand.url}${lang === "is" ? "/index.md" : "/en.md"}`;
 export const apiUrl = `${brand.url}/api/work-order`;
 export const mcpUrl = `${brand.url}/mcp`;
@@ -139,6 +147,7 @@ export const llmsTxt = () => {
     list([
       `[Eggó in English](${markdownUrl("en")}): services, recent work, process, contact`,
       `[Eggó á íslensku](${markdownUrl("is")}): the same content in Icelandic (the source language)`,
+      `[Recent work](${pageUrl("en", "verk")}): every case in full, as HTML (the Markdown pages above carry the same text)`,
     ]),
     "",
     "## Acting for a person",

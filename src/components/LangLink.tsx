@@ -1,17 +1,18 @@
 import * as stylex from "@stylexjs/stylex";
 import { Link } from "@tanstack/react-router";
+import type { Page } from "../content/agent";
 import { ui } from "../design/primitives";
 import { colors, fonts, space, type } from "../design/tokens.stylex";
 import { paramFromLang } from "../i18n";
 import { useLang } from "../i18n/useLang";
 
-/** Switches to the other language's route. Named in the target language (ACCESSIBILITY.md #10). */
-export function LangLink() {
+/** Switches to the same page in the other language. Named in the target language (ACCESSIBILITY.md #10). */
+export function LangLink({ page }: { page: Page }) {
   const { lang, t } = useLang();
   const other = lang === "is" ? "en" : "is";
   return (
     <Link
-      to="/{-$lang}"
+      to={page === "verk" ? "/{-$lang}/verk" : "/{-$lang}"}
       params={{ lang: paramFromLang(other) }}
       hrefLang={other}
       lang={other}

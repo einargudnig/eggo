@@ -10,6 +10,9 @@ export const caseIds = [
 ] as const;
 export type CaseId = (typeof caseIds)[number];
 
+/** The two cases shown on the homepage; `/verk` shows them all. Different clients and kinds of work. */
+export const featuredCaseIds = ["gigover-assistant", "sterkir-pabbar"] as const satisfies readonly CaseId[];
+
 /** What the client gets out of it, in their terms: time back or fewer mistakes (`work.gains`). */
 export type Gain = "time" | "errors";
 

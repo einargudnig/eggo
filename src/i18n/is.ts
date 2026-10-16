@@ -181,6 +181,7 @@ export const is = {
     gains: { time: "Sparar tíma", errors: "Færri villur" } satisfies Record<Gain, string>,
     readMore: "Öll sagan á einargudni.com",
     story: "Öll sagan",
+    all: "Öll verkin",
     engagements: {
       freelance: "verktaka",
       inhouse: "innanhúss",
@@ -300,6 +301,17 @@ export const is = {
       },
     ],
   },
+  workPage: {
+    meta: {
+      title: "Nýleg verk — Eggó",
+      description: "Nýleg verk Eggó: vandinn, það sem var smíðað og talan sem breyttist.",
+    },
+    close: {
+      title: "Hvað tefur hjá þér?",
+      body: "Ein eða tvær setningar duga. Ég svara innan eins vinnudags með leið og fast verð.",
+      cta: "Hafa samband",
+    },
+  },
   small: {
     title: "Ekkert er of lítið.",
     body: "Ef það leysir vandamál er það þess virði að smíða. Sum bestu verkin taka einn eða tvo daga. Til dæmis:",
@@ -307,9 +319,6 @@ export const is = {
       "Áminning sem fer sjálf út þegar reikningur er kominn á eindaga.",
       "Eyðublað á vefnum sem skilar sér beint í skjalið sem þú notar nú þegar.",
       "Samantekt vikunnar í pósthólfinu á mánudagsmorgni, án þess að neinn taki hana saman.",
-      "Pantanir úr vefversluninni sem rata sjálfar í bókhaldið.",
-      "Bókunarhnappur á vefnum sem fyllir dagatalið þitt.",
-      "Tilboð sem verður til úr sniðmáti á nokkrum sekúndum.",
     ],
     note: "Lítil verk fá líka fast verð, í hlutfalli við stærðina.",
   },

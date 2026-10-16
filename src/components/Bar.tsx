@@ -1,6 +1,7 @@
 import * as stylex from "@stylexjs/stylex";
 import { Link } from "@tanstack/react-router";
-import { navSections } from "../content/sections";
+import { pagePath, type Page } from "../content/agent";
+import { navSections, type SectionId } from "../content/sections";
 import { media } from "../design/media.stylex";
 import { ui } from "../design/primitives";
 import { colors, fonts, space, type } from "../design/tokens.stylex";
@@ -11,8 +12,13 @@ import { ThemeSwitch } from "./ThemeSwitch";
 import { Wordmark } from "./Wordmark";
 
 /** Top of the page: wordmark, section links, language and theme. Not sticky. */
-export function Bar() {
+export function Bar({ page }: { page: Page }) {
   const { lang, t } = useLang();
+  // "Verk" is its own page; the other links are homepage sections, reached from any page.
+  const href = (id: SectionId) => {
+    if (id === "verk") return pagePath(lang, "verk");
+    return page === "home" ? `#${id}` : `${pagePath(lang)}#${id}`;
+  };
   return (
     <header {...stylex.props(ui.wrap, styles.bar)}>
       <Link
@@ -25,13 +31,18 @@ export function Bar() {
       </Link>
       <nav aria-label={t.a11y.mainNav} {...stylex.props(styles.nav)}>
         {navSections.map((id) => (
-          <a key={id} href={`#${id}`} {...stylex.props(styles.link, ui.focusRing)}>
+          <a
+            key={id}
+            href={href(id)}
+            aria-current={id === page ? "page" : undefined}
+            {...stylex.props(styles.link, ui.focusRing)}
+          >
             {t.sections[id]}
           </a>
         ))}
       </nav>
       <div {...stylex.props(styles.controls)}>
-        <LangLink />
+        <LangLink page={page} />
         <ThemeSwitch />
       </div>
     </header>
@@ -52,7 +63,7 @@ const styles = stylex.create({
     fontFamily: fonts.text,
     fontWeight: 500,
     fontSize: type.small,
-    color: { default: colors.muted, ":hover": colors.ink },
+    color: { default: colors.muted, ":hover": colors.ink, "[aria-current=page]": colors.ink },
     textDecoration: "none",
     paddingBlock: space.s1,
   },

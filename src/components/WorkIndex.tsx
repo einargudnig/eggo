@@ -1,16 +1,18 @@
 import * as stylex from "@stylexjs/stylex";
+import { Link } from "@tanstack/react-router";
 import { brand } from "../content/brand";
 import { partDomId } from "../content/parts";
-import { caseIds, cases, clientLabel } from "../content/work";
+import { cases, clientLabel, featuredCaseIds } from "../content/work";
 import { media } from "../design/media.stylex";
 import { ui } from "../design/primitives";
 import { colors, fonts, space, type } from "../design/tokens.stylex";
+import { paramFromLang } from "../i18n";
 import { useLang } from "../i18n/useLang";
 import { SectionHead } from "./SectionHead";
 
-/** Recent work. Each entry names the kind of work it was, linking back to that row of the services list. */
+/** Recent work: the two featured cases, then a link to all of them on `/verk`. */
 export function WorkIndex() {
-  const { t } = useLang();
+  const { lang, t } = useLang();
   return (
     <section id="verk" aria-labelledby="h-work" tabIndex={-1} {...stylex.props(ui.anchor, ui.section)}>
       <div {...stylex.props(ui.wrap)}>
@@ -22,7 +24,7 @@ export function WorkIndex() {
           .
         </SectionHead>
         <ul {...stylex.props(styles.log)}>
-          {caseIds.map((id) => {
+          {featuredCaseIds.map((id) => {
             const c = t.work.cases[id];
             const { part, url } = cases[id];
             return (
@@ -49,6 +51,13 @@ export function WorkIndex() {
             );
           })}
         </ul>
+        <Link
+          to="/{-$lang}/verk"
+          params={{ lang: paramFromLang(lang) }}
+          {...stylex.props(ui.link, ui.focusRing, styles.all)}
+        >
+          {`${t.work.all} →`}
+        </Link>
       </div>
     </section>
   );
@@ -79,6 +88,7 @@ const styles = stylex.create({
   },
   who: { marginTop: space.s2 },
   what: { margin: 0, textWrap: "pretty" },
+  all: { display: "inline-block", marginTop: space.s5, fontWeight: 600, fontSize: type.lead },
   story: { whiteSpace: "nowrap" },
   stat: { textAlign: { default: "right", [media.phone]: "left" } },
   num: {
