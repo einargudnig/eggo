@@ -23,8 +23,8 @@ export const en: Dict = {
   hero: {
     eyebrow: "Software solutions",
     status: "Taking new projects",
-    titleStart: "Software for ",
-    titleEm: "what slows you down.",
+    titleStart: "A better website. ",
+    titleEm: "Less busywork.",
     sub: "What takes time today runs itself tomorrow.",
     lead: "Websites, internal systems, AI agents and integrations for small and medium businesses, and fixes that take a day. Fixed price, something usable every week, and you own the solution.",
     cta: "Get in touch",

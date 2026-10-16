@@ -24,8 +24,8 @@ export function Hero({ picked, route, onToggle, onSend }: Props) {
   return (
     <div {...stylex.props(ui.wrap, styles.hero)}>
       <h1 {...stylex.props(styles.title)}>
-        {t.hero.titleStart}
-        {t.hero.titleEm}
+        <span {...stylex.props(styles.titleLine)}>{t.hero.titleStart}</span>
+        <span {...stylex.props(styles.titleLine)}>{t.hero.titleEm}</span>
       </h1>
       <div {...stylex.props(styles.top)}>
         <p {...stylex.props(styles.lead)}>{t.hero.lead}</p>
@@ -159,6 +159,8 @@ const styles = stylex.create({
     textWrap: "balance",
     maxWidth: "12em",
   },
+  /** The headline is two short sentences, one per line, so it never breaks mid-sentence. */
+  titleLine: { display: "block" },
   lead: {
     margin: 0,
     fontSize: type.lead,

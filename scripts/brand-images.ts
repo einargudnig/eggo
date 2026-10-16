@@ -65,7 +65,7 @@ h1 { font-size: 66px; font-weight: 600; line-height: 1.04; letter-spacing: -.035
 .name { font-size: 30px; font-weight: 600; letter-spacing: -.02em; }
 </style>
 <div class="og"><div class="left">${mark(52)}
-<h1>${t.hero.titleStart}${t.hero.titleEm}</h1>
+<h1>${t.hero.titleStart}<br>${t.hero.titleEm}</h1>
 <p class="label"><b>${brand.url.replace("https://", "")}</b></p></div>
 <div class="grid">${boxes(t, "03")}</div></div>`;
 

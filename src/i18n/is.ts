@@ -53,8 +53,8 @@ export const is = {
   hero: {
     eyebrow: "Hugbúnaðarlausnir",
     status: "Laus fyrir ný verkefni",
-    titleStart: "Hugbúnaður fyrir ",
-    titleEm: "það sem tefur.",
+    titleStart: "Betri vefur. ",
+    titleEm: "Minni handavinna.",
     sub: "Það sem tekur tíma í dag gengur sjálft á morgun.",
     lead: "Vefsíður, innri kerfi, AI agents og tengingar fyrir lítil og meðalstór fyrirtæki, og lagfæringar sem taka einn dag. Fast verð, eitthvað nothæft í hverri viku, og þú átt lausnina.",
     cta: "Hafa samband",
