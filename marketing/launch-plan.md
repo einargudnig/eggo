@@ -61,20 +61,25 @@ Skip Instagram and TikTok for now: the work isn't visual enough to sustain them.
 
 Cadence: one post a week on LinkedIn (Tue–Thu morning), two "give" posts for every "ask". Each one gets a screenshot or the OG image. No emoji, no "spennt að tilkynna".
 
-**Videos.** `bun run video:render` writes every video to `video/out/<video>-<lang>-<format>.mp4`: `feed` (4:5, LinkedIn and Facebook feed) and `story` (9:16, stories and reels). Silent, 20–27 s, readable without sound. Post the video natively (not a YouTube link) with the text below it.
+**Assets.** `bun run video:render` writes everything to `video/out/`, in the shipped Minimal look (white, Public Sans, the pine accent, the drawn wordmark):
+- Videos: `<video>-<lang>-<format>.mp4`, `feed` (4:5, LinkedIn and Facebook feed) and `story` (9:16, stories and reels). Silent, 15–30 s, readable without sound. Post the video natively (not a YouTube link) with the text below it.
+- Images: `images/<image>-<lang>.png`, 1080×1350 feed posts, plus `banner-linkedin` (1584×396) and `banner-facebook` (1640×624) headers. `bun run video:render -- image-` renders only these.
 
-| Post | Video |
-|---|---|
-| 1 Launch | `launch-is-feed` |
-| 2 Gigover assistant | `gigover-assistant-is-feed` |
-| 3 The quietest bug | `gigover-product-is-feed` |
-| 4 Ask | none, text only (asks work better plain) |
-| 5 Sterkir pabbar | `sterkir-pabbar-is-feed` |
-| 6 Agents | `agents-is-feed`; `agents-en-feed` for X/Bluesky |
-| 7 Maul | `maul-verification-is-feed` |
-| 8 Undefined | none yet; reuse `launch` or write a part-05 video |
+| Post | Video | Image |
+|---|---|---|
+| 1 Launch | `launch-is-feed` | `launch-is` |
+| 2 Gigover assistant | `gigover-assistant-is-feed` | `gigover-assistant-is` |
+| 3 The quietest bug | `gigover-product-is-feed` | `gigover-product-is` |
+| 4 Ask | `picker-is-feed` (the symptom picker, played once) | `cta-is` |
+| 5 Sterkir pabbar | `sterkir-pabbar-is-feed` | `sterkir-pabbar-is` |
+| 6 Agents | `agents-is-feed`; `agents-en-feed` for X/Bluesky | `agents-is` |
+| 7 Maul | `maul-verification-is-feed` | `maul-verification-is` |
+| 8 Undefined | none; use the image | `picker-is` |
+| 9 Prices | none; use the image | `prices-is` |
+| 10 Nothing is too small | `small-is-feed` | `small-is` |
+| 11 How I work | none; use the image | `process-is` |
 
-`life-os` has a video but no post; use it for an English developer post on X/Bluesky.
+`life-os` has a video and an image but no post; use it for an English developer post on X/Bluesky. Headers: `banner-linkedin-is` on the LinkedIn profile and company page, `banner-facebook-is` on the Facebook page, `public/logo-social.png` as the avatar.
 
 ### Post 1: Launch (week 1)
 
@@ -164,7 +169,35 @@ English version for X/Bluesky:
 >
 > Þú átt kortið, jafnvel þótt einhver annar smíði.
 
-### After week 8
+### Post 9: Prices on the page (week 9)
+
+> Flestar hugbúnaðarstofur gefa ekki upp verð. Ég geri það.
+>
+> Vefsíða frá 199.900 kr. Tenging frá 249.900 kr. AI agent frá 299.900 kr. Innra kerfi frá 399.900 kr. Og vika af kortlagningu á 289.900 kr. ef þú veist ekki enn hvað þarf.
+>
+> Þetta eru viðmið, ekki verðskrá. Hvert verk fær fast verð áður en ég byrja, og það er alltaf hægt að semja: minna umfang, verkið í áföngum eða greiðslum dreift.
+>
+> Þú átt að vita hvað hlutirnir kosta áður en þú hringir.
+
+### Post 10: Nothing is too small (week 10)
+
+> Sum bestu verkin taka einn dag.
+>
+> Áminning sem fer sjálf út þegar reikningur er kominn á eindaga. Pantanir úr vefversluninni sem rata sjálfar í bókhaldið. Samantekt vikunnar í pósthólfinu á mánudagsmorgni.
+>
+> Ekkert af þessu er stórt kerfi. Allt sparar það tíma í hverri viku, og lítil verk fá líka fast verð.
+>
+> Hvað er það litla sem tefur þig?
+
+### Post 11: How I work (week 11)
+
+> Fjögur skref, engir tímar sem tikka.
+>
+> Spjall, ókeypis: þú lýsir vandanum og ég segi hreinskilnislega hvort ég get hjálpað. Fast verð, skriflega. Smíði, með einhverju nýju til að prófa í hverri viku. Afhending: kóði, aðgangar og skjölun á þínu nafni.
+>
+> Ekkert læst inni hjá mér. Ef þú vilt skipta um forritara á morgun geturðu það.
+
+### After week 11
 
 Repeat the rhythm. A good post is one specific thing shipped or learned, under 150 words, with one claim you can back up. New work rows on the site make new posts. For new clients, ask at handover whether you can name them.
 
@@ -174,4 +207,4 @@ Repeat the rhythm. A good post is one specific thing shipped or learned, under 1
 2. LinkedIn profile update → Post 1
 3. Google Business Profile, Já.is, Eggó LinkedIn page, Facebook page → add the URLs to `sameAs`
 4. MCP Registry + directories
-5. Posts 2–8, one a week
+5. Posts 2–11, one a week
