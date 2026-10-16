@@ -14,7 +14,7 @@ export function WorkIndex() {
   return (
     <section id="verk" aria-labelledby="h-work" tabIndex={-1} {...stylex.props(ui.anchor, ui.section)}>
       <div {...stylex.props(ui.wrap)}>
-        <SectionHead section="verk" headingId="h-work" title={t.work.title}>
+        <SectionHead headingId="h-work" title={t.work.title}>
           {t.work.intro}{" "}
           <a href={brand.ownerSite} {...stylex.props(ui.link, ui.focusRing)}>
             {brand.ownerSite.replace(/^https:\/\//, "")}
@@ -48,10 +48,10 @@ export function WorkIndex() {
                     <span {...stylex.props(ui.srOnly)}>{`: ${c.name}`}</span>
                   </a>
                 </p>
-                <p {...stylex.props(styles.num, ui.tabular)}>
-                  {c.metric}
-                  <small {...stylex.props(styles.numNote)}>{c.metricNote}</small>
-                </p>
+                <div {...stylex.props(styles.stat)}>
+                  <p {...stylex.props(styles.num, ui.tabular)}>{c.metric}</p>
+                  <p {...stylex.props(styles.numNote)}>{c.metricNote}</p>
+                </div>
               </li>
             );
           })}
@@ -90,21 +90,19 @@ const styles = stylex.create({
   who: { marginTop: space.s2 },
   what: { margin: 0, textWrap: "pretty" },
   story: { whiteSpace: "nowrap" },
+  stat: { textAlign: { default: "right", [media.phone]: "left" } },
   num: {
     margin: 0,
     fontWeight: 600,
-    fontSize: { default: "36px", [media.phone]: "30px" },
+    fontSize: type.h2,
     letterSpacing: type.trackDisplay,
     lineHeight: 1,
-    textAlign: { default: "right", [media.phone]: "left" },
   },
   numNote: {
-    display: "block",
     marginTop: space.s2,
-    fontWeight: 400,
-    fontSize: type.fine,
+    marginBottom: 0,
+    fontSize: type.small,
     lineHeight: 1.4,
-    letterSpacing: 0,
     color: colors.muted,
   },
 });

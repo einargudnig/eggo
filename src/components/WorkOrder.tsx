@@ -3,7 +3,6 @@ import { useServerFn } from "@tanstack/react-start";
 import { useRef, useState, type FormEvent } from "react";
 import { brand } from "../content/brand";
 import { partIds, type PartId } from "../content/parts";
-import { sectionIds } from "../content/sections";
 import { media } from "../design/media.stylex";
 import { ui } from "../design/primitives";
 import { colors, fonts, layout, space, type } from "../design/tokens.stylex";
@@ -92,10 +91,6 @@ export function WorkOrder({ chosen, onToggle }: Props) {
       <div {...stylex.props(ui.card)}>
         <div {...stylex.props(styles.grid)}>
           <div>
-            <p aria-hidden="true" {...stylex.props(ui.label, styles.eyebrow)}>
-              <b {...stylex.props(ui.labelStrong)}>{`§${sectionIds.indexOf("samband") + 1}`}</b>
-              {` · ${t.sections.samband}`}
-            </p>
             <h2 id="h-contact" {...stylex.props(styles.title)}>
               {t.order.title}
             </h2>
@@ -217,7 +212,6 @@ const styles = stylex.create({
     paddingBlock: { default: space.s8, [media.phone]: space.s6 },
     paddingInline: { default: space.s8, [media.phone]: space.s5 },
   },
-  eyebrow: { marginBottom: space.s3 },
   title: {
     margin: 0,
     fontFamily: fonts.text,
@@ -245,7 +239,7 @@ const styles = stylex.create({
   label: { fontWeight: 500, fontSize: type.small, lineHeight: 1.2 },
   input: {
     fontFamily: fonts.text,
-    fontSize: "16px",
+    fontSize: type.body,
     lineHeight: 1.4,
     color: colors.ink,
     backgroundColor: colors.page,

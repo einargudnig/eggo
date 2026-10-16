@@ -136,7 +136,7 @@ const styles = stylex.create({
   rectUnknown: { strokeDasharray: "4 3" },
   code: {
     fontFamily: fonts.mono,
-    fontSize: "11px",
+    fontSize: "13px",
     fontWeight: 600,
     letterSpacing: type.trackLabel,
     fill: colors.muted,
@@ -148,7 +148,7 @@ const styles = stylex.create({
     letterSpacing: "-0.02em",
     fill: colors.ink,
   },
-  detail: { fontFamily: fonts.mono, fontSize: "11.5px", fill: colors.muted },
+  detail: { fontFamily: fonts.mono, fontSize: "13px", fill: colors.muted },
   question: { fontFamily: fonts.text, fontSize: "24px", fontWeight: 700, fill: colors.accent },
   wire: {
     stroke: colors.ink,
@@ -166,7 +166,7 @@ const styles = stylex.create({
   stub: { stroke: colors.muted, strokeWidth: 1, strokeDasharray: "3 3", fill: "none" },
   wireLabel: {
     fontFamily: fonts.mono,
-    fontSize: "10px",
+    fontSize: "13px",
     fontWeight: 500,
     letterSpacing: "0.06em",
     fill: colors.muted,

@@ -30,14 +30,13 @@ export const fonts = stylex.defineVars({
 const PHONE = "@media (max-width: 760px)";
 
 export const type = stylex.defineVars({
-  display: { default: "clamp(40px, 4.6vw, 64px)", [PHONE]: "clamp(34px, 9.6vw, 42px)" },
+  display: { default: "clamp(44px, 6.2vw, 88px)", [PHONE]: "clamp(34px, 9.6vw, 42px)" },
   h2: { default: "clamp(28px, 3vw, 40px)", [PHONE]: "28px" },
-  h3: { default: "21px", [PHONE]: "20px" },
+  h3: "20px",
   lead: { default: "20px", [PHONE]: "18px" },
   body: "17px",
   small: "15px",
-  fine: "14px",
-  label: "12px",
+  label: "13px",
   trackDisplay: "-0.03em",
   trackHead: "-0.02em",
   trackLabel: "0.06em",

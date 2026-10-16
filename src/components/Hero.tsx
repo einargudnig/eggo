@@ -23,14 +23,12 @@ export function Hero({ picked, route, onToggle, onSend }: Props) {
   const { t } = useLang();
   return (
     <div {...stylex.props(ui.wrap, styles.hero)}>
+      <h1 {...stylex.props(styles.title)}>
+        {t.hero.titleStart}
+        {t.hero.titleEm}
+      </h1>
       <div {...stylex.props(styles.top)}>
-        <div>
-          <h1 {...stylex.props(styles.title)}>
-            {t.hero.titleStart}
-            {t.hero.titleEm}
-          </h1>
-          <p {...stylex.props(styles.lead)}>{t.hero.lead}</p>
-        </div>
+        <p {...stylex.props(styles.lead)}>{t.hero.lead}</p>
         <BuildFigure lit={route} />
       </div>
 
@@ -153,7 +151,8 @@ const styles = stylex.create({
     display: "grid",
     gridTemplateColumns: { default: "minmax(0, 1fr) minmax(0, 1fr)", [media.tablet]: "minmax(0, 1fr)" },
     gap: { default: space.s8, [media.tablet]: space.s7 },
-    alignItems: "center",
+    alignItems: "start",
+    marginTop: { default: space.s7, [media.phone]: space.s5 },
   },
   title: {
     margin: 0,
@@ -163,11 +162,10 @@ const styles = stylex.create({
     lineHeight: 1.04,
     letterSpacing: type.trackDisplay,
     textWrap: "balance",
-    maxWidth: "13em",
+    maxWidth: "12em",
   },
   lead: {
-    marginTop: space.s5,
-    marginBottom: 0,
+    margin: 0,
     fontSize: type.lead,
     color: colors.muted,
     maxWidth: "30em",
@@ -274,5 +272,5 @@ const styles = stylex.create({
   note: { marginTop: space.s3, marginBottom: 0, color: colors.muted, fontSize: type.small },
   priceNote: { marginTop: space.s3, marginBottom: 0, fontSize: type.small, fontWeight: 600 },
   go: { marginTop: space.s5, display: "flex", flexWrap: "wrap", alignItems: "center", gap: space.s4 },
-  reply: { color: colors.muted, fontSize: type.fine },
+  reply: { color: colors.muted, fontSize: type.small },
 });

@@ -2,7 +2,7 @@ import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps, ReactNode } from "react";
 import { media } from "../design/media.stylex";
 import { ui } from "../design/primitives";
-import { colors, fonts, layout, motion, space } from "../design/tokens.stylex";
+import { colors, fonts, layout, motion, space, type } from "../design/tokens.stylex";
 
 type Common = { children: ReactNode; stretchOnPhone?: boolean | undefined };
 
@@ -61,7 +61,7 @@ const styles = stylex.create({
     gap: space.s3,
     textDecoration: "none",
     fontFamily: fonts.text,
-    fontSize: "16px",
+    fontSize: type.body,
     fontWeight: 600,
     lineHeight: 1,
     minHeight: "48px",

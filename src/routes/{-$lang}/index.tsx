@@ -103,6 +103,6 @@ const styles = stylex.create({
     paddingTop: space.s5,
     paddingBottom: { default: space.s7, [media.phone]: space.s6 },
     color: colors.muted,
-    fontSize: type.fine,
+    fontSize: type.small,
   },
 });

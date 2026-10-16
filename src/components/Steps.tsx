@@ -11,7 +11,7 @@ export function Steps() {
   return (
     <section id="ferli" aria-labelledby="h-steps" tabIndex={-1} {...stylex.props(ui.anchor, ui.section)}>
       <div {...stylex.props(ui.wrap)}>
-        <SectionHead section="ferli" headingId="h-steps" title={t.steps.title}>
+        <SectionHead headingId="h-steps" title={t.steps.title}>
           {t.steps.intro}
         </SectionHead>
         <ol {...stylex.props(styles.list)}>

@@ -16,7 +16,7 @@ export function Small() {
       {...stylex.props(ui.anchor, ui.section, styles.section)}
     >
       <div {...stylex.props(ui.wrap)}>
-        <SectionHead section="smatt" headingId="h-small" title={t.small.title}>
+        <SectionHead headingId="h-small" title={t.small.title}>
           {t.small.body}
         </SectionHead>
         <ul {...stylex.props(styles.grid)}>

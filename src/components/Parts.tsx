@@ -14,7 +14,7 @@ export function Parts({ lit }: { lit: readonly PartId[] }) {
   return (
     <section id="smidi" aria-labelledby="h-parts" tabIndex={-1} {...stylex.props(ui.anchor, ui.section)}>
       <div {...stylex.props(ui.wrap)}>
-        <SectionHead section="smidi" headingId="h-parts" title={t.partsSection.title}>
+        <SectionHead headingId="h-parts" title={t.partsSection.title}>
           {t.partsSection.body}
         </SectionHead>
         <ul {...stylex.props(styles.list)}>
