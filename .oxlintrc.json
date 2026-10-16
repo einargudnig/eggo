@@ -64,5 +64,12 @@
       "rules": { "no-console": "off", "no-await-in-loop": "off" }
     }
   ],
-  "ignorePatterns": ["src/routeTree.gen.ts", "worker-configuration.d.ts", "dist/**"]
+  "ignorePatterns": [
+    "src/routeTree.gen.ts",
+    "worker-configuration.d.ts",
+    "dist/**",
+    ".agents/**",
+    ".claude/**",
+    ".pi/**"
+  ]
 }

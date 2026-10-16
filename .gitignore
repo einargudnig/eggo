@@ -26,3 +26,6 @@ playwright-report/
 
 # browser tool scratch files
 .playwright-mcp/
+
+# taste-skill inspector output
+.taste-skill/
