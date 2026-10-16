@@ -24,13 +24,7 @@ export function Parts({ lit }: { lit: readonly PartId[] }) {
               <li key={id} id={partDomId(id)} tabIndex={-1} {...stylex.props(styles.row, ui.anchor)}>
                 <div {...stylex.props(styles.id)}>
                   <PartDrawing id={id} on={lit.includes(id)} />
-                  <div>
-                    <p aria-hidden="true" {...stylex.props(ui.label)}>
-                      <b {...stylex.props(ui.labelStrong)}>{id}</b>
-                      {` · ${parts[id].code}`}
-                    </p>
-                    <h3 {...stylex.props(styles.name)}>{part.name}</h3>
-                  </div>
+                  <h3 {...stylex.props(styles.name)}>{part.name}</h3>
                 </div>
                 <div {...stylex.props(styles.text)}>
                   <p {...stylex.props(styles.lead)}>{part.lead}</p>
@@ -66,14 +60,10 @@ const styles = stylex.create({
     gap: { default: space.s6, [media.phone]: space.s2 },
     alignItems: { default: "center", [media.phone]: "start" },
     paddingBlock: { default: space.s6, [media.phone]: space.s5 },
-    borderTopWidth: "1px",
-    borderTopStyle: "solid",
-    borderTopColor: colors.line,
   },
   id: { display: "flex", alignItems: "center", gap: space.s4 },
   name: {
-    marginTop: space.s1,
-    marginBottom: 0,
+    margin: 0,
     fontSize: type.h3,
     fontWeight: 600,
     letterSpacing: type.trackHead,

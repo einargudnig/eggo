@@ -165,12 +165,7 @@ export function WorkOrder({ chosen, onToggle }: Props) {
                           onChange={() => onToggle(id)}
                           {...stylex.props(styles.destInput, stylex.defaultMarker())}
                         />
-                        <span {...stylex.props(styles.destLabel)}>
-                          <span aria-hidden="true" {...stylex.props(styles.destCode)}>
-                            {id}
-                          </span>
-                          {t.parts[id].sign}
-                        </span>
+                        <span {...stylex.props(styles.destLabel)}>{t.parts[id].sign}</span>
                       </label>
                     ))}
                   </div>
@@ -282,7 +277,6 @@ const styles = stylex.create({
     outline: { default: "none", [stylex.when.siblingBefore(":focus-visible")]: `2px solid ${colors.accent}` },
     outlineOffset: "2px",
   },
-  destCode: { fontFamily: fonts.mono, fontSize: type.label, opacity: 0.7, marginRight: space.s2 },
   foot: {
     display: "flex",
     flexWrap: "wrap",

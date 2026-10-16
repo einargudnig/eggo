@@ -1,5 +1,5 @@
 import * as stylex from "@stylexjs/stylex";
-import { partIds, parts, type PartId } from "../content/parts";
+import { partIds, type PartId } from "../content/parts";
 import { isk, priceFrom } from "../content/pricing";
 import { troubleIds, troubles, type TroubleId } from "../content/work";
 import { media } from "../design/media.stylex";
@@ -60,7 +60,7 @@ export function Hero({ picked, route, onToggle, onSend }: Props) {
                     aria-hidden="true"
                     {...stylex.props(ui.label, styles.code, picked.includes(id) && ui.labelStrong)}
                   >
-                    {`→ ${troubles[id]} · ${parts[troubles[id]].code}`}
+                    {`→ ${t.parts[troubles[id]].short}`}
                   </span>
                 </label>
               </li>
@@ -95,12 +95,7 @@ function Summary({ route, onSend }: { route: readonly PartId[]; onSend: () => vo
               .filter((id) => route.includes(id))
               .map((id) => (
                 <li key={id} {...stylex.props(styles.leg, styles.enter)}>
-                  <b {...stylex.props(styles.legName)}>
-                    <span aria-hidden="true" {...stylex.props(ui.label, styles.legCode)}>
-                      {`${id} · ${parts[id].code}`}
-                    </span>
-                    {id === "05" ? t.trip.mapping : t.parts[id].sign}
-                  </b>
+                  <b {...stylex.props(styles.legName)}>{id === "05" ? t.trip.mapping : t.parts[id].sign}</b>
                   <span {...stylex.props(styles.legTime)}>{t.parts[id].time}</span>
                   <span {...stylex.props(styles.legPrice, ui.tabular)}>
                     {id === "05" ? isk(lang, priceFrom[id]) : `${t.trip.from} ${isk(lang, priceFrom[id])}`}
@@ -260,13 +255,9 @@ const styles = stylex.create({
     display: "grid",
     gridTemplateColumns: "minmax(0, 1fr) auto",
     columnGap: space.s4,
-    paddingBlock: space.s3,
-    borderTopWidth: "1px",
-    borderTopStyle: "solid",
-    borderTopColor: colors.line,
+    paddingBlock: space.s2,
   },
   legName: { fontWeight: 600 },
-  legCode: { display: "block", marginBottom: space.s1 },
   legTime: { gridColumn: 1, color: colors.muted, fontSize: type.small },
   legPrice: { gridColumn: 2, gridRow: 1, fontWeight: 600, textAlign: "right", whiteSpace: "nowrap" },
   note: { marginTop: space.s3, marginBottom: 0, color: colors.muted, fontSize: type.small },

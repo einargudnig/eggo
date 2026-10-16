@@ -61,7 +61,7 @@ export const is = {
   },
   figure: {
     caption: "Mynd 1 — dæmigerð smíði",
-    count: "05 hlutar",
+    count: "5 hlutar",
     wires: { post: "POST", webhook: "webhook", api: "API" },
   },
   ask: {

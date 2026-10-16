@@ -36,13 +36,12 @@ const mark = (height: number) =>
 
 const css = `
 @font-face { font-family: "Public Sans"; font-weight: 400 700; src: url(${font("public-sans-latin.woff2")}) format("woff2"); }
-@font-face { font-family: "JetBrains Mono"; font-weight: 400 700; src: url(${font("jetbrains-mono-latin.woff2")}) format("woff2"); }
 * { box-sizing: border-box; margin: 0; }
 body { background: ${c.page}; color: ${c.ink}; font-family: "Public Sans", sans-serif; -webkit-font-smoothing: antialiased;
   /* Without it, headless Chromium draws big glyphs as faceted polygons. */
   text-rendering: geometricPrecision; }
-.label { font: 500 22px "JetBrains Mono", monospace; letter-spacing: .06em; text-transform: uppercase; color: ${c.muted}; }
-.label b { color: ${c.ink}; font-weight: 700; }
+.label { font-size: 24px; color: ${c.muted}; }
+.label b { color: ${c.ink}; font-weight: 600; }
 .mark { display: block; flex: none; align-self: flex-start; overflow: visible; shape-rendering: geometricPrecision; }
 `;
 
@@ -52,7 +51,7 @@ const boxes = (t: Dict, lit: PartId) =>
     .filter((id) => parts[id].defined)
     .map(
       (id) => `<div class="box${id === lit ? " lit" : ""}">
-        <p class="label">${id} · ${parts[id].code}</p><p class="name">${t.parts[id].short}</p></div>`,
+        <p class="name">${t.parts[id].short}</p></div>`,
     )
     .join("");
 
@@ -61,14 +60,13 @@ const og = (t: Dict) => `<style>${css}
 .left { display: flex; flex-direction: column; justify-content: space-between; }
 h1 { font-size: 66px; font-weight: 600; line-height: 1.04; letter-spacing: -.035em; text-wrap: balance; }
 .grid { align-self: center; display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
-.box { border: 2px solid ${c.ink}; padding: 22px 22px 26px; background: ${c.page}; }
-.box.lit { border: 4px solid ${c.accent}; padding: 20px 20px 24px; }
-.box .label { font-size: 17px; }
-.name { margin-top: 10px; font-size: 30px; font-weight: 600; letter-spacing: -.02em; }
+.box { border: 2px solid ${c.ink}; padding: 40px 22px; background: ${c.page}; }
+.box.lit { border: 4px solid ${c.accent}; padding: 38px 20px; }
+.name { font-size: 30px; font-weight: 600; letter-spacing: -.02em; }
 </style>
 <div class="og"><div class="left">${mark(52)}
 <h1>${t.hero.titleStart}${t.hero.titleEm}</h1>
-<p class="label"><b>${brand.url.replace("https://", "")}</b> · ${t.figure.count}</p></div>
+<p class="label"><b>${brand.url.replace("https://", "")}</b></p></div>
 <div class="grid">${boxes(t, "03")}</div></div>`;
 
 const square = (size: number, scale: number) => `<style>${css}

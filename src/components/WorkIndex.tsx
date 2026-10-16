@@ -1,6 +1,6 @@
 import * as stylex from "@stylexjs/stylex";
 import { brand } from "../content/brand";
-import { partDomId, parts } from "../content/parts";
+import { partDomId } from "../content/parts";
 import { caseIds, cases, clientLabel } from "../content/work";
 import { media } from "../design/media.stylex";
 import { ui } from "../design/primitives";
@@ -29,17 +29,10 @@ export function WorkIndex() {
               <li key={id} {...stylex.props(styles.entry)}>
                 <div>
                   <a href={`#${partDomId(part)}`} {...stylex.props(ui.label, styles.kind, ui.focusRing)}>
-                    <b
-                      aria-hidden="true"
-                      {...stylex.props(ui.labelStrong)}
-                    >{`${part} · ${parts[part].code}`}</b>
-                    <span aria-hidden="true">{" · "}</span>
                     {t.parts[part].name}
                   </a>
                   <h3 {...stylex.props(styles.name)}>{c.name}</h3>
-                  <p {...stylex.props(ui.label, styles.who)}>
-                    {`${clientLabel(id, t.work.engagements)} · ${t.work.gains[cases[id].gain]}`}
-                  </p>
+                  <p {...stylex.props(ui.label, styles.who)}>{clientLabel(id, t.work.engagements)}</p>
                 </div>
                 <p {...stylex.props(styles.what)}>
                   {c.outcome}{" "}
@@ -72,9 +65,6 @@ const styles = stylex.create({
     gap: { default: space.s6, [media.phone]: space.s3 },
     alignItems: "start",
     paddingBlock: { default: space.s6, [media.phone]: space.s5 },
-    borderTopWidth: "1px",
-    borderTopStyle: "solid",
-    borderTopColor: colors.line,
   },
   kind: { textDecoration: { default: "none", ":hover": "underline" }, textUnderlineOffset: "3px" },
   name: {

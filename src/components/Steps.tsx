@@ -15,12 +15,9 @@ export function Steps() {
           {t.steps.intro}
         </SectionHead>
         <ol {...stylex.props(styles.list)}>
-          {t.steps.items.map((step, i) => (
+          {t.steps.items.map((step) => (
             <li key={step.title} {...stylex.props(styles.step)}>
-              <p {...stylex.props(ui.label)}>
-                <b aria-hidden="true" {...stylex.props(ui.labelStrong)}>{`0${i + 1} · `}</b>
-                {step.when}
-              </p>
+              <p {...stylex.props(ui.label)}>{step.when}</p>
               <h3 {...stylex.props(styles.title)}>{step.title}</h3>
               <p {...stylex.props(styles.body)}>{step.body}</p>
             </li>

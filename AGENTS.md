@@ -61,4 +61,4 @@ New rule: add it to the plugin with RuleTester cases in `lint/eggo-plugin.test.t
 
 ## Accessibility (docs/ACCESSIBILITY.md)
 
-Target WCAG 2.2 AA. Decoration is `aria-hidden`. Focus follows any action that moves the viewport. Part codes ("03 · AGT") are visual; screen readers get the name.
+Target WCAG 2.2 AA. Decoration is `aria-hidden`. Focus follows any action that moves the viewport.

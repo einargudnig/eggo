@@ -76,7 +76,7 @@ Not yet tested: real VoiceOver (macOS + iOS) and TalkBack runs. They're needed b
 3. **Decoration is `aria-hidden`:** the junction drawing, sign arrows, the road band and its dashes, warning triangles. If a drawing says something, say it in text next to it.
 4. **Off-screen means `inert`.** Anything translated out of view (a future drawer or sticky bar) leaves the tab order.
 5. **Focus follows intent.** Any action that moves the viewport moves focus with it ("Fá fast verð", form errors, form result).
-6. **Part codes are visual.** Where numbers like "03" show, they're spoken as the part's name.
+6. **Parts are named, not numbered.** The site shows part names; the `01`–`05` ids stay in code only.
 7. **Heading outline:** one `h1` (hero), `h2` per section, `h3` inside.
 8. **Forced colours:** states shown only by fill (ticked symptom, ticked destination, switch knob) get an outline or underline in `@media (forced-colors: active)`.
 9. **Motion:** the junction draw-in and arrow nudges are removed under `prefers-reduced-motion`. Scrolling goes instant. No animation conveys information on its own.

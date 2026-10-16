@@ -2,7 +2,7 @@ import * as stylex from "@stylexjs/stylex";
 import { partIds, parts, type PartId } from "../content/parts";
 import { media } from "../design/media.stylex";
 import { ui } from "../design/primitives";
-import { colors, fonts, motion, space, type } from "../design/tokens.stylex";
+import { colors, fonts, motion, space } from "../design/tokens.stylex";
 import { useLang } from "../i18n/useLang";
 
 type Box = { x: number; y: number; w: number; h: number };
@@ -42,24 +42,28 @@ export function BuildFigure({ lit }: { lit: readonly PartId[] }) {
           height={b.h}
           {...stylex.props(styles.rect, unknown && styles.rectUnknown, lit.includes(id) && styles.rectOn)}
         />
-        <text x={b.x + 14} y={b.y + 22} {...stylex.props(styles.code)}>{`${id} · ${parts[id].code}`}</text>
         {unknown ? (
           <>
-            <text x={b.x + 14} y={b.y + 40} {...stylex.props(styles.detail)}>
+            <text x={b.x + 14} y={b.y + b.h / 2 + 5} {...stylex.props(styles.detail)}>
               {t.parts[id].detail}
             </text>
-            <text x={b.x + b.w - 22} y={b.y + 38} textAnchor="middle" {...stylex.props(styles.question)}>
+            <text
+              x={b.x + b.w - 22}
+              y={b.y + b.h / 2 + 8}
+              textAnchor="middle"
+              {...stylex.props(styles.question)}
+            >
               ?
             </text>
           </>
         ) : (
           <>
-            <text x={b.x + 14} y={b.y + (compact ? 48 : 54)} {...stylex.props(styles.name)}>
+            <text x={b.x + 14} y={b.y + (compact ? 40 : 44)} {...stylex.props(styles.name)}>
               {t.parts[id].short}
             </text>
             <text
               x={compact ? b.x + b.w - 14 : b.x + 14}
-              y={compact ? b.y + 48 : b.y + 78}
+              y={compact ? b.y + 39 : b.y + 70}
               textAnchor={compact ? "end" : "start"}
               {...stylex.props(styles.detail)}
             >
@@ -134,13 +138,6 @@ const styles = stylex.create({
   },
   rectOn: { stroke: colors.accent, strokeWidth: 2 },
   rectUnknown: { strokeDasharray: "4 3" },
-  code: {
-    fontFamily: fonts.mono,
-    fontSize: "13px",
-    fontWeight: 600,
-    letterSpacing: type.trackLabel,
-    fill: colors.muted,
-  },
   name: {
     fontFamily: fonts.text,
     fontSize: "21px",
@@ -148,7 +145,7 @@ const styles = stylex.create({
     letterSpacing: "-0.02em",
     fill: colors.ink,
   },
-  detail: { fontFamily: fonts.mono, fontSize: "13px", fill: colors.muted },
+  detail: { fontFamily: fonts.text, fontSize: "14px", fill: colors.muted },
   question: { fontFamily: fonts.text, fontSize: "24px", fontWeight: 700, fill: colors.accent },
   wire: {
     stroke: colors.ink,
@@ -165,10 +162,9 @@ const styles = stylex.create({
   wire3: { animationDelay: "700ms" },
   stub: { stroke: colors.muted, strokeWidth: 1, strokeDasharray: "3 3", fill: "none" },
   wireLabel: {
-    fontFamily: fonts.mono,
+    fontFamily: fonts.text,
     fontSize: "13px",
     fontWeight: 500,
-    letterSpacing: "0.06em",
     fill: colors.muted,
   },
 });

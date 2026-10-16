@@ -31,7 +31,7 @@ export const en: Dict = {
   },
   figure: {
     caption: "Fig. 1 — a typical build",
-    count: "05 parts",
+    count: "5 parts",
     wires: { post: "POST", webhook: "webhook", api: "API" },
   },
   ask: {
