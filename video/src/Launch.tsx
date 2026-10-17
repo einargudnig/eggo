@@ -6,6 +6,7 @@ import {
   END_FRAMES,
   EndCard,
   Figure,
+  heroTitle,
   Label,
   Page,
   PartCode,
@@ -30,7 +31,7 @@ export const launchScenes = (lang: Lang): Scene[] => {
       node: (
         <Page t={t} tag={tag}>
           <Reveal>
-            <Title size={112}>{`${t.hero.titleStart}${t.hero.titleEm}`}</Title>
+            <Title size={112}>{heroTitle(t)}</Title>
           </Reveal>
           <Reveal at={FPS}>
             <Body muted>{t.hero.sub}</Body>

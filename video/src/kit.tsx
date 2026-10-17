@@ -173,6 +173,15 @@ export const Page = ({ t, tag, children }: { t: Dict; tag?: ReactNode; children:
   </AbsoluteFill>
 );
 
+/** The site's headline is two short sentences; like the hero, each gets its own line. */
+export const heroTitle = (t: Dict) => (
+  <>
+    {t.hero.titleStart.trim()}
+    <br />
+    {t.hero.titleEm}
+  </>
+);
+
 export const Title = ({ children, size = 88 }: { children: ReactNode; size?: number }) => (
   <div
     style={{
@@ -416,7 +425,7 @@ export const Figure = ({
 export const EndCard = ({ t }: { t: Dict }) => (
   <Page t={t} tag={<Label>{t.hero.eyebrow}</Label>}>
     <Reveal>
-      <Title size={96}>{`${t.hero.titleStart}${t.hero.titleEm}`}</Title>
+      <Title size={96}>{heroTitle(t)}</Title>
     </Reveal>
     <Reveal at={8}>
       <Body muted>{t.trip.priceNote}</Body>

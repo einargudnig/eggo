@@ -7,7 +7,19 @@ import { caseIds, cases, clientLabel, troubleIds, troubles, type CaseId } from "
 import { getDict, type Lang } from "../../src/i18n";
 import type { Dict } from "../../src/i18n/is";
 import { videoCopy } from "./copy";
-import { Body, Button, Figure, host, Label, Page, PartCode, Section, Title, Wordmark } from "./kit";
+import {
+  Body,
+  Button,
+  Figure,
+  heroTitle,
+  host,
+  Label,
+  Page,
+  PartCode,
+  Section,
+  Title,
+  Wordmark,
+} from "./kit";
 import { colors, fonts, type stillFormats } from "./theme";
 
 type Still = { format: keyof typeof stillFormats; node: (t: Dict, lang: Lang) => ReactNode };
@@ -85,7 +97,7 @@ const Banner = ({ t, scale }: { t: Dict; scale: number }) => (
   >
     <div style={{ display: "grid", gap: 20 * scale }}>
       <Wordmark height={40 * scale} />
-      <Title size={46 * scale}>{`${t.hero.titleStart}${t.hero.titleEm}`}</Title>
+      <Title size={46 * scale}>{heroTitle(t)}</Title>
       <Label style={{ fontSize: 19 * scale }}>
         <b style={{ color: colors.ink }}>{host}</b>
         {` · ${t.hero.status}`}
@@ -128,7 +140,7 @@ export const stills: Record<string, Still> = {
     format: "post",
     node: (t) => (
       <Page t={t} tag={<Label>{t.hero.eyebrow}</Label>}>
-        <Title size={92}>{`${t.hero.titleStart}${t.hero.titleEm}`}</Title>
+        <Title size={92}>{heroTitle(t)}</Title>
         <Figure t={t} lit={{ "03": 0 }} />
       </Page>
     ),
@@ -274,7 +286,7 @@ export const stills: Record<string, Still> = {
     format: "post",
     node: (t) => (
       <Page t={t} tag={<Label>{t.hero.eyebrow}</Label>}>
-        <Title size={104}>{`${t.hero.titleStart}${t.hero.titleEm}`}</Title>
+        <Title size={104}>{heroTitle(t)}</Title>
         <Body muted>{t.hero.lead}</Body>
         <Button>{`${t.trip.send} · ${host}`}</Button>
         <Label>{t.trip.priceNote}</Label>
