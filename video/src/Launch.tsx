@@ -1,35 +1,21 @@
 import { partIds, parts } from "../../src/content/parts";
 import { isk, priceFrom } from "../../src/content/pricing";
 import { getDict, type Lang } from "../../src/i18n";
-import {
-  Body,
-  END_FRAMES,
-  EndCard,
-  Figure,
-  heroTitle,
-  Label,
-  Page,
-  PartCode,
-  Reveal,
-  type Scene,
-  Section,
-  Title,
-} from "./kit";
-import { colors, FPS, readFrames } from "./theme";
+import { Body, END_FRAMES, EndCard, Figure, heroTitle, Label, Page, Reveal, type Scene, Title } from "./kit";
+import { colors, FPS, readFrames, track } from "./theme";
 
 const ROW_GAP = 8;
 
 /** Post 1: what Eggó builds, the five parts with time and price, and that nothing is too small. */
 export const launchScenes = (lang: Lang): Scene[] => {
   const t = getDict(lang);
-  const tag = <Label>{t.hero.eyebrow}</Label>;
   const hero = `${t.hero.titleStart}${t.hero.titleEm} ${t.hero.sub}`;
   return [
     {
       name: "hero",
       frames: readFrames(hero),
       node: (
-        <Page t={t} tag={tag}>
+        <Page>
           <Reveal>
             <Title size={112}>{heroTitle(t)}</Title>
           </Reveal>
@@ -43,7 +29,7 @@ export const launchScenes = (lang: Lang): Scene[] => {
       name: "figure",
       frames: readFrames(t.partsSection.body) + FPS,
       node: (
-        <Page t={t} tag={tag}>
+        <Page>
           <Figure t={t} at={6} dim={false} lit={{ "01": 30, "02": 38, "03": 46, "04": 54 }} />
           <Reveal at={FPS}>
             <Body>{t.partsSection.body}</Body>
@@ -55,11 +41,8 @@ export const launchScenes = (lang: Lang): Scene[] => {
       name: "parts",
       frames: partIds.length * ROW_GAP + readFrames(`${t.partsSection.title} ${t.trip.priceNote}`),
       node: (
-        <Page t={t} tag={tag}>
+        <Page>
           <Reveal>
-            <Section t={t} id="smidi" />
-          </Reveal>
-          <Reveal at={4}>
             <Title size={80}>{t.partsSection.title}</Title>
           </Reveal>
           <div>
@@ -69,17 +52,13 @@ export const launchScenes = (lang: Lang): Scene[] => {
                   style={{
                     display: "grid",
                     gridTemplateColumns: "1fr auto",
-                    alignItems: "end",
+                    alignItems: "center",
                     gap: 24,
                     padding: "22px 0",
-                    borderTop: `2px ${parts[id].defined ? "solid" : "dashed"} ${colors.line}`,
                   }}
                 >
-                  <div>
-                    <PartCode id={id} size={22} />
-                    <div style={{ marginTop: 6, fontSize: 48, fontWeight: 600, letterSpacing: "-0.03em" }}>
-                      {t.parts[id].name}
-                    </div>
+                  <div style={{ fontSize: 48, fontWeight: 600, letterSpacing: track.head }}>
+                    {t.parts[id].name}
                   </div>
                   <div style={{ textAlign: "right", fontVariantNumeric: "tabular-nums" }}>
                     <div style={{ fontSize: 30, fontWeight: 600 }}>{t.parts[id].time}</div>
@@ -103,11 +82,8 @@ export const launchScenes = (lang: Lang): Scene[] => {
       name: "small",
       frames: readFrames(`${t.small.title} ${t.small.note}`),
       node: (
-        <Page t={t} tag={tag}>
+        <Page>
           <Reveal>
-            <Section t={t} id="smatt" />
-          </Reveal>
-          <Reveal at={4}>
             <Title size={120}>{t.small.title}</Title>
           </Reveal>
           <Reveal at={FPS}>

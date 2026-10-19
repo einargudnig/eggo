@@ -3,36 +3,23 @@ import { AbsoluteFill } from "remotion";
 import { llmsTxt } from "../../src/content/agent";
 import { partIds, parts } from "../../src/content/parts";
 import { isk, priceFrom } from "../../src/content/pricing";
-import { caseIds, cases, clientLabel, troubleIds, troubles, type CaseId } from "../../src/content/work";
+import { caseIds, clientLabel, troubleIds, troubles, type CaseId } from "../../src/content/work";
 import { getDict, type Lang } from "../../src/i18n";
 import type { Dict } from "../../src/i18n/is";
 import { videoCopy } from "./copy";
-import {
-  Body,
-  Button,
-  Figure,
-  heroTitle,
-  host,
-  Label,
-  Page,
-  PartCode,
-  Section,
-  Title,
-  Wordmark,
-} from "./kit";
-import { colors, fonts, type stillFormats } from "./theme";
+import { Body, Button, Card, Figure, Heading, heroTitle, host, Label, Page, Title, Wordmark } from "./kit";
+import { colors, fonts, radius, type stillFormats, track } from "./theme";
 
 type Still = { format: keyof typeof stillFormats; node: (t: Dict, lang: Lang) => ReactNode };
 
-const Row = ({ children, dashed = false }: { children: ReactNode; dashed?: boolean }) => (
+const Row = ({ children }: { children: ReactNode }) => (
   <div
     style={{
       display: "grid",
       gridTemplateColumns: "1fr auto",
-      alignItems: "end",
+      alignItems: "center",
       gap: 24,
-      padding: "20px 0",
-      borderTop: `2px ${dashed ? "dashed" : "solid"} ${colors.line}`,
+      padding: "18px 0",
     }}
   >
     {children}
@@ -47,16 +34,7 @@ const caseStill = (id: CaseId): Still => ({
   node: (t, lang) => {
     const c = t.work.cases[id];
     return (
-      <Page
-        t={t}
-        tag={
-          <div style={{ display: "flex", gap: 20, alignItems: "center" }}>
-            <Label ink>{clientLabel(id, t.work.engagements)}</Label>
-            <Label>·</Label>
-            <PartCode id={cases[id].part} />
-          </div>
-        }
-      >
+      <Page tag={<Label>{clientLabel(id, t.work.engagements)}</Label>}>
         <Label>{videoCopy[lang].hookCase}</Label>
         <Title size={76}>{c.name}</Title>
         <div
@@ -64,7 +42,7 @@ const caseStill = (id: CaseId): Still => ({
             fontSize: 220,
             fontWeight: 600,
             lineHeight: 0.95,
-            letterSpacing: "-0.05em",
+            letterSpacing: "-0.04em",
             color: colors.accent,
             fontVariantNumeric: "tabular-nums",
           }}
@@ -98,9 +76,8 @@ const Banner = ({ t, scale }: { t: Dict; scale: number }) => (
     <div style={{ display: "grid", gap: 20 * scale }}>
       <Wordmark height={40 * scale} />
       <Title size={46 * scale}>{heroTitle(t)}</Title>
-      <Label style={{ fontSize: 19 * scale }}>
-        <b style={{ color: colors.ink }}>{host}</b>
-        {` · ${t.hero.status}`}
+      <Label ink style={{ fontSize: 19 * scale }}>
+        {host}
       </Label>
     </div>
     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 * scale }}>
@@ -111,24 +88,17 @@ const Banner = ({ t, scale }: { t: Dict; scale: number }) => (
             key={id}
             style={{
               width: 190 * scale,
-              padding: `${14 * scale}px ${16 * scale}px`,
+              padding: `${22 * scale}px ${18 * scale}px`,
               border:
                 id === "03"
-                  ? `${3 * scale}px solid ${colors.accent}`
+                  ? `${2.5 * scale}px solid ${colors.accent}`
                   : `${1.5 * scale}px solid ${colors.ink}`,
+              fontSize: 24 * scale,
+              fontWeight: 600,
+              letterSpacing: track.head,
             }}
           >
-            <PartCode id={id} size={14 * scale} />
-            <div
-              style={{
-                marginTop: 4 * scale,
-                fontSize: 24 * scale,
-                fontWeight: 600,
-                letterSpacing: "-0.02em",
-              }}
-            >
-              {t.parts[id].short}
-            </div>
+            {t.parts[id].short}
           </div>
         ))}
     </div>
@@ -139,7 +109,7 @@ export const stills: Record<string, Still> = {
   launch: {
     format: "post",
     node: (t) => (
-      <Page t={t} tag={<Label>{t.hero.eyebrow}</Label>}>
+      <Page>
         <Title size={92}>{heroTitle(t)}</Title>
         <Figure t={t} lit={{ "03": 0 }} />
       </Page>
@@ -148,54 +118,40 @@ export const stills: Record<string, Still> = {
   prices: {
     format: "post",
     node: (t, lang) => (
-      <Page t={t} tag={<Section t={t} id="smidi" />}>
+      <Page>
         <Title size={76}>{t.partsSection.title}</Title>
         <div>
           {partIds.map((id) => (
-            <Row key={id} dashed={!parts[id].defined}>
-              <div>
-                <PartCode id={id} size={20} />
-                <div style={{ marginTop: 4, fontSize: 40, fontWeight: 600, letterSpacing: "-0.025em" }}>
-                  {t.parts[id].name}
-                </div>
+            <Row key={id}>
+              <div style={{ fontSize: 40, fontWeight: 600, letterSpacing: track.head }}>
+                {t.parts[id].name}
               </div>
-              <div style={{ textAlign: "right", fontSize: 26, fontVariantNumeric: "tabular-nums" }}>
+              <div style={{ textAlign: "right", fontSize: 30, fontVariantNumeric: "tabular-nums" }}>
                 <div style={{ fontWeight: 600 }}>{t.parts[id].time}</div>
                 <div style={{ color: colors.muted }}>{price(t, lang, id)}</div>
               </div>
             </Row>
           ))}
         </div>
-        <div
-          style={{
-            background: colors.page2,
-            borderRadius: 18,
-            padding: "28px 34px",
-            fontSize: 30,
-            lineHeight: 1.4,
-          }}
-        >
-          {t.partsSection.deal}
-        </div>
+        <Card style={{ fontSize: 30, fontWeight: 500, lineHeight: 1.45 }}>{t.partsSection.deal}</Card>
       </Page>
     ),
   },
   picker: {
     format: "post",
     node: (t) => (
-      <Page t={t} tag={<Label>{t.trip.title}</Label>}>
+      <Page>
         <Title size={80}>{t.trouble.title}</Title>
         <div>
           {troubleIds.map((id) => (
-            <div key={id} style={{ padding: "20px 0", borderTop: `2px solid ${colors.line}` }}>
+            <div key={id} style={{ padding: "16px 0" }}>
               <div style={{ fontSize: 34, lineHeight: 1.3, letterSpacing: "-0.01em" }}>
                 {`${t.trouble.quote.open}${t.trouble.rows[id].symptom}${t.trouble.quote.close}`}
               </div>
-              <div style={{ marginTop: 8, display: "flex", gap: 14, alignItems: "baseline" }}>
-                <span style={{ fontFamily: fonts.mono, color: colors.accent, fontSize: 22 }}>→</span>
-                <PartCode id={troubles[id]} size={20} />
-                <span style={{ fontSize: 26, color: colors.muted }}>{t.trouble.rows[id].fix}</span>
-              </div>
+              <Label style={{ marginTop: 6, fontSize: 27 }}>
+                <b style={{ color: colors.ink, fontWeight: 600 }}>{`→ ${t.parts[troubles[id]].short}`}</b>
+                {` · ${t.trouble.rows[id].fix}`}
+              </Label>
             </div>
           ))}
         </div>
@@ -205,23 +161,13 @@ export const stills: Record<string, Still> = {
   small: {
     format: "post",
     node: (t) => (
-      <Page t={t} tag={<Section t={t} id="smatt" />}>
+      <Page>
         <Title size={100}>{t.small.title}</Title>
-        <div>
-          {t.small.items.map((item, i) => (
-            <div
-              key={item}
-              style={{
-                display: "grid",
-                gridTemplateColumns: "56px 1fr",
-                alignItems: "baseline",
-                padding: "16px 0",
-                borderTop: `2px solid ${colors.line}`,
-              }}
-            >
-              <Label ink>{String(i + 1).padStart(2, "0")}</Label>
-              <div style={{ fontSize: 32, lineHeight: 1.3 }}>{item}</div>
-            </div>
+        <div style={{ display: "grid", gap: 20 }}>
+          {t.small.items.map((item) => (
+            <Card key={item} style={{ fontSize: 36, lineHeight: 1.3, textWrap: "pretty" }}>
+              {item}
+            </Card>
           ))}
         </div>
         <Body muted>{t.small.note}</Body>
@@ -231,18 +177,15 @@ export const stills: Record<string, Still> = {
   process: {
     format: "post",
     node: (t) => (
-      <Page t={t} tag={<Section t={t} id="ferli" />}>
+      <Page>
         <Title size={88}>{t.steps.title}</Title>
         <Body muted>{t.steps.intro}</Body>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "36px 40px" }}>
-          {t.steps.items.map((s, i) => (
+          {t.steps.items.map((s) => (
             <div key={s.title} style={{ borderTop: `2px solid ${colors.ink}`, paddingTop: 20 }}>
-              <Label>
-                <b style={{ color: colors.ink }}>{String(i + 1).padStart(2, "0")}</b>
-                {` · ${s.when}`}
-              </Label>
-              <div style={{ marginTop: 8, fontSize: 42, fontWeight: 600, letterSpacing: "-0.025em" }}>
-                {s.title}
+              <Label>{s.when}</Label>
+              <div style={{ marginTop: 8 }}>
+                <Heading size={42}>{s.title}</Heading>
               </div>
               <div style={{ marginTop: 8, fontSize: 27, lineHeight: 1.4, color: colors.muted }}>{s.body}</div>
             </div>
@@ -254,13 +197,13 @@ export const stills: Record<string, Still> = {
   agents: {
     format: "post",
     node: (t, lang) => (
-      <Page t={t} tag={<Label>{videoCopy[lang].agentsTag}</Label>}>
+      <Page tag={<Label>{videoCopy[lang].agentsTag}</Label>}>
         <Title size={92}>{videoCopy[lang].agentsHook}</Title>
         <div
           style={{
             background: colors.darkPage,
             color: colors.darkMuted,
-            borderRadius: 18,
+            borderRadius: radius,
             padding: 40,
             fontFamily: fonts.mono,
             fontSize: 26,
@@ -285,11 +228,11 @@ export const stills: Record<string, Still> = {
   cta: {
     format: "post",
     node: (t) => (
-      <Page t={t} tag={<Label>{t.hero.eyebrow}</Label>}>
+      <Page>
         <Title size={104}>{heroTitle(t)}</Title>
         <Body muted>{t.hero.lead}</Body>
         <Button>{`${t.trip.send} · ${host}`}</Button>
-        <Label>{t.trip.priceNote}</Label>
+        <Label ink>{t.trip.priceNote}</Label>
       </Page>
     ),
   },

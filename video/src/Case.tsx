@@ -1,25 +1,20 @@
-import { cases, clientLabel, type CaseId } from "../../src/content/work";
+import { clientLabel, type CaseId } from "../../src/content/work";
 import { getDict, type Lang } from "../../src/i18n";
 import { videoCopy } from "./copy";
-import { Body, END_FRAMES, EndCard, Label, Page, PartCode, Reveal, type Scene, Title } from "./kit";
-import { colors, readFrames, space } from "./theme";
+import { Body, END_FRAMES, EndCard, Label, Page, Reveal, type Scene, Title } from "./kit";
+import { colors, readFrames } from "./theme";
 
 /** One work row as a short: the case, the problem, what was built, the number. Posts 2, 3, 5 and 7. */
 export const caseScenes = (id: CaseId, lang: Lang): Scene[] => {
   const t = getDict(lang);
   const c = t.work.cases[id];
-  const tag = (
-    <div style={{ display: "flex", alignItems: "center", gap: space.small }}>
-      <Label ink>{clientLabel(id, t.work.engagements)}</Label>
-      <PartCode id={cases[id].part} />
-    </div>
-  );
+  const tag = <Label>{clientLabel(id, t.work.engagements)}</Label>;
 
   const step = (name: string, heading: string, text: string): Scene => ({
     name,
     frames: readFrames(text),
     node: (
-      <Page t={t} tag={tag}>
+      <Page tag={tag}>
         <Reveal>
           <Label>{heading}</Label>
         </Reveal>
@@ -35,7 +30,7 @@ export const caseScenes = (id: CaseId, lang: Lang): Scene[] => {
       name: "name",
       frames: readFrames(c.name),
       node: (
-        <Page t={t} tag={tag}>
+        <Page tag={tag}>
           <Reveal>
             <Label>{videoCopy[lang].hookCase}</Label>
           </Reveal>
@@ -51,7 +46,7 @@ export const caseScenes = (id: CaseId, lang: Lang): Scene[] => {
       name: "result",
       frames: readFrames(`${c.metric} ${c.metricNote}`),
       node: (
-        <Page t={t} tag={tag}>
+        <Page tag={tag}>
           <Reveal>
             <Label>{t.work.result}</Label>
           </Reveal>
@@ -61,7 +56,7 @@ export const caseScenes = (id: CaseId, lang: Lang): Scene[] => {
                 fontSize: 240,
                 fontWeight: 600,
                 lineHeight: 0.95,
-                letterSpacing: "-0.05em",
+                letterSpacing: "-0.04em",
                 color: colors.accent,
                 fontVariantNumeric: "tabular-nums",
               }}

@@ -3,7 +3,7 @@ import { brand } from "../../src/content/brand";
 import { getDict, type Lang } from "../../src/i18n";
 import { videoCopy } from "./copy";
 import { Body, END_FRAMES, EndCard, Label, Page, Reveal, type Scene, Title, Typed } from "./kit";
-import { colors, fonts, FPS, readFrames } from "./theme";
+import { colors, fonts, FPS, radius, readFrames } from "./theme";
 
 const strip = (url: string) => url.replace(/^https:\/\//, "");
 
@@ -42,7 +42,7 @@ const Terminal = () => (
     style={{
       background: colors.darkPage,
       color: colors.darkInk,
-      borderRadius: 18,
+      borderRadius: radius,
       fontFamily: fonts.mono,
       fontSize: 30,
       lineHeight: 1.5,
@@ -79,7 +79,7 @@ export const agentsScenes = (lang: Lang): Scene[] => {
       name: "hook",
       frames: readFrames(copy.agentsHook),
       node: (
-        <Page t={t} tag={tag}>
+        <Page tag={tag}>
           <Reveal>
             <Title size={108}>{copy.agentsHook}</Title>
           </Reveal>
@@ -90,7 +90,7 @@ export const agentsScenes = (lang: Lang): Scene[] => {
       name: "terminal",
       frames: terminalFrames,
       node: (
-        <Page t={t} tag={tag}>
+        <Page tag={tag}>
           <Terminal />
         </Page>
       ),
@@ -99,7 +99,7 @@ export const agentsScenes = (lang: Lang): Scene[] => {
       name: "ask",
       frames: readFrames(`${copy.agentsBody} ${copy.agentsAsk}`),
       node: (
-        <Page t={t} tag={tag}>
+        <Page tag={tag}>
           <Reveal>
             <Body>{copy.agentsBody}</Body>
           </Reveal>

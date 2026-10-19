@@ -2,10 +2,9 @@ import type { CSSProperties, ReactNode } from "react";
 import { AbsoluteFill, interpolate, Series, useCurrentFrame } from "remotion";
 import { brand } from "../../src/content/brand";
 import { partIds, parts, type PartId } from "../../src/content/parts";
-import { sectionIds, type SectionId } from "../../src/content/sections";
 import { wordmark } from "../../src/design/wordmark";
 import type { Dict } from "../../src/i18n/is";
-import { colors, ease, fonts, FPS, space } from "./theme";
+import { colors, ease, fonts, FPS, radius, space, track } from "./theme";
 
 /** `name` labels the scene in the Studio timeline. */
 export type Scene = { name: string; frames: number; node: ReactNode };
@@ -66,15 +65,14 @@ export const Typed = ({ text, at = 0, cps = 28 }: { text: string; at?: number; c
   return <>{text.slice(0, shown)}</>;
 };
 
+/** The site's `ui.label`: a small muted line in the text face, sentence case. */
 export const label: CSSProperties = {
-  fontFamily: fonts.mono,
-  fontSize: 24,
-  fontWeight: 500,
-  letterSpacing: "0.06em",
-  textTransform: "uppercase",
+  fontSize: 32,
+  lineHeight: 1.4,
   color: colors.muted,
 };
 
+/** `ink` is `ui.labelStrong`. */
 export const Label = ({
   children,
   ink = false,
@@ -84,15 +82,7 @@ export const Label = ({
   ink?: boolean;
   style?: CSSProperties;
 }) => (
-  <div style={{ ...label, ...(ink ? { color: colors.ink, fontWeight: 700 } : {}), ...style }}>{children}</div>
-);
-
-/** `03 · AGT`, the number in ink, as on the site. */
-export const PartCode = ({ id, size = 24 }: { id: PartId; size?: number }) => (
-  <span style={{ ...label, fontSize: size }}>
-    <b style={{ color: colors.ink, fontWeight: 700 }}>{id}</b>
-    {` · ${parts[id].code}`}
-  </span>
+  <div style={{ ...label, ...(ink ? { color: colors.ink, fontWeight: 600 } : {}), ...style }}>{children}</div>
 );
 
 /** The drawn "eggó" from the site's top bar. */
@@ -113,34 +103,17 @@ export const Wordmark = ({ height, color = colors.ink }: { height: number; color
   </svg>
 );
 
-/** The favicon: a 2×2 of boxes, one filled. */
-export const Boxes = ({ size = 28 }: { size?: number }) => {
-  const cell = size * 0.42;
-  const gap = size - cell * 2;
-  return (
-    <div style={{ display: "grid", gridTemplateColumns: `repeat(2, ${cell}px)`, gap }}>
-      {[0, 1, 2, 3].map((i) => (
-        <i
-          key={i}
-          style={{
-            height: cell * 0.72,
-            border: `${Math.max(2, size / 14)}px solid ${i === 3 ? colors.accent : colors.ink}`,
-            background: i === 3 ? colors.accent : "transparent",
-          }}
-        />
-      ))}
-    </div>
-  );
-};
-
 export const host = new URL(brand.url).host;
 
-/** White page, wordmark top left, hairline footer with the address. Every video and image sits in this frame. */
-export const Page = ({ t, tag, children }: { t: Dict; tag?: ReactNode; children: ReactNode }) => (
+/**
+ * White page, wordmark top left, the address bottom left, as in the OG image. `tag` is an optional line top right,
+ * kept for facts (who a build was for), never a section label.
+ */
+export const Page = ({ tag, children }: { tag?: ReactNode; children: ReactNode }) => (
   <AbsoluteFill style={{ background: colors.page, color: colors.ink, fontFamily: fonts.text }}>
     <AbsoluteFill style={{ padding: space.edge, display: "flex", flexDirection: "column" }}>
       <header style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <Wordmark height={64} />
+        <Wordmark height={56} />
         {tag}
       </header>
       <main
@@ -154,20 +127,8 @@ export const Page = ({ t, tag, children }: { t: Dict; tag?: ReactNode; children:
       >
         {children}
       </main>
-      <footer
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          paddingTop: space.gap * 0.6,
-          borderTop: `2px solid ${colors.line}`,
-        }}
-      >
+      <footer>
         <Label ink>{host}</Label>
-        <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-          <Boxes size={26} />
-          <Label>{t.hero.status}</Label>
-        </div>
       </footer>
     </AbsoluteFill>
   </AbsoluteFill>
@@ -188,10 +149,32 @@ export const Title = ({ children, size = 88 }: { children: ReactNode; size?: num
       fontWeight: 600,
       fontSize: size,
       lineHeight: 1.04,
-      letterSpacing: "-0.035em",
+      letterSpacing: track.display,
       textWrap: "balance",
     }}
   >
+    {children}
+  </div>
+);
+
+/** A section or item heading: `ui.h2` / `type.h3`, scaled. */
+export const Heading = ({ children, size = 48 }: { children: ReactNode; size?: number }) => (
+  <div
+    style={{
+      fontSize: size,
+      fontWeight: 600,
+      lineHeight: 1.1,
+      letterSpacing: track.head,
+      textWrap: "balance",
+    }}
+  >
+    {children}
+  </div>
+);
+
+/** `ui.card`: a quiet grey panel, the only container shape on the site. */
+export const Card = ({ children, style }: { children: ReactNode; style?: CSSProperties }) => (
+  <div style={{ background: colors.page2, borderRadius: radius, padding: "32px 40px", ...style }}>
     {children}
   </div>
 );
@@ -210,14 +193,6 @@ export const Body = ({ children, muted = false }: { children: ReactNode; muted?:
   </div>
 );
 
-/** `§n · Section` over a heading, as on the site. */
-export const Section = ({ t, id }: { t: Dict; id: SectionId }) => (
-  <Label>
-    <b style={{ color: colors.ink, fontWeight: 700 }}>{`§${sectionIds.indexOf(id) + 1}`}</b>
-    {` · ${t.sections[id]}`}
-  </Label>
-);
-
 /** The picker's checkbox: the tick draws itself in (180ms on the site). */
 export const Tick = ({ at, size = 48 }: { at: number | null; size?: number }) => {
   const p = useProgress(at ?? NEVER, 6);
@@ -231,8 +206,8 @@ export const Tick = ({ at, size = 48 }: { at: number | null; size?: number }) =>
         height="22"
         rx="5"
         fill={on ? colors.accent : colors.page}
-        stroke={on ? colors.accent : colors.muted}
-        strokeWidth="2"
+        stroke={on ? colors.accent : colors.control}
+        strokeWidth="1.5"
       />
       <path
         d="M6 12.5l4 4 8-9"
@@ -318,7 +293,7 @@ export const Figure = ({
   const anyLit = dim && partIds.some(isLit);
   return (
     <div>
-      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 24 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 32 }}>
         <Label>{t.figure.caption}</Label>
         <Label>{t.figure.count}</Label>
       </div>
@@ -345,8 +320,9 @@ export const Figure = ({
             x={x}
             y={y}
             textAnchor={anchor}
-            fontFamily={fonts.mono}
-            fontSize={10}
+            fontFamily={fonts.text}
+            fontSize={13}
+            fontWeight={500}
             fill={colors.muted}
           >
             {text}
@@ -365,27 +341,23 @@ export const Figure = ({
                 height={b.h}
                 fill={colors.page}
                 stroke={on ? colors.accent : colors.ink}
-                strokeWidth={on ? 2.5 : 1}
+                strokeWidth={on ? 2 : 1}
                 strokeDasharray={unknown ? "4 3" : undefined}
               />
-              <text
-                x={b.x + 14}
-                y={b.y + 22}
-                fontFamily={fonts.mono}
-                fontSize={11}
-                fontWeight={600}
-                fill={colors.muted}
-              >
-                {`${id} · ${parts[id].code}`}
-              </text>
               {unknown ? (
                 <>
-                  <text x={b.x + 14} y={b.y + 40} fontFamily={fonts.mono} fontSize={11.5} fill={colors.muted}>
+                  <text
+                    x={b.x + 14}
+                    y={b.y + b.h / 2 + 5}
+                    fontFamily={fonts.text}
+                    fontSize={14}
+                    fill={colors.muted}
+                  >
                     {t.parts[id].detail}
                   </text>
                   <text
                     x={b.x + b.w - 22}
-                    y={b.y + 38}
+                    y={b.y + b.h / 2 + 8}
                     textAnchor="middle"
                     fontFamily={fonts.text}
                     fontSize={24}
@@ -399,16 +371,16 @@ export const Figure = ({
                 <>
                   <text
                     x={b.x + 14}
-                    y={b.y + 54}
+                    y={b.y + 44}
                     fontFamily={fonts.text}
                     fontSize={21}
                     fontWeight={600}
-                    letterSpacing="-0.4"
+                    letterSpacing="-0.42"
                     fill={colors.ink}
                   >
                     {t.parts[id].short}
                   </text>
-                  <text x={b.x + 14} y={b.y + 78} fontFamily={fonts.mono} fontSize={11.5} fill={colors.muted}>
+                  <text x={b.x + 14} y={b.y + 70} fontFamily={fonts.text} fontSize={14} fill={colors.muted}>
                     {t.parts[id].detail}
                   </text>
                 </>
@@ -423,7 +395,7 @@ export const Figure = ({
 
 /** Closing card shared by every video: the promise, the price note, the next action. */
 export const EndCard = ({ t }: { t: Dict }) => (
-  <Page t={t} tag={<Label>{t.hero.eyebrow}</Label>}>
+  <Page>
     <Reveal>
       <Title size={96}>{heroTitle(t)}</Title>
     </Reveal>

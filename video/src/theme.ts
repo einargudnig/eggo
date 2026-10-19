@@ -12,6 +12,7 @@ export const colors = {
   ink: "#1A1D1C",
   muted: "#5E6562",
   line: "#E2E5E2",
+  control: "#878F8B",
   accent: "#2F5D50",
   accentInk: "#FFFFFF",
   darkPage: "#121413",
@@ -24,9 +25,16 @@ const publicSans = loadText("normal", {
   weights: ["400", "500", "600", "700"],
   subsets: ["latin", "latin-ext"],
 });
-const mono = loadMono("normal", { weights: ["400", "500", "600", "700"], subsets: ["latin", "latin-ext"] });
+/** Only for the terminal in the agents post, where the text is real command output. Nothing else is set in mono. */
+const mono = loadMono("normal", { weights: ["400", "500"], subsets: ["latin", "latin-ext"] });
 
 export const fonts = { text: publicSans.fontFamily, mono: mono.fontFamily } as const;
+
+/** `type.trackDisplay` and `type.trackHead` from the site's tokens. */
+export const track = { display: "-0.03em", head: "-0.02em" } as const;
+
+/** `layout.radius` (12px on a ~1120px page), scaled to the 1080px frame. */
+export const radius = 24;
 
 /** `motion.ease` from the design system: expo-out. Things unroll from their top edge, no springs. */
 export const ease = Easing.bezier(0.16, 1, 0.3, 1);
