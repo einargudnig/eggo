@@ -1,5 +1,6 @@
 import { brand } from "../content/brand";
 import { logToHub } from "./hubLog";
+import { takeDailySlot } from "./dailyCap";
 import { sendToOutreach } from "./outreachIntake";
 import { isHoneypotHit, type WorkOrder } from "./workOrder";
 
@@ -27,15 +28,19 @@ const formatBody = (order: WorkOrder, ticket: string, channel: Channel) =>
     order.message,
   ].join("\n");
 
-/** Thrown when one visitor sends too many orders in a minute. Callers turn it into a 429 or a tool error. */
-export class RateLimitedError extends Error {}
+/**
+ * Thrown when a visitor sends too many orders in a minute, or the day's cap is used up.
+ * Callers turn it into a 429 or a tool error, with `window` telling them what to say.
+ */
+export class RateLimitedError extends Error {
+  constructor(readonly window: "minute" | "day") {
+    super(window === "minute" ? "Too many work orders this minute" : "Daily work order cap reached");
+  }
+}
 
-const withinLimit = async (limiter: RateLimit | undefined) => {
-  if (!limiter) return true;
-  const { getRequestHeader } = await import("@tanstack/react-start/server");
-  // Cloudflare's edge always sets it; only local dev and tests go without, and they shouldn't share one bucket.
-  const ip = getRequestHeader("cf-connecting-ip");
-  if (!ip) return true;
+const withinLimit = async (limiter: RateLimit | undefined, ip: string | undefined) => {
+  // Cloudflare's edge always sets the IP; only local dev and tests go without, and they shouldn't share one bucket.
+  if (!limiter || !ip) return true;
   const { success } = await limiter.limit({ key: ip });
   return success;
 };
@@ -50,7 +55,10 @@ export const deliverWorkOrder = async (input: WorkOrder, channel: Channel) => {
   const { website: _honeypot, ...order } = input;
   // Imported lazily: server routes are bundled into every page, and the build prerenders outside workerd.
   const { env } = await import("cloudflare:workers");
-  if (!(await withinLimit(env.ORDER_LIMIT))) throw new RateLimitedError("Too many work orders");
+  const { getRequestHeader } = await import("@tanstack/react-start/server");
+  const ip = getRequestHeader("cf-connecting-ip");
+  if (!(await withinLimit(env.ORDER_LIMIT, ip))) throw new RateLimitedError("minute");
+  if (env.ORDER_COUNTS && !(await takeDailySlot(env.ORDER_COUNTS, ip))) throw new RateLimitedError("day");
   const ticket = ticketNumber();
   const text = formatBody(order, ticket, channel);
   if (env.CONTACT_TRANSPORT === "log") {

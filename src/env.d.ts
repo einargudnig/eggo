@@ -7,5 +7,7 @@ declare namespace Cloudflare {
     OUTREACH_URL?: string;
     /** Work orders per visitor IP. Set by alchemy.run.ts only, so local dev and tests are never throttled. */
     ORDER_LIMIT?: RateLimit;
+    /** Work order counts per UTC day (src/server/dailyCap.ts). Set by alchemy.run.ts only, like ORDER_LIMIT. */
+    ORDER_COUNTS?: KVNamespace;
   }
 }

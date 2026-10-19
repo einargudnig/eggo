@@ -24,6 +24,9 @@ export default Alchemy.Stack(
     const imapPassword = yield* Config.option(Config.Redacted("SPACEMAIL_PASSWORD"));
     const ntfyTopic = yield* Config.option(Config.Redacted("NTFY_TOPIC"));
 
+    // Work order counts per day (src/server/dailyCap.ts). Deploy-only like ORDER_LIMIT, so e2e runs are never capped.
+    const orderCounts = yield* Cloudflare.KV.Namespace("OrderCounts");
+
     const props = {
       compatibility: { date: "2026-10-01", flags: ["nodejs_compat"] },
       observability: { enabled: true },
@@ -36,6 +39,7 @@ export default Alchemy.Stack(
           namespaceId: 1001,
           simple: { limit: 3, period: 60 },
         }),
+        ORDER_COUNTS: orderCounts,
         RESEND_API_KEY: Config.Redacted("RESEND_API_KEY"),
         ...(Option.isSome(hubToken) ? { LIFEOS_INGEST_TOKEN: hubToken.value } : {}),
         ...(Option.isSome(intakeToken) && stage === "prod"

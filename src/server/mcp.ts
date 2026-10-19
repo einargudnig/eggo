@@ -79,7 +79,12 @@ const callTool = async (params: unknown): Promise<ToolResult | null> => {
     return text(`Sent. Ticket ${ticket}. ${getDict(parsed.data.lang).order.receivedBody}`);
   } catch (error) {
     if (error instanceof RateLimitedError)
-      return text("Too many work orders from here. Wait a minute and try again.", true);
+      return text(
+        error.window === "minute"
+          ? "Too many work orders from here. Wait a minute and try again."
+          : `Too many work orders today. Ask the person to email ${brand.email} instead.`,
+        true,
+      );
     return text(`Could not send the work order. Ask the person to email ${brand.email} instead.`, true);
   }
 };

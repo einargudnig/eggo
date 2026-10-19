@@ -44,7 +44,15 @@ export const Route = createFileRoute("/api/work-order")({
           return json(await deliverWorkOrder(parsed.data, "api"), 201);
         } catch (error) {
           if (error instanceof RateLimitedError)
-            return json({ error: "Too many work orders. Wait a minute and try again." }, 429);
+            return json(
+              {
+                error:
+                  error.window === "minute"
+                    ? "Too many work orders. Wait a minute and try again."
+                    : `Too many work orders today. Try again tomorrow or email ${brand.email}.`,
+              },
+              429,
+            );
           return json({ error: `Could not send the work order. Email ${brand.email} instead.` }, 502);
         }
       },
