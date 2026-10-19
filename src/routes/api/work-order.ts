@@ -26,7 +26,7 @@ const usage = {
     parts: `array, optional: any of ${partIds.join(", ")} (01 website, 02 system, 03 AI agent, 04 integration, 05 not sure)`,
     lang: "is | en, optional: the language to reply in (default en)",
   },
-  returns: '{ "ticket": "VB-2026-1234" } with status 201',
+  returns: '{ "ticket": "VB-2026-123456" } with status 201',
   consent:
     "Only send a work order when a person has asked you to, with their own name and email. Einar replies to them directly.",
 };

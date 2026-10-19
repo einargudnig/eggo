@@ -10,9 +10,10 @@ const FROM = `${brand.name} <vefur@eggo.is>`;
 /** Where the order came from: the site form, the JSON endpoint, or the MCP server. */
 export type Channel = "form" | "api" | "mcp";
 
+/** Six digits: with four, two orders in a year shared a number about one time in 9,000 per pair. Outreach accepts both lengths. */
 const ticketNumber = () => {
-  const [random = 0] = crypto.getRandomValues(new Uint16Array(1));
-  return `VB-${new Date().getFullYear()}-${(random % 9000) + 1000}`;
+  const [random = 0] = crypto.getRandomValues(new Uint32Array(1));
+  return `VB-${new Date().getFullYear()}-${(random % 900_000) + 100_000}`;
 };
 
 /** Plain text only: user input never goes into HTML. */

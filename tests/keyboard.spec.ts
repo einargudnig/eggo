@@ -66,7 +66,7 @@ test("work order: errors are tied to fields, receipt takes focus", async ({ page
   await page.getByRole("checkbox", { name: "AI agent", exact: true }).check();
   await submit.click();
   await expect(page.getByRole("heading", { name: "Verkbeiðni móttekin" })).toBeFocused();
-  await expect(page.getByText(/^VB-\d{4}-\d{4}$/)).toBeVisible();
+  await expect(page.getByText(/^VB-\d{4}-\d{6}$/)).toBeVisible();
 });
 
 test("language switch keeps every label in the new language", async ({ page }) => {

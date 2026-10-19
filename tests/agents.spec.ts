@@ -79,7 +79,7 @@ test("work-order endpoint answers a filled honeypot like a normal order", async 
   };
   const res = await request.post("/api/work-order", { data: order });
   expect(res.status()).toBe(201);
-  expect(await res.json()).toMatchObject({ ticket: expect.stringMatching(/^VB-\d{4}-\d+$/) });
+  expect(await res.json()).toMatchObject({ ticket: expect.stringMatching(/^VB-\d{4}-\d{6}$/) });
 });
 
 test("MCP server initializes and lists its tools", async ({ request }) => {
