@@ -1,7 +1,7 @@
 import { brand } from "../content/brand";
 import { logToHub } from "./hubLog";
 import { sendToOutreach } from "./outreachIntake";
-import type { WorkOrder } from "./workOrder";
+import { isHoneypotHit, type WorkOrder } from "./workOrder";
 
 /** Any address on eggo.is works: the domain is verified in Resend (DKIM on resend._domainkey, bounces via send.eggo.is). */
 const FROM = `${brand.name} <vefur@eggo.is>`;
@@ -41,7 +41,13 @@ const withinLimit = async (limiter: RateLimit | undefined) => {
 };
 
 /** Emails a validated work order to the inbox, hands it to outreach, and returns its ticket number. Throws if the email fails. */
-export const deliverWorkOrder = async (order: WorkOrder, channel: Channel) => {
+export const deliverWorkOrder = async (input: WorkOrder, channel: Channel) => {
+  // A bot filled the hidden field: answer as if it worked, so it learns nothing, and send nothing.
+  if (isHoneypotHit(input)) {
+    console.log("Honeypot hit, work order dropped", channel);
+    return { ticket: ticketNumber() };
+  }
+  const { website: _honeypot, ...order } = input;
   // Imported lazily: server routes are bundled into every page, and the build prerenders outside workerd.
   const { env } = await import("cloudflare:workers");
   if (!(await withinLimit(env.ORDER_LIMIT))) throw new RateLimitedError("Too many work orders");

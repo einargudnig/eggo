@@ -45,6 +45,7 @@ export function WorkOrder({ chosen, onToggle }: Props) {
       message: text(form.get("message")),
       parts: [...chosen],
       lang,
+      website: text(form.get("website")),
     };
     const parsed = workOrderSchema.safeParse(input);
     if (!parsed.success) {
@@ -170,6 +171,10 @@ export function WorkOrder({ chosen, onToggle }: Props) {
                     ))}
                   </div>
                 </fieldset>
+                {/* Honeypot: out of sight, out of the tab order and out of the accessibility tree; only bots fill it in. */}
+                <div aria-hidden="true" {...stylex.props(ui.srOnly)}>
+                  <input type="text" name="website" tabIndex={-1} autoComplete="off" defaultValue="" />
+                </div>
                 <div {...stylex.props(styles.field)}>
                   <label htmlFor={fieldIds.message} {...stylex.props(styles.label)}>
                     {t.order.message}

@@ -66,6 +66,22 @@ test("work-order endpoint describes itself and rejects bad input", async ({ requ
   expect(bad.status()).toBe(400);
 });
 
+test("work-order endpoint answers a filled honeypot like a normal order", async ({ request }) => {
+  test.skip(
+    Boolean(process.env["PLAYWRIGHT_BASE_URL"]),
+    "a deployed copy would send a real email if this broke",
+  );
+  const order = {
+    name: "Bot",
+    email: "bot@example.com",
+    message: "Buy links",
+    website: "https://spam.example",
+  };
+  const res = await request.post("/api/work-order", { data: order });
+  expect(res.status()).toBe(201);
+  expect(await res.json()).toMatchObject({ ticket: expect.stringMatching(/^VB-\d{4}-\d+$/) });
+});
+
 test("MCP server initializes and lists its tools", async ({ request }) => {
   const rpc = (body: object) => request.post("/mcp", { data: { jsonrpc: "2.0", ...body } });
   const init: unknown = await (

@@ -14,10 +14,15 @@ export const workOrderSchema = z.object({
   message: z.string().check(z.trim(), z.minLength(1), z.maxLength(5000)),
   parts: z.array(z.enum(partIds)).check(z.maxLength(partIds.length)),
   lang: z.enum(["is", "en"]),
+  /** Honeypot: the form hides it from people and assistive tech, so anything in it came from a bot. */
+  website: z.optional(z.string().check(z.maxLength(2000))),
 });
 
 export type WorkOrder = z.infer<typeof workOrderSchema>;
 export type WorkOrderField = "name" | "email" | "message";
+
+/** True when the hidden honeypot field was filled in. */
+export const isHoneypotHit = (order: WorkOrder) => Boolean(order.website?.trim());
 
 /** Agents calling the API or MCP tool may leave out `parts` and `lang`; everything else is checked as strictly as the form. */
 export const parseAgentWorkOrder = (input: unknown) =>
