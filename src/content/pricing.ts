@@ -6,11 +6,11 @@ import type { PartId } from "./parts";
  * 05 is the price of the mapping week itself.
  */
 export const priceFrom = {
-  "01": 199_900,
-  "02": 399_900,
-  "03": 299_900,
-  "04": 249_900,
-  "05": 289_900,
+  "01": 89_900,
+  "02": 99_900,
+  "03": 99_900,
+  "04": 99_900,
+  "05": 99_900,
 } as const satisfies Record<PartId, number>;
 
 /** Optional monthly fee for hosting, fixes and small changes after handover. */
