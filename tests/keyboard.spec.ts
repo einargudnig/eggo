@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import { isk, priceFrom } from "../src/content/pricing";
 
 /** The keyboard paths verified on the mockup (docs/ACCESSIBILITY.md §3). */
 
@@ -18,7 +19,7 @@ test("ticking a symptom prices the route and pre-ticks the work order", async ({
   await expect(symptom).toBeChecked();
   const trip = page.getByRole("region", { name: "Tillaga" });
   await expect(trip).toContainText("Innra kerfi");
-  await expect(trip).toContainText("frá 399.900 kr.");
+  await expect(trip).toContainText(`frá ${isk("is", priceFrom["02"])}`);
   await expect(page.getByRole("checkbox", { name: "Innra kerfi" })).toBeChecked();
 });
 
